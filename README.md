@@ -2,7 +2,7 @@
 
 Claude Code skills for building restrained, high-quality product interfaces.
 
-## brijr-ui
+## calm-ui
 
 An opinionated design system skill for React, Next.js, TypeScript, and shadcn/ui. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
 
