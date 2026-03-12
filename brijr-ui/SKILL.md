@@ -1,24 +1,11 @@
 ---
 name: brijr-ui
-description: Apply a restrained, Swiss/Japanese/Scandinavian/German-influenced design system when building UI in React, Next.js, TypeScript, and shadcn/ui. Use this skill whenever the user asks to build a page, screen, component, form, table, dashboard, layout, or any frontend interface — especially when the project uses shadcn/ui. Also trigger when the user asks to refine, critique, redesign, or review existing UI for visual quality. This skill should be used IN COMBINATION with the frontend-design skill when both apply — this skill provides the aesthetic constraints while frontend-design provides implementation patterns. Do NOT use this skill for marketing sites, landing pages, or contexts where bold/expressive design is explicitly requested.
+description: Apply a restrained, Swiss/Japanese/Scandinavian/German-influenced product design system when building or refining UI in React, Next.js, TypeScript, and shadcn/ui. Use when the user asks to build, refine, critique, redesign, or review a page, screen, component, form, table, dashboard, layout, or other frontend interface, especially in projects using shadcn/ui. Do not use for marketing sites, landing pages, non-UI work, or requests for bold, playful, maximalist, or otherwise expressive aesthetics.
 ---
 
 # brijr-ui — Restrained Product Design System
 
 This skill enforces a specific design philosophy when building product interfaces. It is not generic guidance — it is an opinionated constraint system.
-
-## When to Use
-
-- Building any page, screen, or component in React/Next.js/shadcn/ui
-- Refining or critiquing existing UI
-- Reviewing a screen for visual quality
-- Any time the user says "build this," "design this," "make this look better," or "clean this up" for product UI
-
-## When NOT to Use
-
-- Marketing/landing pages where expressive design is requested
-- Projects where the user explicitly asks for a different aesthetic (bold, playful, maximalist)
-- Non-UI tasks
 
 ## Core Constraints
 

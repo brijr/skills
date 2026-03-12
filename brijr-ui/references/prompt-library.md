@@ -2,6 +2,13 @@
 
 Copy-paste prompts for different stages of the workflow. Use with the system prompt active.
 
+## Table of Contents
+
+- [Build Prompts](#build-prompts)
+- [Refinement Prompts](#refinement-prompts)
+- [Review / Critique Prompts](#review--critique-prompts)
+- [One-Liners](#one-liners)
+
 ---
 
 ## Build Prompts
