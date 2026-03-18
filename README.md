@@ -9,7 +9,7 @@ An opinionated design system skill for React, Next.js, TypeScript, and shadcn/ui
 **Install:**
 
 ```
-npx skills add brijr/skills --skill brijr-ui
+npx skills add brijr/skills --skill calm-ui
 ```
 
 **What it does:**
@@ -24,4 +24,4 @@ npx skills add brijr/skills --skill brijr-ui
 
 Any time you build, refine, critique, or review UI in a shadcn/ui project.
 
-**Browse:** [skills.sh/brijr/skills/brijr-ui](https://skills.sh/brijr/skills/brijr-ui)
+**Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)

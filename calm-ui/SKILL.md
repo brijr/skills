@@ -1,9 +1,9 @@
 ---
-name: brijr-ui
+name: calm-ui
 description: Apply a restrained, Swiss/Japanese/Scandinavian/German-influenced product design system when building or refining UI in React, Next.js, TypeScript, and shadcn/ui. Use when the user asks to build, refine, critique, redesign, or review a page, screen, component, form, table, dashboard, layout, or other frontend interface, especially in projects using shadcn/ui. Do not use for marketing sites, landing pages, non-UI work, or requests for bold, playful, maximalist, or otherwise expressive aesthetics.
 ---
 
-# brijr-ui — Restrained Product Design System
+# calm-ui — Restrained Product Design System
 
 This skill enforces a specific design philosophy when building product interfaces. It is not generic guidance — it is an opinionated constraint system.
 
