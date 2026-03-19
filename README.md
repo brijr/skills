@@ -49,3 +49,51 @@ npx skills add brijr/skills --skill pragmatic
 Any time you build, implement, add, or scaffold a new feature.
 
 **Browse:** [skills.sh/brijr/skills/pragmatic](https://skills.sh/brijr/skills/pragmatic)
+
+## pragmatic-react
+
+The same Pragmatic Programmer constraint system as `pragmatic`, tailored specifically to React development. Adds React-specific guidance on component extraction, state colocation, prop interfaces, hooks, context, and vertical-slice UI development.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill pragmatic-react
+```
+
+**What it does:**
+
+- ETC (Easy to Change) applied to components, state, and props
+- Tracer bullets — render real data on screen end-to-end before building out
+- Real DRY — don't extract shared components just because JSX looks similar
+- Orthogonality — colocate state, keep components self-contained, props over context for local data
+- Hard stops on premature component/hook extraction, prop explosion, context-as-global-state, and speculative generality
+
+**When it triggers:**
+
+Any time you build, implement, add, or scaffold a React component, page, hook, or feature.
+
+**Browse:** [skills.sh/brijr/skills/pragmatic-react](https://skills.sh/brijr/skills/pragmatic-react)
+
+## nextjs-arch
+
+A clean Next.js App Router architecture skill based on a proven production structure. Enforces directory layout, server/client boundaries, data flow patterns, auth gating, server actions, and naming conventions.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill nextjs-arch
+```
+
+**What it does:**
+
+- Canonical directory structure — every file has exactly one correct home
+- Strict server/client boundary — default to server, `"use client"` only when needed
+- One data flow pattern — server fetches, props down, actions up, revalidate after mutation
+- Auth gate once in layout, auth check in every server action
+- Hard stops on client-side fetching, custom components in `ui/`, actions without auth, and API routes for mutations
+
+**When it triggers:**
+
+Any time you build, scaffold, or restructure routes, components, actions, or data layers in a Next.js App Router project.
+
+**Browse:** [skills.sh/brijr/skills/nextjs-arch](https://skills.sh/brijr/skills/nextjs-arch)
