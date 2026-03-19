@@ -4,8 +4,8 @@
   "description": "Claude Code skills for building restrained, high-quality product interfaces.",
   "main": "index.js",
   "scripts": {
-    "eval": "evalite",
-    "eval:dev": "evalite watch"
+    "eval": "set -a && source .env && evalite",
+    "eval:dev": "set -a && source .env && evalite watch"
   },
   "repository": {
     "type": "git",
