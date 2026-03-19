@@ -3,15 +3,15 @@ name: calm-ui
 description: Apply a restrained, Swiss/Japanese/Scandinavian/German-influenced product design system when building or refining UI in React, Next.js, TypeScript, and shadcn/ui. Use when the user asks to build, refine, critique, redesign, or review a page, screen, component, form, table, dashboard, layout, or other frontend interface, especially in projects using shadcn/ui. Do not use for marketing sites, landing pages, non-UI work, or requests for bold, playful, maximalist, or otherwise expressive aesthetics.
 ---
 
-# calm-ui — Restrained Product Design System
+# calm-ui — restrained product design system
 
 This skill enforces a specific design philosophy when building product interfaces. It is not generic guidance — it is an opinionated constraint system.
 
-## Core Constraints
+## Core constraints
 
 Read these before writing any UI code. Every rule is testable — you should be able to look at a screen and answer yes/no.
 
-### Non-Negotiables
+### Non-negotiables
 
 1. **Restraint over expression.** Prefer reduction and clarity over visual novelty.
 2. **Minimal typography variance.** Hierarchy comes from weight, spacing, placement, alignment, grouping, density, and contrast — not type size jumps.
@@ -19,7 +19,7 @@ Read these before writing any UI code. Every rule is testable — you should be 
 4. **Structure over decoration.** Layout, spacing, and rhythm before visual chrome.
 5. **System over one-offs.** Repeated elements follow one consistent pattern.
 6. **Neutral first.** The UI works in grayscale before accent color is added.
-7. **Shadcn is a foundation, not the final look.** Never ship default-looking shadcn components. See "shadcn Foundation" below for how to refine them.
+7. **Shadcn is a foundation, not the final look.** Never ship default-looking shadcn components. See "shadcn foundation" below for how to refine them.
 
 ### Layout
 
@@ -34,13 +34,14 @@ Read these before writing any UI code. Every rule is testable — you should be 
 - Tight type scale with minimal size variance
 - Hierarchy from weight, spacing, placement — not dramatic scaling
 - Headings restrained, body text readable and consistent, labels understated
+- Prefer tighter tracking and line height while maintaining legibility
 
 ### Components
 
 - Light, quiet, precise, refined, consistent
 - One strong pattern per component type
 - Buttons: clear primary/secondary hierarchy, subtle treatment, calm states
-- Inputs/Forms: subtle field styling, aligned labels, strong spacing, clean focus states
+- Inputs/forms: subtle field styling, aligned labels, strong spacing, clean focus states
 - Cards: intentional, not automatic; prefer open composition
 - Tables: clean structure, subtle row separation, readable spacing, minimal controls
 - Navigation: predictable, quiet, understated
@@ -59,7 +60,7 @@ Read these before writing any UI code. Every rule is testable — you should be 
 - Smooth transitions, never flashy
 - Motion reinforces calmness
 
-### Anti-Patterns (Hard Stops)
+### Anti-patterns
 
 Do not produce any of the following:
 
@@ -76,7 +77,7 @@ Do not produce any of the following:
 - Generic table-heavy admin styling
 - Overdesigned marketing energy inside an app
 
-## shadcn Foundation
+## shadcn foundation
 
 shadcn/ui is the component and color baseline. The job is to refine it into the restrained language — not replace it, not ignore it, and definitely not ship it looking stock.
 
@@ -137,7 +138,7 @@ Use `<Card>` only when you need explicit containment — a clickable surface, a 
 
 - Tighten padding: `h-9 px-3` or `h-8 px-3 text-sm` feels more restrained than the default `h-10 px-4 py-2`
 - Lean on `variant="ghost"` and `variant="outline"` for secondary actions — `variant="default"` (solid primary) is for the one main action on a screen
-- Keep button labels short and sentence-case
+- Keep button labels short and sentence case
 
 **Table — refinement:**
 
@@ -146,7 +147,7 @@ Use `<Card>` only when you need explicit containment — a clickable surface, a 
 - Subtle hover: `hover:bg-muted/50` rather than `hover:bg-muted`
 - Minimal header styling — don't bold everything, don't add background color to the header row
 
-### Design tokens — the positive signal
+### Design tokens
 
 These are starting points for the restrained feel. The point isn't to be rigid — it's to have a baseline that produces consistent, calm output.
 
@@ -164,16 +165,16 @@ These are starting points for the restrained feel. The point isn't to be rigid �
 
 When building or refining UI, follow this order:
 
-1. **Structure** — Layout, spacing, grouping, alignment
-2. **Typography** — Restrained hierarchy, weight over size
-3. **Component refinement** — Adapt shadcn into the calm design language
-4. **Unification** — Make repeated patterns feel cohesive
-5. **Noise reduction** — Strip anything that doesn't earn its place
-6. **Color** — Neutral system with semantic accents
-7. **Interaction** — Polish states subtly
-8. **Final check** — Run the self-review below
+1. **Structure** — layout, spacing, grouping, alignment
+2. **Typography** — restrained hierarchy, weight over size
+3. **Component refinement** — adapt shadcn into the calm design language
+4. **Unification** — make repeated patterns feel cohesive
+5. **Noise reduction** — strip anything that doesn't earn its place
+6. **Color** — neutral system with semantic accents
+7. **Interaction** — polish states subtly
+8. **Final check** — run the self-review below
 
-## Self-Review (Run Before Finalizing)
+## Self-review
 
 Score 1–5 on each. Revise until all are 4+.
 

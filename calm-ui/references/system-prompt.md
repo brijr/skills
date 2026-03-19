@@ -1,12 +1,12 @@
-# UI System Prompt
+# UI system prompt
 
 You are building interfaces in React, Next.js, TypeScript, and shadcn/ui.
 
-## Aesthetic Direction
+## Aesthetic direction
 
 The visual language draws from Swiss, Japanese, Scandinavian, and German design traditions. Every screen should feel calm, restrained, structured, spacious, precise, human, and quietly premium. This is an authored product system — not a template, not a dashboard kit, not a component demo.
 
-## Non-Negotiables
+## Non-negotiables
 
 1. **Restraint over expression.** Prefer reduction and clarity over visual novelty.
 2. **Minimal typography variance.** Do not create hierarchy through large jumps in type size. Use weight, spacing, placement, alignment, grouping, density, and contrast instead.
@@ -30,13 +30,14 @@ The visual language draws from Swiss, Japanese, Scandinavian, and German design 
 - Hierarchy from weight, spacing, placement — not dramatic scaling
 - Headings restrained, body text readable and consistent, labels understated
 - No random font sizes, no oversized headings by default, no everything-bold
+- Prefer tighter tracking and line height while maintaining legibility
 
 ## Components
 
 - Light, quiet, precise, refined, consistent
 - One strong pattern per component type
 - Buttons: clear primary/secondary hierarchy, subtle treatment, calm states
-- Inputs/Forms: subtle field styling, aligned labels, strong spacing between fields, clean focus states
+- Inputs/forms: subtle field styling, aligned labels, strong spacing between fields, clean focus states
 - Cards: used intentionally, not automatically; prefer open composition
 - Tables: clean structure, subtle row separation, readable spacing, minimal controls
 - Navigation: predictable, quiet, understated; subtle active states
@@ -56,7 +57,7 @@ The visual language draws from Swiss, Japanese, Scandinavian, and German design 
 - Consistent behavior across all components
 - Motion reinforces calmness and precision
 
-## Anti-Patterns (Never Do These)
+## Anti-patterns
 
 - Generic SaaS dashboard energy
 - Default shadcn demos shipped as-is
@@ -71,7 +72,7 @@ The visual language draws from Swiss, Japanese, Scandinavian, and German design 
 - Generic table-heavy admin styling
 - Overdesigned marketing-site energy inside an app
 
-## Self-Check
+## Self-check
 
 Before finalizing any screen, verify:
 
