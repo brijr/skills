@@ -24,7 +24,8 @@ async function generateUI(prompt: string): Promise<string> {
     messages: [{ role: "user", content: prompt }],
   });
   const block = response.content[0];
-  return block.type === "text" ? block.text : "";
+  const raw = block.type === "text" ? block.text : "";
+  return raw.replace(/^```\w*\n?/, "").replace(/\n?```\s*$/, "");
 }
 
 // ---------------------------------------------------------------------------

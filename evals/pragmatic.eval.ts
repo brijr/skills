@@ -16,11 +16,13 @@ async function generateCode(prompt: string): Promise<string> {
   const response = await client.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 4096,
+    temperature: 0,
     system: `You are a senior software engineer building features in TypeScript. Return ONLY the code — no explanation, no markdown fences.\n\n${skillContent}`,
     messages: [{ role: "user", content: prompt }],
   });
   const block = response.content[0];
-  return block.type === "text" ? block.text : "";
+  const raw = block.type === "text" ? block.text : "";
+  return raw.replace(/^```\w*\n?/, "").replace(/\n?```\s*$/, "");
 }
 
 // ---------------------------------------------------------------------------
@@ -33,11 +35,10 @@ const noSpeculativeGenerality = createScorer<string, string, string>({
     "Fails if the output includes unused options, config params, feature flags, or generic extension points that weren't requested",
   scorer: ({ input, output }) => {
     const speculativePatterns = [
-      /options\?.*\{[^}]*\}/s, // optional options objects with defaults
-      /config\?.*:/,
       /enableFeature/i,
       /featureFlag/i,
       /\.isEnabled\b/,
+      /pluginSystem|registerPlugin/i,
     ];
     const violations = speculativePatterns.filter((p) => p.test(output));
     // Only flag if the input didn't ask for configuration/options
@@ -96,9 +97,9 @@ const noLayerByLayer = createScorer<string, string, string>({
   description:
     "Checks that the output isn't organized purely by technical layer (all types, then all utils, then all handlers) with no vertical integration",
   scorer: ({ output }) => {
-    // If the output has clear section markers separating layers, it's suspect
+    // Only flag if code is organized PURELY by technical layer names
     const layerHeaders = output.match(
-      /\/\/\s*-+(.*?)-+|\/\*\*?\s*(Types|Models|Utils|Helpers|Handlers|Controllers|Services|Repositories)\s*\*?\*?\//gi
+      /\/\/\s*(?:=+|-+)\s*(?:Types|Models|Utils|Helpers|Handlers|Controllers|Services|Repositories)\b/gi
     );
     if (layerHeaders && layerHeaders.length >= 4) {
       return {

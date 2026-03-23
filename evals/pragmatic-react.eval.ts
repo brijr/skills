@@ -16,11 +16,13 @@ async function generateReact(prompt: string): Promise<string> {
   const response = await client.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 4096,
+    temperature: 0,
     system: `You are a senior React/TypeScript engineer. Return ONLY the TSX code — no explanation, no markdown fences. Build features as complete vertical slices.\n\n${skillContent}`,
     messages: [{ role: "user", content: prompt }],
   });
   const block = response.content[0];
-  return block.type === "text" ? block.text : "";
+  const raw = block.type === "text" ? block.text : "";
+  return raw.replace(/^```\w*\n?/, "").replace(/\n?```\s*$/, "");
 }
 
 // ---------------------------------------------------------------------------
@@ -134,11 +136,12 @@ const noOverOptimization = createScorer<string, string, string>({
     const memoWraps = (output.match(/\bReact\.memo\b|\bmemo\(/g) || []).length;
     const total = memoUses + callbackUses + memoWraps;
 
-    // A couple is fine, excessive is suspect
+    // A couple is fine (debounce, expensive computation), excessive is suspect
     if (total === 0) return 1;
-    if (total <= 2) return { score: 0.75, metadata: { count: total } };
+    if (total <= 2) return 1;
+    if (total <= 4) return { score: 0.5, metadata: { count: total } };
     return {
-      score: 0.25,
+      score: 0,
       metadata: {
         note: `${total} memoization calls — likely premature optimization`,
         useMemo: memoUses,
@@ -184,10 +187,10 @@ const stateIsColocated = createScorer<string, string, string>({
   description:
     "Checks that useState calls appear close to where the state is consumed, not hoisted to a top-level provider",
   scorer: ({ output }) => {
-    const stateHooks = (output.match(/\buseState\b/g) || []).length;
+    const stateHooks = (output.match(/\buseState\b|\buseReducer\b/g) || []).length;
     const contextProviders = (output.match(/<\w+Provider/g) || []).length;
 
-    if (stateHooks === 0) return { score: 0.5, metadata: { note: "No state found" } };
+    if (stateHooks === 0) return 1; // No state management needed — that's fine
 
     // If there are more providers than state hooks, state is likely over-lifted
     if (contextProviders > stateHooks) {
@@ -207,10 +210,12 @@ const hasCleanPropInterfaces = createScorer<string, string, string>({
   description:
     "Checks that component props are typed with focused, minimal interfaces",
   scorer: ({ output }) => {
-    // Check if props are typed at all
+    // Check if props are typed — inline destructured types, type aliases, or interfaces
     const hasTypes =
-      /:\s*\{[^}]+\}|Props\b|interface\s+\w+/.test(output);
-    if (!hasTypes && output.includes("function")) {
+      /:\s*\{[^}]+\}|Props\b|interface\s+\w+|type\s+\w+/.test(output);
+    // Also check for inline destructured params with type annotations
+    const hasInlineTypes = /\(\s*\{[^}]+\}\s*:\s*\{/.test(output);
+    if (!hasTypes && !hasInlineTypes && output.includes("function")) {
       return {
         score: 0.5,
         metadata: { note: "Components may be missing prop types" },

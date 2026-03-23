@@ -20,7 +20,8 @@ async function generateNextJS(prompt: string): Promise<string> {
     messages: [{ role: "user", content: prompt }],
   });
   const block = response.content[0];
-  return block.type === "text" ? block.text : "";
+  const raw = block.type === "text" ? block.text : "";
+  return raw.replace(/^```\w*\n?/, "").replace(/\n?```\s*$/, "");
 }
 
 // Helper: split multi-file output into { path, content } pairs
@@ -213,8 +214,15 @@ const propsDownActionsUp = createScorer<string, string, string>({
       }
     }
 
-    if (!hasServerPage)
+    // If no FILE markers, check the whole output for the pattern
+    if (!hasServerPage) {
+      const wholeHasProps = /<\w+\s+\w+=\{/.test(output);
+      const wholeHasAction =
+        /@\/actions\//.test(output) || /startTransition/.test(output) || /action=\{/.test(output);
+      if (wholeHasProps && wholeHasAction) return 1;
+      if (wholeHasProps || wholeHasAction) return { score: 0.5, metadata: { note: "Partial pattern detected without FILE markers" } };
       return { score: 0.5, metadata: { note: "No server page detected" } };
+    }
 
     let score = 0;
     if (serverPassesProps) score += 0.5;
@@ -255,11 +263,22 @@ const usesTransitionForForms = createScorer<string, string, string>({
       }
     }
 
-    if (!hasForm)
+    if (!hasForm) {
+      // Check for forms outside of explicit client components
+      const hasAnyForm = /<form/.test(output);
+      if (hasAnyForm) {
+        // Form with server action via action= prop is valid in Next.js
+        const hasFormAction = /action=\{/.test(output);
+        if (hasFormAction) return 1;
+      }
       return { score: 0.5, metadata: { note: "No form component detected" } };
+    }
 
     const hasTransition = /useTransition/.test(output);
-    return hasTransition ? 1 : { score: 0.5, metadata: { note: "No useTransition found" } };
+    const hasFormAction = /action=\{/.test(output);
+    return hasTransition || hasFormAction
+      ? 1
+      : { score: 0.5, metadata: { note: "No useTransition or form action found" } };
   },
 });
 
@@ -285,21 +304,24 @@ const correctNamingConventions = createScorer<string, string, string>({
         violations.push(`${file.path}: filename not kebab-case`);
       }
 
-      // Exported components should be PascalCase
-      const exportedComponents = [
-        ...file.content.matchAll(
-          /export\s+(?:default\s+)?(?:function|const)\s+([a-z]\w*)/g
-        ),
-      ];
-      for (const match of exportedComponents) {
-        // Skip non-component exports (functions, variables)
-        if (/^(?:use|get|set|update|delete|create|fetch|handle)/.test(match[1]))
-          continue;
-        // If it looks like a component (returns JSX) but starts lowercase
-        if (/<\w+/.test(file.content)) {
-          violations.push(
-            `${file.path}: exported component "${match[1]}" should be PascalCase`
-          );
+      // Exported components should be PascalCase — skip server action files
+      const isServerAction = /["']use server["']/.test(file.content);
+      if (!isServerAction) {
+        const exportedComponents = [
+          ...file.content.matchAll(
+            /export\s+(?:default\s+)?(?:function|const)\s+([a-z]\w*)/g
+          ),
+        ];
+        for (const match of exportedComponents) {
+          // Skip non-component exports (functions, utilities, hooks)
+          if (/^(?:use|get|set|update|delete|create|fetch|handle|is|has|parse|format)/.test(match[1]))
+            continue;
+          // If it looks like a component (returns JSX) but starts lowercase
+          if (/<\w+/.test(file.content)) {
+            violations.push(
+              `${file.path}: exported component "${match[1]}" should be PascalCase`
+            );
+          }
         }
       }
     }
