@@ -1,0 +1,426 @@
+/*
+ * Design System — CSS Variant Stylesheet
+ * @file ds.css
+ * @description Styles for ds.tsx CSS variant. Import in root layout or globals.
+ *
+ * Uses CSS custom properties for theming. Override --ds-* variables to customize.
+ * Compatible with shadcn/ui CSS variable theming when available.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Design Tokens
+ * Override these to match your project's theme.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  --ds-max-width: 64rem; /* 1024px — equivalent to max-w-5xl */
+  --ds-prose-max-width: 65ch; /* max-w-prose */
+  --ds-radius: 0.25rem;
+  --ds-radius-sm: 0.125rem;
+
+  /* Spacing */
+  --ds-section-py: 0.5rem;
+  --ds-section-py-sm: 1rem;
+  --ds-container-p: 1rem;
+  --ds-container-p-sm: 1.5rem;
+  --ds-nav-px: 1rem;
+  --ds-nav-px-sm: 1.5rem;
+  --ds-nav-py: 0.5rem;
+
+  /* Colors — map to your theme or shadcn variables */
+  --ds-foreground: var(--foreground, oklch(0.145 0 0));
+  --ds-muted: var(--muted, oklch(0.97 0 0));
+  --ds-muted-foreground: var(--muted-foreground, oklch(0.556 0 0));
+  --ds-border: var(--border, oklch(0.922 0 0));
+  --ds-primary: var(--primary, oklch(0.205 0 0));
+
+  /* Typography */
+  --ds-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    monospace;
+  --ds-leading: 1.75;
+}
+
+/* ---------------------------------------------------------------------------
+ * Layout Primitives
+ * ------------------------------------------------------------------------- */
+
+.ds-layout {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ds-layout:focus {
+  scroll-behavior: auto;
+}
+
+.ds-section {
+  padding-top: var(--ds-section-py);
+  padding-bottom: var(--ds-section-py);
+}
+
+.ds-container {
+  max-width: var(--ds-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--ds-container-p);
+}
+
+.ds-nav-container {
+  max-width: var(--ds-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--ds-nav-px);
+  padding-right: var(--ds-nav-px);
+  padding-top: var(--ds-nav-py);
+  padding-bottom: var(--ds-nav-py);
+}
+
+@media (min-width: 640px) {
+  .ds-section {
+    padding-top: var(--ds-section-py-sm);
+    padding-bottom: var(--ds-section-py-sm);
+  }
+
+  .ds-container {
+    padding: var(--ds-container-p-sm);
+  }
+
+  .ds-nav-container {
+    padding-left: var(--ds-nav-px-sm);
+    padding-right: var(--ds-nav-px-sm);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Base
+ * ------------------------------------------------------------------------- */
+
+.ds-prose {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  line-height: var(--ds-leading);
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Headings
+ * ------------------------------------------------------------------------- */
+
+.ds-prose h1 {
+  font-size: 2.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ds-prose h2 {
+  font-size: 1.875rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ds-prose h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ds-prose h4 {
+  font-size: 1.25rem;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ds-prose h5 {
+  font-size: 1.125rem;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ds-prose h6 {
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .ds-prose h1 {
+    font-size: 3rem;
+  }
+  .ds-prose h2 {
+    font-size: 2.25rem;
+  }
+  .ds-prose h3 {
+    font-size: 1.875rem;
+  }
+  .ds-prose h4 {
+    font-size: 1.5rem;
+  }
+  .ds-prose h5 {
+    font-size: 1.25rem;
+  }
+  .ds-prose h6 {
+    font-size: 1.125rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Body Text & Inline
+ * ------------------------------------------------------------------------- */
+
+.ds-prose p {
+  text-wrap: pretty;
+  font-size: 1rem;
+}
+
+.ds-prose strong {
+  font-weight: 600;
+}
+
+.ds-prose em {
+  font-style: italic;
+}
+
+.ds-prose del {
+  text-decoration: line-through;
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Links (skip heading links)
+ * ------------------------------------------------------------------------- */
+
+.ds-prose a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a) {
+  color: var(--ds-primary);
+  text-decoration: none;
+  text-underline-offset: 2px;
+  transition: all 0.15s ease;
+}
+
+.ds-prose a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a):hover {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--ds-primary) 50%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Lists
+ * ------------------------------------------------------------------------- */
+
+.ds-prose ul {
+  padding-left: 0;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ds-prose ul > li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.ds-prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.6875em;
+  height: 0.375rem;
+  width: 0.375rem;
+  border-radius: 9999px;
+  background-color: color-mix(in oklch, var(--ds-foreground) 80%, transparent);
+}
+
+/* Nested bullet opacity */
+.ds-prose ul ul > li::before {
+  background-color: color-mix(in oklch, var(--ds-foreground) 60%, transparent);
+}
+
+.ds-prose ul ul ul > li::before {
+  background-color: color-mix(in oklch, var(--ds-foreground) 40%, transparent);
+}
+
+.ds-prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ds-prose ol ol {
+  list-style-type: lower-alpha;
+}
+
+.ds-prose ol ol ol {
+  list-style-type: lower-roman;
+}
+
+.ds-prose li {
+  padding-left: 0.5rem;
+}
+
+.ds-prose li > ul,
+.ds-prose li > ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Code
+ * ------------------------------------------------------------------------- */
+
+/* Inline code */
+.ds-prose code:not(pre code) {
+  border-radius: var(--ds-radius);
+  border: 1px solid var(--ds-border);
+  background-color: color-mix(in oklch, var(--ds-muted) 50%, transparent);
+  padding: 1px 0.25rem;
+  font-family: var(--ds-font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Code blocks */
+.ds-prose pre {
+  overflow-x: auto;
+  border-radius: var(--ds-radius-sm);
+  border: 1px solid var(--ds-border);
+  background-color: color-mix(in oklch, var(--ds-muted) 50%, transparent);
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ds-prose pre > code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Tables
+ * ------------------------------------------------------------------------- */
+
+.ds-prose table {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  border-radius: var(--ds-radius-sm);
+  border: 1px solid var(--ds-border);
+}
+
+.ds-prose thead {
+  background-color: color-mix(in oklch, var(--ds-muted) 50%, transparent);
+}
+
+.ds-prose tr {
+  border-bottom: 1px solid var(--ds-border);
+}
+
+.ds-prose tr:nth-child(even) {
+  background-color: color-mix(in oklch, var(--ds-muted) 20%, transparent);
+}
+
+.ds-prose th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-right: 1px solid var(--ds-border);
+}
+
+.ds-prose td {
+  padding: 0.5rem 1rem;
+  border-right: 1px solid var(--ds-border);
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Media
+ * ------------------------------------------------------------------------- */
+
+.ds-prose img,
+.ds-prose video {
+  border: 1px solid var(--ds-border);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--ds-radius-sm);
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Block Elements
+ * ------------------------------------------------------------------------- */
+
+.ds-prose blockquote {
+  border-left: 4px solid var(--ds-border);
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: var(--ds-muted-foreground);
+  background-color: color-mix(in oklch, var(--ds-muted) 30%, transparent);
+}
+
+.ds-prose hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: none;
+  border-top: 2px solid color-mix(in oklch, var(--ds-border) 50%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose — Modifiers
+ * ------------------------------------------------------------------------- */
+
+.ds-prose--article {
+  max-width: var(--ds-prose-max-width);
+}
+
+.ds-prose--spaced > * + * {
+  margin-top: 1.5rem;
+}
+
+.ds-prose--spaced h1:not(:first-child),
+.ds-prose--spaced h2:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.ds-prose--spaced h1,
+.ds-prose--spaced h2 {
+  margin-bottom: 1rem;
+}
+
+.ds-prose--spaced h3:not(:first-child),
+.ds-prose--spaced h4:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.ds-prose--spaced h3,
+.ds-prose--spaced h4 {
+  margin-bottom: 0.75rem;
+}
+
+.ds-prose--spaced h5:not(:first-child),
+.ds-prose--spaced h6:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.ds-prose--spaced h5 {
+  margin-bottom: 0.5rem;
+}
+
+.ds-prose--spaced h6:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.ds-prose--spaced h6 {
+  margin-bottom: 0.5rem;
+}

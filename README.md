@@ -97,3 +97,28 @@ npx skills add brijr/skills --skill nextjs-arch
 Any time you build, scaffold, or restructure routes, components, actions, or data layers in a Next.js App Router project.
 
 **Browse:** [skills.sh/brijr/skills/nextjs-arch](https://skills.sh/brijr/skills/nextjs-arch)
+
+## craft
+
+A single-file design system skill inspired by [craft-ds](https://github.com/brijr/craft). Enforces the one-file constraint, semantic HTML primitives, `cn()` escape hatches, and the layout/content separation principle. Two variants — Tailwind and CSS.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill craft
+```
+
+**What it does:**
+
+- One-file design system contract — all layout primitives and prose typography in `components/ds.tsx`
+- Semantic HTML wrappers (Section, Container, Main, Nav) with sensible defaults
+- Prose typography system for markdown, articles, and AI-generated content
+- Two variants: Tailwind (clsx + tailwind-merge) and CSS (clsx + ds.css)
+- Extension rules to keep the file clean as it grows
+- Hard stops on multi-file splitting, prop-driven variants, state in primitives, and hardcoded colors
+
+**When it triggers:**
+
+Any time you create a design system, add `ds.tsx`, set up layout primitives, or build a typography system.
+
+**Browse:** [skills.sh/brijr/skills/craft](https://skills.sh/brijr/skills/craft)
