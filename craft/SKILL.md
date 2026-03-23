@@ -150,7 +150,7 @@ The design system will grow. These rules keep it clean.
 - **Stop at ~300 lines.** If `ds.tsx` exceeds ~300 lines, you're putting too much in it. Prose is the heaviest component — if the file is long, audit Prose for unnecessary descendant styles.
 - **No component variants via props.** Don't add `size="sm" | "md" | "lg"` props. Use `className` overrides. The `cn()` utility exists for this.
 - **No context, no state, no hooks.** `ds.tsx` components are pure. If you need state, the consumer provides it.
-- **Document with JSDoc.** Each export gets a JSDoc comment explaining what it renders and its defaults. This is for AI agents consuming the file — they read JSDoc.
+- **Keep it scannable.** Organize with comment headers (e.g., `// Layout Primitives`, `// Prose`) so the file reads top to bottom.
 
 ## 5. Shared Props Type
 
@@ -212,4 +212,4 @@ Score 1–5 on each. Revise until all are 4+.
 | Readable | Can someone read the entire file in under 5 minutes? |
 | Prose scoped | Is Prose used only for content, never for app UI? |
 | Tokens | Are all colors semantic (no hardcoded values)? |
-| Documented | Does every export have a JSDoc comment? |
+| Organized | Is the file organized with clear comment section headers? |

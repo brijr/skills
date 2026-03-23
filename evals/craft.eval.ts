@@ -10,10 +10,6 @@ const skillContent = readFileSync(skillPath, "utf-8")
   // Strip YAML frontmatter
   .replace(/^---[\s\S]*?---\n/, "");
 
-// Load the Tailwind reference implementation for context
-const refPath = resolve(__dirname, "../craft/references/ds-tailwind.tsx");
-const refContent = readFileSync(refPath, "utf-8");
-
 const client = new Anthropic();
 
 // ---------------------------------------------------------------------------
@@ -24,11 +20,13 @@ async function generateDS(prompt: string): Promise<string> {
   const response = await client.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 4096,
-    system: `You are a frontend engineer creating a single-file design system (ds.tsx) for a React/Next.js project. Return ONLY the TSX code — no explanation, no markdown fences.\n\nHere is the design system skill:\n\n${skillContent}\n\nHere is a reference implementation for inspiration (adapt, don't copy verbatim):\n\n${refContent}`,
+    system: `You are a frontend engineer creating a single-file design system (ds.tsx) for a React/Next.js project. Return ONLY the TSX code — no explanation, no markdown fences.\n\n${skillContent}`,
     messages: [{ role: "user", content: prompt }],
   });
   const block = response.content[0];
-  return block.type === "text" ? block.text : "";
+  const raw = block.type === "text" ? block.text : "";
+  // Strip markdown fences if model wraps output
+  return raw.replace(/^```\w*\n?/, "").replace(/\n?```\s*$/, "");
 }
 
 // ---------------------------------------------------------------------------
@@ -54,7 +52,7 @@ const hasRequiredExports = createScorer<string, string, string>({
   scorer: ({ output }) => {
     const required = ["Section", "Container", "Main", "Nav"];
     const missing = required.filter(
-      (name) => !new RegExp(`export\\s+const\\s+${name}\\b`).test(output)
+      (name) => !new RegExp(`export\\s+(?:const|function)\\s+${name}\\b`).test(output)
     );
     if (missing.length === 0) return 1;
     if (missing.length <= 1)
@@ -164,10 +162,12 @@ const allComponentsAcceptClassName = createScorer<string, string, string>({
   description:
     "Checks that every exported component accepts and uses a className prop via cn()",
   scorer: ({ output }) => {
-    // Find all exported const components
-    const exports = output.match(/export\s+const\s+(\w+)\s*=/g) || [];
-    const componentNames = exports
-      .map((e) => e.match(/export\s+const\s+(\w+)/)?.[1])
+    // Find all exported components (const or function)
+    const constExports = output.match(/export\s+const\s+(\w+)\s*=/g) || [];
+    const fnExports = output.match(/export\s+function\s+(\w+)\s*\(/g) || [];
+    const allExports = [...constExports, ...fnExports];
+    const componentNames = allExports
+      .map((e) => e.match(/export\s+(?:const|function)\s+(\w+)/)?.[1])
       .filter((name) => name && name !== "cn" && /^[A-Z]/.test(name));
 
     if (componentNames.length === 0)
@@ -178,7 +178,7 @@ const allComponentsAcceptClassName = createScorer<string, string, string>({
     for (const name of componentNames) {
       // Find the component's code block (rough heuristic)
       const pattern = new RegExp(
-        `export\\s+const\\s+${name}[\\s\\S]*?(?=export\\s+const|$)`
+        `export\\s+(?:const|function)\\s+${name}[\\s\\S]*?(?=export\\s+(?:const|function)|$)`
       );
       const match = output.match(pattern);
       if (match && /cn\(/.test(match[0]) && /className/.test(match[0])) {
@@ -197,26 +197,19 @@ const allComponentsAcceptClassName = createScorer<string, string, string>({
   },
 });
 
-const hasJSDocComments = createScorer<string, string, string>({
-  name: "Has JSDoc comments",
+const hasSectionHeaders = createScorer<string, string, string>({
+  name: "Has section comment headers",
   description:
-    "Checks that exported components have JSDoc comments for AI agent consumption",
+    "Checks that the file is organized with comment section headers (e.g., // Layout Primitives, // Prose)",
   scorer: ({ output }) => {
-    const jsdocs = output.match(/\/\*\*[\s\S]*?\*\//g) || [];
-    const exports = output.match(/export\s+const\s+[A-Z]\w+/g) || [];
-
-    if (exports.length === 0)
-      return { score: 0, metadata: { note: "No exports found" } };
-
-    // At least half the exports should have JSDoc
-    const ratio = jsdocs.length / exports.length;
-    if (ratio >= 0.75) return 1;
-    if (ratio >= 0.5)
-      return { score: 0.5, metadata: { jsdocs: jsdocs.length, exports: exports.length } };
-    return {
-      score: 0,
-      metadata: { jsdocs: jsdocs.length, exports: exports.length },
-    };
+    // Look for comment headers — single-line or block comments that act as section dividers
+    const sectionComments = output.match(
+      /\/\/\s*[-=]{3,}|\/\/\s*(Layout|Prose|Props|Utility|Type|Nav|Section|Container|Main)/gi
+    );
+    if (sectionComments && sectionComments.length >= 2) return 1;
+    if (sectionComments && sectionComments.length >= 1)
+      return { score: 0.5, metadata: { found: sectionComments } };
+    return { score: 0, metadata: { note: "No section comment headers found" } };
   },
 });
 
@@ -299,7 +292,7 @@ evalite("craft", {
     noBusinessLogic,
     // Positive signal
     allComponentsAcceptClassName,
-    hasJSDocComments,
+    hasSectionHeaders,
     proseUsesDescendantSelectors,
     isUnderLineLimit,
   ],
