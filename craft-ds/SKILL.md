@@ -1,5 +1,5 @@
 ---
-name: craft
+name: craft-ds
 description: Create and maintain a single-file design system (ds.tsx) for layout primitives and prose typography. Enforces semantic HTML, one-file constraint, cn() escape hatches, and the layout/content separation principle. Two variants — Tailwind and CSS. Use when the user asks to create a design system, add ds.tsx, set up layout primitives, build a typography system, or scaffold page structure. Do not use for component libraries, marketing page design, or shadcn/ui component customization.
 ---
 

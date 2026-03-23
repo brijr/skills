@@ -5,7 +5,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 
 // Load the skill as a system prompt
-const skillPath = resolve(__dirname, "../craft/SKILL.md");
+const skillPath = resolve(__dirname, "../craft-ds/SKILL.md");
 const skillContent = readFileSync(skillPath, "utf-8")
   // Strip YAML frontmatter
   .replace(/^---[\s\S]*?---\n/, "");
@@ -256,7 +256,7 @@ const isUnderLineLimit = createScorer<string, string, string>({
 // Eval definition
 // ---------------------------------------------------------------------------
 
-evalite("craft", {
+evalite("craft-ds", {
   data: [
     {
       input:

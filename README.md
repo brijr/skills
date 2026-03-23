@@ -98,14 +98,14 @@ Any time you build, scaffold, or restructure routes, components, actions, or dat
 
 **Browse:** [skills.sh/brijr/skills/nextjs-arch](https://skills.sh/brijr/skills/nextjs-arch)
 
-## craft
+## craft-ds
 
 A single-file design system skill inspired by [craft-ds](https://github.com/brijr/craft). Enforces the one-file constraint, semantic HTML primitives, `cn()` escape hatches, and the layout/content separation principle. Two variants — Tailwind and CSS.
 
 **Install:**
 
 ```
-npx skills add brijr/skills --skill craft
+npx skills add brijr/skills --skill craft-ds
 ```
 
 **What it does:**
@@ -121,4 +121,4 @@ npx skills add brijr/skills --skill craft
 
 Any time you create a design system, add `ds.tsx`, set up layout primitives, or build a typography system.
 
-**Browse:** [skills.sh/brijr/skills/craft](https://skills.sh/brijr/skills/craft)
+**Browse:** [skills.sh/brijr/skills/craft-ds](https://skills.sh/brijr/skills/craft-ds)
