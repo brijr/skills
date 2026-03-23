@@ -16,6 +16,7 @@ async function generateNextJS(prompt: string): Promise<string> {
   const response = await client.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 4096,
+    temperature: 0,
     system: `You are a senior Next.js App Router engineer. Return ONLY the code — no explanation, no markdown fences. When the output spans multiple files, separate them with "// FILE: path/to/file.ts" comments.\n\n${skillContent}`,
     messages: [{ role: "user", content: prompt }],
   });

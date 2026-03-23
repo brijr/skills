@@ -20,6 +20,7 @@ async function generateDS(prompt: string): Promise<string> {
   const response = await client.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 4096,
+    temperature: 0,
     system: `You are a frontend engineer creating a single-file design system (ds.tsx) for a React/Next.js project. Return ONLY the TSX code — no explanation, no markdown fences.\n\n${skillContent}`,
     messages: [{ role: "user", content: prompt }],
   });
