@@ -26,6 +26,30 @@ Any time you build, refine, critique, or review UI in a shadcn/ui project.
 
 **Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)
 
+## refactor-ui
+
+A diagnose-then-edit skill for refactoring existing UI. Asks a few meaning-focused questions (not aesthetic ones), proposes a ranked plan, then edits the code. Works on images, component files, or both.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill refactor-ui
+```
+
+**What it does:**
+
+- Four-phase flow — observe (silent), diagnose and ask, propose ranked plan, edit
+- Meaning-first questions — what the UI represents, signal vs. noise, what's locked, then aesthetic direction
+- Tailors questions to the actual elements in the input — no generic "what do you want?"
+- Defaults to restrained taste when no direction is given — primary action wins, one status pattern, human data replaces machine data
+- Hard stops on aesthetic question stacking, scope creep, inventing new components, and before/after essays
+
+**When it triggers:**
+
+Any time you point at a specific component, screen, or pattern — via image, code, or both — and ask to refactor, improve, or clean it up.
+
+**Browse:** [skills.sh/brijr/skills/refactor-ui](https://skills.sh/brijr/skills/refactor-ui)
+
 ## pragmatic
 
 An opinionated feature development skill based on *The Pragmatic Programmer* by Andy Hunt and Dave Thomas. Enforces ETC, real DRY, tracer bullets, orthogonality, and broken windows discipline.
