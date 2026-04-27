@@ -122,6 +122,32 @@ Any time you build, scaffold, or restructure routes, components, actions, or dat
 
 **Browse:** [skills.sh/brijr/skills/nextjs-arch](https://skills.sh/brijr/skills/nextjs-arch)
 
+## software-design
+
+A system design skill for adding new features to existing codebases. Based on *A Philosophy of Software Design* by John Ousterhout. Enforces strategic programming — design before code, deep modules, information hiding, and the "design it twice" discipline.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill software-design
+```
+
+**What it does:**
+
+- Explores the existing codebase silently before saying anything
+- Frames the complexity a feature introduces — new state, failure modes, cross-layer dependencies
+- Proposes two genuinely different module designs with concrete interfaces, information hiding analysis, and red flag checks
+- Hard gate before implementation — no code until the design is approved
+- Builds to the agreed interface, pulling complexity into implementations and away from callers
+
+**When it triggers:**
+
+Any time you add, implement, or build a new feature in an existing codebase. Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
+
+**Browse:** [skills.sh/brijr/skills/software-design](https://skills.sh/brijr/skills/software-design)
+
+---
+
 ## craft-ds
 
 A single-file design system skill inspired by [craft-ds](https://github.com/brijr/craft). Enforces the one-file constraint, semantic HTML primitives, `cn()` escape hatches, and the layout/content separation principle. Two variants — Tailwind and CSS.
