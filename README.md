@@ -148,6 +148,33 @@ Any time you add, implement, or build a new feature in an existing codebase. Aut
 
 ---
 
+## clean-up
+
+A behavior-preserving fit-and-finish skill. After you finish a fix or feature, it makes the change *belong* — conforming it to the conventions of the code around it and tying off loose ends, scoped strictly to the recent diff and the files it touched.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill clean-up
+```
+
+**What it does:**
+
+- Pins the blast radius from `git diff` and freezes scope to the diff + touched files
+- Learns local conventions from the neighbors of each changed file (not a global style guide)
+- Proposes a categorized findings checklist — loose ends, convention mismatches, duplication, misplacement
+- Hard gate before applying — nothing changes until the checklist is approved
+- Discovers and runs the project's typecheck/lint/tests as the final gate, reports green or red
+- Never changes behavior — findings that would are flagged, not applied
+
+**When it triggers:**
+
+Right after you finish a change and want it integrated cleanly — "clean this up", "make it fit", "tie off loose ends". Not for greenfield code, general quality passes on unrelated code (use `simplify`), reworking pre-existing code (use `refactor-ui`), or unfinished work.
+
+**Browse:** [skills.sh/brijr/skills/clean-up](https://skills.sh/brijr/skills/clean-up)
+
+---
+
 ## craft-ds
 
 A single-file design system skill inspired by [craft-ds](https://github.com/brijr/craft). Enforces the one-file constraint, semantic HTML primitives, `cn()` escape hatches, and the layout/content separation principle. Two variants — Tailwind and CSS.
