@@ -148,6 +148,32 @@ Any time you add, implement, or build a new feature in an existing codebase. Aut
 
 ---
 
+## write-goal
+
+A goal-writing skill for Codex Goals. Turns a rough objective into a ready-to-run `/goal` command with a measurable outcome, verification surface, constraints, boundaries, iteration policy, and blocked stop condition.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill write-goal
+```
+
+**What it does:**
+
+- Drafts compact, reviewable `/goal ...` commands from plain-language objectives
+- Decides when a Goal is appropriate versus when a normal prompt is better
+- Adds auditable completion criteria — tests, benchmarks, reports, artifacts, or source evidence
+- Preserves constraints and defines what Codex should report if blocked
+- Avoids lifecycle actions — it writes the command text for the user to review
+
+**When it triggers:**
+
+When you write `/write-goal`, ask to draft or tighten a Goal, or say "turn this into a /goal".
+
+**Browse:** [skills.sh/brijr/skills/write-goal](https://skills.sh/brijr/skills/write-goal)
+
+---
+
 ## clean-up
 
 A behavior-preserving fit-and-finish skill. After you finish a fix or feature, it makes the change *belong* — conforming it to the conventions of the code around it and tying off loose ends, scoped strictly to the recent diff and the files it touched.
