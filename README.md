@@ -150,7 +150,7 @@ Any time you add, implement, or build a new feature in an existing codebase. Aut
 
 ## write-goal
 
-A goal-writing skill for Codex Goals. Turns a rough objective into a ready-to-run `/goal` command with a measurable outcome, verification surface, constraints, boundaries, iteration policy, and blocked stop condition.
+A goal-writing skill for Codex Goals. Turns a rough objective into a ready-to-run `/goal` command with a measurable outcome, verification surface, constraints, boundaries, iteration policy, and blocked stop condition. For codebase goals, it does a lightweight read-only repo pass first so the Goal can name real files, modules, and commands.
 
 **Install:**
 
@@ -161,6 +161,7 @@ npx skills add brijr/skills --skill write-goal
 **What it does:**
 
 - Drafts compact, reviewable `/goal ...` commands from plain-language objectives
+- Inspects repo context for codebase tasks before drafting
 - Decides when a Goal is appropriate versus when a normal prompt is better
 - Adds auditable completion criteria — tests, benchmarks, reports, artifacts, or source evidence
 - Preserves constraints and defines what Codex should report if blocked

@@ -1,11 +1,11 @@
 ---
 name: write-goal
-description: Turn a rough objective into a strong Codex `/goal` command. Use when the user writes `/write-goal`, asks to draft or tighten a Goal, says "turn this into a /goal", or wants help making a Codex Goal measurable, evidence-backed, and bounded. Do not use to activate, pause, resume, clear, or complete a Goal unless the user explicitly asks for lifecycle management; this skill writes the command text for the user to review.
+description: Turn a rough objective into a strong Codex `/goal` command, using lightweight codebase exploration when the objective depends on repository context. Use when the user writes `/write-goal`, asks to draft or tighten a Goal, says "turn this into a /goal", or wants help making a Codex Goal measurable, evidence-backed, repo-aware, and bounded. Do not use to activate, pause, resume, clear, or complete a Goal unless the user explicitly asks for lifecycle management; this skill writes the command text for the user to review.
 ---
 
 # write-goal — draft strong Codex Goals
 
-Produce a ready-to-run `/goal ...` command from the user's rough objective. The output should make "done" auditable without over-prescribing the path.
+Produce a ready-to-run `/goal ...` command from the user's rough objective. The output should make "done" auditable without over-prescribing the path. For codebase work, ground the Goal in the actual repo before drafting.
 
 ## Workflow
 
@@ -14,22 +14,29 @@ Produce a ready-to-run `/goal ...` command from the user's rough objective. The 
    - Prefer a normal prompt for one-line edits, simple explanations, short reviews, or tasks with no meaningful continuation loop.
    - If the user explicitly asks for `/write-goal`, still help, but say briefly if a normal prompt would fit better.
 
-2. Extract or infer the six Goal fields.
+2. Gather context when the Goal depends on a codebase.
+   - Do a lightweight, read-only repo pass before drafting: inspect the current directory, `git status --short`, top-level docs, manifests, scripts, test commands, and likely files/modules named by the objective.
+   - Use fast search first (`rg`, `rg --files`) to find relevant routes, tests, packages, benchmarks, or docs.
+   - Do not edit files or run expensive/destructive commands while writing the Goal.
+   - If repo context is unavailable, state the assumption and draft the Goal with placeholders only where necessary.
+
+3. Extract or infer the six Goal fields.
    - **Outcome**: what should be true when work is done.
-   - **Verification surface**: tests, benchmark, report, artifact, command output, reproduction, source evidence, or browser-visible state that proves it.
+   - **Verification surface**: tests, benchmark, report, artifact, command output, reproduction, source evidence, browser-visible state, or repo-specific command that proves it.
    - **Constraints**: behavior, APIs, tests, UX, performance, docs, data, or safety boundaries that must not regress.
-   - **Boundaries**: allowed repos, files, tools, services, data, time, budget, or destructive-operation limits.
+   - **Boundaries**: allowed repos, files, modules, tools, services, data, time, budget, or destructive-operation limits.
    - **Iteration policy**: how Codex should pick the next useful action after each attempt.
    - **Blocked stop condition**: when Codex should stop and report evidence, blockers, and what would unlock progress.
 
-3. Ask only for missing information that blocks an auditable Goal.
+4. Ask only for missing information that blocks an auditable Goal.
    - Ask at most two questions.
    - Do not ask if a conservative assumption is obvious from the user's wording.
    - If unsure about exact verification, name a likely verification surface and mark it as an assumption.
 
-4. Write the Goal as one compact command.
+5. Write the Goal as one compact command.
    - Start with `/goal`.
    - Keep it specific enough to check and broad enough for Codex to choose the next action.
+   - For codebase Goals, prefer real repo nouns over generic ones: command names, test files, benchmark scripts, packages, routes, services, or modules discovered in the context pass.
    - Include the blocked stop condition in the command for ambiguous, research, flaky, or infrastructure work.
 
 ## Output Format
@@ -43,6 +50,8 @@ Use this:
 ```
 
 Then add `Assumptions:` only if you inferred important details.
+
+For codebase Goals, also add `Context checked:` when you inspected repo files or commands. Keep it to one short line.
 
 If critical information is missing:
 
@@ -64,6 +73,7 @@ Before answering, make sure the drafted Goal:
 
 - Names a concrete end state, not just "improve", "clean up", or "investigate".
 - Has a verification surface Codex can inspect.
+- Uses repo-specific evidence for codebase tasks whenever local context is available.
 - Preserves at least one relevant constraint.
 - Gives Codex room to iterate without asking the user to say "keep going".
 - Defines what to report if blocked instead of treating uncertainty as success.
