@@ -1,4 +1,4 @@
 interface:
   display_name: "Write Goal"
-  short_description: "Turn rough objectives into Codex /goals"
-  default_prompt: "Use $write-goal to turn this rough objective into a strong Codex /goal."
+  short_description: "Turn rough objectives into agent goals"
+  default_prompt: "Use $write-goal to turn this rough objective into a strong agent goal."

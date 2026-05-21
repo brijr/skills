@@ -1,6 +1,6 @@
 ---
 name: software-design
-description: Guide system design when adding a new feature to an existing codebase. Based on A Philosophy of Software Design by John Ousterhout. Triggers when the user wants to add, implement, or build something new. Explores the existing system, frames the complexity the feature introduces, proposes two module designs with red flag checks, gets approval, then builds. Do not use for greenfield projects, pure refactors (use refactor-ui), or trivial one-line changes.
+description: Guide system design when adding a new feature to an existing codebase. Based on A Philosophy of Software Design by John Ousterhout. Triggers when the user wants to add, implement, or build something new. Explores the existing system, frames the complexity the feature introduces, proposes two module designs with red flag checks, gets approval, then builds. Do not use for greenfield projects, existing product/UX rework (use product-design), or trivial one-line changes.
 ---
 
 # software-design — design before code

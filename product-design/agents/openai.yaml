@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Design"
+  short_description: "Critique and improve product UX"
+  default_prompt: "Use $product-design to critique this product experience and propose implementation changes."

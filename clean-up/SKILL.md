@@ -1,13 +1,13 @@
 ---
 name: clean-up
-description: Make a just-finished fix or feature belong in the codebase — conform it to local conventions and tie off loose ends, without changing behavior. Triggers right after the user finishes a change and says things like "clean this up", "make it fit", "tie off loose ends", "make this maintainable", "make it fit the codebase". Operates only on the recent diff and the files it touched. Do not use for greenfield code, for general code-quality passes on untouched code unrelated to a recent change (use `simplify`), for reworking existing UI/code that predates this change (use `refactor-ui`), for designing something new (use `software-design`), or while the feature is still unfinished — finish it first; this pass preserves behavior, it does not add it.
+description: Make a just-finished fix or feature belong in the codebase — conform it to local conventions and tie off loose ends, without changing behavior. Triggers right after the user finishes a change and says things like "clean this up", "make it fit", "tie off loose ends", "make this maintainable", "make it fit the codebase". Operates only on the recent diff and the files it touched. Do not use for greenfield code, for general code-quality passes on untouched code unrelated to a recent change (use `simplify`), for product/UX rework of existing screens or flows that predate this change (use `product-design`), for designing something new (use `software-design`), or while the feature is still unfinished — finish it first; this pass preserves behavior, it does not add it.
 ---
 
 # clean-up — make the change belong
 
 The code works. This pass makes it look like it was always meant to be there: matching the conventions of the code around it, with no scaffolding, dead ends, or "clearly bolted on" smell left behind.
 
-This is **not** a generic code-quality pass (that is `simplify`) and **not** a rework of pre-existing code (that is `refactor-ui`). It is scoped to the change you just made and how that change sits next to its neighbors.
+This is **not** a generic code-quality pass (that is `simplify`) and **not** a product/UX rework of pre-existing screens or flows (that is `product-design`). It is scoped to the change you just made and how that change sits next to its neighbors.
 
 ## When to use
 

@@ -26,29 +26,29 @@ Any time you build, refine, critique, or review UI in a shadcn/ui project.
 
 **Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)
 
-## refactor-ui
+## product-design
 
-A diagnose-then-edit skill for refactoring existing UI. Asks a few meaning-focused questions (not aesthetic ones), proposes a ranked plan, then edits the code. Works on images, component files, or both.
+A product design critique and implementation skill for existing product experiences. Grounds in screenshots, routes, browser state, code, docs, and product context; critiques through *The Design of Everyday Things* and UX principles; proposes a concrete implementation plan; then waits for approval before editing.
 
 **Install:**
 
 ```
-npx skills add brijr/skills --skill refactor-ui
+npx skills add brijr/skills --skill product-design
 ```
 
 **What it does:**
 
-- Four-phase flow — observe (silent), diagnose and ask, propose ranked plan, edit
-- Meaning-first questions — what the UI represents, signal vs. noise, what's locked, then aesthetic direction
-- Tailors questions to the actual elements in the input — no generic "what do you want?"
-- Defaults to restrained taste when no direction is given — primary action wins, one status pattern, human data replaces machine data
-- Hard stops on aesthetic question stacking, scope creep, inventing new components, and before/after essays
+- Grounds in the actual product context before critiquing
+- Identifies user, job-to-be-done, primary action, workflow state, and product promise
+- Uses DOET and UX principles — conceptual model, affordances, feedback, mapping, constraints, hierarchy, trust, and accessibility
+- Produces prioritized product findings tied to visible UI, code, or docs
+- Proposes concrete implementation changes and waits for approval before editing
 
 **When it triggers:**
 
-Any time you point at a specific component, screen, or pattern — via image, code, or both — and ask to refactor, improve, or clean it up.
+When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience.
 
-**Browse:** [skills.sh/brijr/skills/refactor-ui](https://skills.sh/brijr/skills/refactor-ui)
+**Browse:** [skills.sh/brijr/skills/product-design](https://skills.sh/brijr/skills/product-design)
 
 ## pragmatic
 
@@ -150,7 +150,7 @@ Any time you add, implement, or build a new feature in an existing codebase. Aut
 
 ## write-goal
 
-A goal-writing skill for Codex Goals. Turns a rough objective into a ready-to-run `/goal` command with a measurable outcome, verification surface, constraints, boundaries, iteration policy, and blocked stop condition. For codebase goals, it does a lightweight read-only repo pass first so the Goal can name real files, modules, and commands.
+A goal-writing skill for AI coding agents. Turns a rough objective into either a native `/goal` command or a portable agent goal block with a measurable outcome, verification surface, constraints, boundaries, iteration policy, and blocked stop condition. For codebase goals, it does a lightweight read-only repo pass first so the goal can name real files, modules, and commands.
 
 **Install:**
 
@@ -160,16 +160,17 @@ npx skills add brijr/skills --skill write-goal
 
 **What it does:**
 
-- Drafts compact, reviewable `/goal ...` commands from plain-language objectives
+- Drafts compact, reviewable goals from plain-language objectives
+- Outputs Codex `/goal ...` commands when appropriate, or portable `Goal:` blocks for other agents
 - Inspects repo context for codebase tasks before drafting
 - Decides when a Goal is appropriate versus when a normal prompt is better
 - Adds auditable completion criteria — tests, benchmarks, reports, artifacts, or source evidence
-- Preserves constraints and defines what Codex should report if blocked
-- Avoids lifecycle actions — it writes the command text for the user to review
+- Preserves constraints and defines what the agent should report if blocked
+- Avoids lifecycle actions — it writes goal text for the user to review
 
 **When it triggers:**
 
-When you write `/write-goal`, ask to draft or tighten a Goal, or say "turn this into a /goal".
+When you write `/write-goal`, ask to draft or tighten an agent goal, or say "turn this into a goal" or "turn this into a /goal".
 
 **Browse:** [skills.sh/brijr/skills/write-goal](https://skills.sh/brijr/skills/write-goal)
 
@@ -196,7 +197,7 @@ npx skills add brijr/skills --skill clean-up
 
 **When it triggers:**
 
-Right after you finish a change and want it integrated cleanly — "clean this up", "make it fit", "tie off loose ends". Not for greenfield code, general quality passes on unrelated code (use `simplify`), reworking pre-existing code (use `refactor-ui`), or unfinished work.
+Right after you finish a change and want it integrated cleanly — "clean this up", "make it fit", "tie off loose ends". Not for greenfield code, general quality passes on unrelated code (use `simplify`), product/UX rework of pre-existing screens or flows (use `product-design`), or unfinished work.
 
 **Browse:** [skills.sh/brijr/skills/clean-up](https://skills.sh/brijr/skills/clean-up)
 
