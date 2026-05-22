@@ -157,6 +157,31 @@ Right after you finish a change and want it integrated cleanly — "clean this u
 
 ---
 
+## thermo-nuclear-code-quality-review
+
+An extremely strict maintainability review skill for current-branch changes, based on Cursor's version. It pushes hard on structural simplification, abstraction quality, spaghetti-condition growth, file-size sprawl, type boundaries, and architectural drift.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill thermo-nuclear-code-quality-review
+```
+
+**What it does:**
+
+- Looks for "code judo" moves that delete branches, helpers, modes, layers, or concepts
+- Treats files crossing 1000 lines, ad-hoc conditionals, feature leakage, thin wrappers, and cast-heavy contracts as serious smells
+- Prioritizes structural regressions and missed simplifications over cosmetic comments
+- Requires explicit, actionable feedback when the implementation makes the codebase harder to reason about
+
+**When it triggers:**
+
+When you ask for a thermo-nuclear code quality review, thermonuclear review, deep code quality audit, especially harsh maintainability review, or structural PR review.
+
+**Browse:** [skills.sh/brijr/skills/thermo-nuclear-code-quality-review](https://skills.sh/brijr/skills/thermo-nuclear-code-quality-review)
+
+---
+
 ## craft-ds
 
 A single-file design system skill inspired by [craft-ds](https://github.com/brijr/craft). Enforces the one-file constraint, semantic HTML primitives, `cn()` escape hatches, and the layout/content separation principle. Two variants — Tailwind and CSS.
