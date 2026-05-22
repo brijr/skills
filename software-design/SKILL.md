@@ -1,88 +1,141 @@
 ---
 name: software-design
-description: Guide system design when adding a new feature to an existing codebase. Based on A Philosophy of Software Design by John Ousterhout. Triggers when the user wants to add, implement, or build something new. Explores the existing system, frames the complexity the feature introduces, proposes two module designs with red flag checks, gets approval, then builds. Do not use for greenfield projects, existing product/UX rework (use product-design), or trivial one-line changes.
+description: Guide feature design and implementation in existing codebases. Based on A Philosophy of Software Design, with Pragmatic Programmer build discipline and conditional React/Next.js App Router constraints. Use when the user asks to add, implement, build, or scaffold a new feature, endpoint, module, route, component, hook, or system. Explore the existing system, frame complexity, design twice with concrete interfaces, wait for approval, then build with tracer bullets and repo-specific constraints. Do not use for greenfield projects, pure product/UX rework of existing experiences (use product-design), behavior-preserving cleanup after a finished change (use clean-up), or trivial one-line fixes.
 ---
 
-# software-design — design before code
+# software-design - design before code, then build strategically
 
-Rooted in *A Philosophy of Software Design* by John Ousterhout. The core idea: complexity accumulates through small decisions, and the right time to fight it is before the code is written — not after.
-
-Four phases: explore, frame, design twice, build. Hard gate before implementation. The goal at every phase is to find the design that hides the most complexity behind the simplest interface.
+Use this skill when a request introduces new behavior into an existing codebase. The job is to keep the interface simple, hide complexity in the right module, and then build the approved design as a thin working slice before widening.
 
 ## When to use
 
-The user is introducing something new into an existing codebase — a new capability, a new data flow, a new interaction between modules. The signal is new abstraction, not new lines. Not a one-line fix, not a style change, not a pure refactor.
+Use for new capabilities: features, endpoints, modules, data flows, routes, actions, components, hooks, integrations, or systems.
 
----
+Do not use for:
 
-## Phase 1 — Explore
+- pure visual/product critique of an existing experience; use `product-design`
+- post-change fit-and-finish; use `clean-up`
+- greenfield projects with no existing constraints
+- typo fixes, one-line changes, or purely cosmetic edits
 
-Read the relevant codebase silently before saying anything. Understand what's already there: existing modules, abstractions, patterns, and where complexity currently lives. Use this to make Phase 2 specific. Don't report the exploration — use it.
+## Phase 1 - Explore
 
----
+Read the relevant codebase before proposing anything. Find:
 
-## Phase 2 — Frame
+- existing modules, boundaries, naming, data flow, and ownership
+- tests, scripts, docs, contracts, schemas, and nearby examples
+- whether the project is React, Next.js App Router, or another framework
+- where complexity already lives and where this feature would add more
 
-Tell the user what the feature actually adds to the system: which boundaries it crosses, what new state or knowledge it introduces, what callers will need to hold in their heads. Name the complexity specifically — new failure modes, new coordination between layers, new concepts that didn't exist before.
+Use `rg` and local manifests first. Do not report the whole exploration; use it to make the design specific.
 
-Then ask only what's genuinely unclear. The right questions depend on the feature — common ones are about scope, ownership, error handling, and what should be visible to callers vs. hidden. Max three. If something is obvious from the code, state the assumption instead of asking.
+## Phase 2 - Frame
 
-Don't propose a design yet.
+Explain what the feature adds to the system:
 
----
+- new state, concepts, permissions, failure modes, or user-visible states
+- boundaries crossed: UI, API, DB, background work, third-party services
+- knowledge callers would need to hold if the design is shallow
+- likely future change pressure
 
-## Phase 3 — Design it twice
+Ask at most three questions, only when the answer changes the design. State conservative assumptions instead of asking about discoverable repo facts.
 
-Propose two genuinely different designs — different decompositions, different information hiding boundaries, different allocations of responsibility. Not the same idea with different names.
+## Phase 3 - Design It Twice
 
-For each design: make the interface concrete in the repo's actual language (not pseudocode), say what it hides and what callers must know, check for red flags, and name the honest tradeoff.
+Propose two genuinely different designs before writing code. They should differ in responsibility boundaries, not just names.
 
-**Red flags to check:**
-- **Shallow module** — interface nearly as complex as the implementation
-- **Information leakage** — same knowledge encoded in multiple places
-- **Temporal coupling** — callers must act in order without the interface enforcing it
-- **Pass-through** — a method that adds no value, just forwards
-- **Repetition** — logic that should be in the module is duplicated across callers
-- **Special-case code** — a condition a better design would make impossible
-- **Conjoined variables** — two values always used together; they're one concept
-- **Vague names** — a name that needs a comment to explain it
+For each design:
 
-End with a recommendation and the reasoning. Prefer the deeper design — simpler interface, richer implementation.
+- make the interface concrete in the repo's language
+- name what the design hides
+- name what callers must know
+- identify the files/modules likely touched
+- check the red flags below
+- give the honest tradeoff
 
-If both designs have real red flags, don't pick the less-bad one. Say so, find the constraint that's forcing both to be bad, and design again with that constraint surfaced. One more round is better than approving a flawed design.
+Red flags:
 
-**Wait for approval before writing any implementation code.**
+- shallow module: interface nearly as complex as implementation
+- information leakage: same knowledge encoded in multiple places
+- temporal coupling: caller must know hidden ordering rules
+- pass-through: abstraction only forwards
+- repetition: business rule duplicated across callers
+- special-case code: condition a better interface would make impossible
+- conjoined variables: values always passed together but not modeled together
+- vague names: name needs a comment to be understood
 
----
+Recommend the deeper design: smaller interface, richer implementation, fewer caller obligations. If both designs are weak, surface the constraint causing that and redesign.
 
-## Phase 4 — Build
+Stop here until the user approves the design.
 
-Implement the approved design. The interface is already agreed — build the implementation to match it.
+## Phase 4 - Build the Approved Design
 
-Pull complexity downward: when logic could live in the caller or the implementation, put it in the implementation. Hide details that could change without affecting the interface. Where possible, define error states out of existence rather than asking callers to catch them. Don't add abstraction the feature doesn't need yet.
+Build exactly the approved interface. Pull complexity downward into implementations rather than callers.
 
-After building, briefly report: what was built, the public interface, anything deferred, and any principled shortcuts taken and why.
+Apply these rules while building:
 
----
+- **ETC**: choose the option that is easiest to change tomorrow.
+- **Tracer bullet first**: build the thinnest end-to-end slice that actually runs, then widen.
+- **Real DRY**: unify duplicated knowledge, not code that only looks similar.
+- **Orthogonality**: changing one concern should not ripple through unrelated files.
+- **Broken windows**: if touched code is clearly wrong, fix it or flag the larger follow-up.
+- **Good enough**: handle real requirements and expected states; do not add speculative options, flags, slots, or extension points.
 
-## Core principles
+Implementation sequence:
 
-**Deep modules.** Simple interface, rich implementation. The interface is what callers hold in their heads — make it small.
+1. Create the smallest vertical slice through every required layer.
+2. Verify it runs.
+3. Add required states, validations, errors, and edge cases one slice at a time.
+4. Clean touched code to local conventions.
+5. Stop when the feature works, is verified, and is easy to change.
 
-**Information hiding.** If a detail can change without affecting callers, hide it. Exposure is a cost paid at every call site, forever.
+## React Guidance
 
-**Pull complexity down.** When in doubt, pay the cost in the implementation, not in the caller.
+Apply when the inspected repo uses React.
 
-**Strategic over tactical.** Tactical code just makes it work. Strategic code asks what the feature adds to the system's complexity and whether that cost is worth it.
+- Build data-to-pixels vertical slices; do not build isolated component trees first.
+- Keep state in the lowest component that needs it.
+- Prefer props over context for local data; context is for truly shared, rarely-changing values.
+- Extract components or hooks only when the knowledge changes for the same reason in multiple real places.
+- Keep prop interfaces small and named around product/domain concepts.
+- Handle loading, empty, error, success, disabled, and permission states that the feature actually needs.
+- Avoid premature `useMemo`, `useCallback`, `React.memo`, render props, slot props, and variant systems.
 
-**Obvious code.** A reader should understand a module without reading three other files. If they can't, the abstraction is in the wrong place.
+## Next.js App Router Guidance
 
----
+Apply when the inspected repo is a Next.js App Router project.
+
+- Default to server components. Add `"use client"` only for hooks, event handlers, browser APIs, or interactive state.
+- Server components fetch data and pass props down.
+- Client components render props and call server actions for mutations.
+- Server actions start with auth, then validate with Zod, mutate, and revalidate the affected path/tag.
+- Do not import DB, server auth helpers, storage clients, or server actions into client-only code except action imports used for mutation calls.
+- Use API routes for webhooks, uploads, streaming, and third-party callbacks; prefer server actions for app mutations.
+- Put custom components outside `components/ui`; that directory is for primitives.
+- Follow existing route groups, loading/error files, naming, and import order.
+
+## Verification
+
+Before finalizing:
+
+- run the repo's relevant typecheck, lint, tests, or targeted smoke command
+- for UI changes, verify the route or component visually when a local app can run
+- report commands run and any remaining risk
+
+## Closing Summary
+
+Report:
+
+- approved design implemented
+- public interface or route/action/component added
+- verification result
+- anything intentionally deferred because it exceeded the approved design
 
 ## Anti-patterns
 
-- Designing in Phase 4 — if the interface isn't agreed before coding, the code drives the design
-- Proposing one design — two options surface tradeoffs that one hides
-- Picking the less-bad design when both have real red flags — find the broken constraint and redesign
-- Adding abstraction the feature doesn't need yet — "we might need this later" is tactical thinking in disguise
-- Putting complexity in the caller — every param they must pass, every error they must catch, every ordering rule they must remember is a permanent tax
+- designing during implementation because the interface was never approved
+- building layer-by-layer instead of a tracer bullet
+- extracting abstractions for a single use case
+- adding flags/options for hypothetical requirements
+- working around a bad interface instead of fixing it
+- hiding uncertainty behind a successful-looking implementation

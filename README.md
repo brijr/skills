@@ -74,57 +74,9 @@ Any time you build, implement, add, or scaffold a new feature.
 
 **Browse:** [skills.sh/brijr/skills/pragmatic](https://skills.sh/brijr/skills/pragmatic)
 
-## pragmatic-react
-
-The same Pragmatic Programmer constraint system as `pragmatic`, tailored specifically to React development. Adds React-specific guidance on component extraction, state colocation, prop interfaces, hooks, context, and vertical-slice UI development.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill pragmatic-react
-```
-
-**What it does:**
-
-- ETC (Easy to Change) applied to components, state, and props
-- Tracer bullets — render real data on screen end-to-end before building out
-- Real DRY — don't extract shared components just because JSX looks similar
-- Orthogonality — colocate state, keep components self-contained, props over context for local data
-- Hard stops on premature component/hook extraction, prop explosion, context-as-global-state, and speculative generality
-
-**When it triggers:**
-
-Any time you build, implement, add, or scaffold a React component, page, hook, or feature.
-
-**Browse:** [skills.sh/brijr/skills/pragmatic-react](https://skills.sh/brijr/skills/pragmatic-react)
-
-## nextjs-arch
-
-A clean Next.js App Router architecture skill based on a proven production structure. Enforces directory layout, server/client boundaries, data flow patterns, auth gating, server actions, and naming conventions.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill nextjs-arch
-```
-
-**What it does:**
-
-- Canonical directory structure — every file has exactly one correct home
-- Strict server/client boundary — default to server, `"use client"` only when needed
-- One data flow pattern — server fetches, props down, actions up, revalidate after mutation
-- Auth gate once in layout, auth check in every server action
-- Hard stops on client-side fetching, custom components in `ui/`, actions without auth, and API routes for mutations
-
-**When it triggers:**
-
-Any time you build, scaffold, or restructure routes, components, actions, or data layers in a Next.js App Router project.
-
-**Browse:** [skills.sh/brijr/skills/nextjs-arch](https://skills.sh/brijr/skills/nextjs-arch)
-
 ## software-design
 
-A system design skill for adding new features to existing codebases. Based on *A Philosophy of Software Design* by John Ousterhout. Enforces strategic programming — design before code, deep modules, information hiding, and the "design it twice" discipline.
+A feature design and implementation skill for existing codebases. Based on *A Philosophy of Software Design*, with Pragmatic Programmer build discipline and conditional React/Next.js App Router constraints.
 
 **Install:**
 
@@ -138,11 +90,13 @@ npx skills add brijr/skills --skill software-design
 - Frames the complexity a feature introduces — new state, failure modes, cross-layer dependencies
 - Proposes two genuinely different module designs with concrete interfaces, information hiding analysis, and red flag checks
 - Hard gate before implementation — no code until the design is approved
-- Builds to the agreed interface, pulling complexity into implementations and away from callers
+- Builds to the agreed interface with tracer bullets, real DRY, orthogonality, and good-enough stopping
+- Applies React guidance for data-to-pixels slices, state colocation, props over context, and clean prop interfaces
+- Applies Next.js App Router guidance for server/client boundaries, props down/actions up, auth/Zod/revalidation, and route/file placement
 
 **When it triggers:**
 
-Any time you add, implement, or build a new feature in an existing codebase. Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
+Any time you add, implement, build, or scaffold a new feature, endpoint, module, route, component, hook, or system in an existing codebase. Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
 
 **Browse:** [skills.sh/brijr/skills/software-design](https://skills.sh/brijr/skills/software-design)
 
