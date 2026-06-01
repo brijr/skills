@@ -132,7 +132,7 @@ When you write `/write-goal`, ask to draft or tighten an agent goal, or say "tur
 
 ## explain
 
-A teaching-for-mastery skill for AI coding sessions. It guides the agent to incrementally explain the problem, solution, tradeoffs, edge cases, and broader impact, while keeping a running Markdown checklist and verifying understanding before moving on.
+A teaching-for-mastery skill for AI coding sessions, files, bugs, PRs, design decisions, or broader concepts. It guides the agent to incrementally explain the target, problem, solution, tradeoffs, edge cases, and impact, while keeping a running Markdown checklist and verifying understanding before moving on.
 
 **Install:**
 
@@ -143,14 +143,14 @@ npx skills add brijr/skills --skill explain
 **What it does:**
 
 - Asks the human to restate their understanding before each teaching stage
-- Teaches incrementally across problem, solution, and broader context
+- Teaches incrementally across target, problem/concept, solution, and broader context
 - Keeps a running Markdown doc with checklist items, gaps, questions, quiz results, and mastery evidence
 - Uses open-ended or multiple choice questions to verify understanding
 - Supports ELI5, ELI14, and ELII explanation modes without dropping the mastery workflow
 
 **When it triggers:**
 
-When you write `/explain`, ask to deeply understand a coding/debugging/design session, request ELI5/ELI14/ELII, or want to be quizzed on the problem, solution, tradeoffs, edge cases, and impact.
+When you write `/explain`, `/ explain`, "please explain this to me", ask to understand something deeply or more broadly, request ELI5/ELI14/ELII, or want to be quizzed on the problem, solution, tradeoffs, edge cases, and impact.
 
 **Browse:** [skills.sh/brijr/skills/explain](https://skills.sh/brijr/skills/explain)
 

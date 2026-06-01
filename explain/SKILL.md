@@ -1,11 +1,11 @@
 ---
 name: explain
-description: Teach the human the current session until they can demonstrate deep understanding. Use when the user writes `/explain`, asks to deeply understand a coding/debugging/design session, requests ELI5/ELI14/ELII, or wants to be quizzed on the problem, solution, tradeoffs, edge cases, and impact.
+description: Teach the human a session, change, file, function, bug, PR, design decision, or broader concept until they can demonstrate deep understanding. Use when the user writes `/explain`, `/ explain`, "please explain this to me", asks to understand something deeply or more broadly, requests ELI5/ELI14/ELII, or wants to be quizzed on problem, solution, tradeoffs, edge cases, and impact.
 ---
 
 # /explain - teach for mastery
 
-Use this skill to help the human deeply understand the current session. Be a wise, practical teacher: clear, patient, rigorous, and unwilling to treat nodding along as mastery.
+Use this skill to help the human deeply understand the thing they pointed at. Be a wise, practical teacher: clear, patient, rigorous, and unwilling to treat nodding along as mastery.
 
 ## Contract
 
@@ -18,37 +18,39 @@ Use this skill to help the human deeply understand the current session. Be a wis
 - Honor ELI modes: ELI5 for simple analogy, ELI14 for plain but precise explanation, and ELII for intern-level engineering detail. After answering in that mode, return to the mastery workflow.
 - Do not treat the session as complete until they have demonstrated understanding for every checklist item.
 
+## Scope
+
+Bind `/explain` to the nearest useful target: the current session, recent diff, PR, bug, design thread, selected code, named file, function, component, test, log, error, broader concept, architecture, business rule, or product workflow.
+
+If the target is obvious, start. If "this" could mean several things, ask one short clarifying question. If they ask "more broadly," begin with motivation, surrounding system, and why the concept exists before drilling into code.
+
 ## Running Doc
 
 Create and update a Markdown doc throughout the teaching session. Default path: `docs/explain-session.md`. If the repo has a more specific docs area, use that; if no docs directory exists, use `explain-session.md` in the workspace root.
 
-After every stage, record:
-- the current checklist
-- what they already understand
-- gaps or misconceptions
-- questions asked and answers given
-- quiz results or restatement evidence
-- code, test, debugger, or artifact references used
+After every stage, record the current checklist, what they already understand, gaps or misconceptions, questions asked and answered, quiz/restatement evidence, and code/test/debugger/artifact references used.
 
 Start from this checklist:
 
 ```md
-# Explain Session
+# Explain: <target>
 
-## Problem
+## Target
 
-- [ ] What problem was observed?
-- [ ] Why did the problem exist?
-- [ ] What were the important branches, states, or cases?
-- [ ] What assumptions or edge cases made the problem tricky?
+- [ ] What are we explaining?
+- [ ] Why does it matter?
+
+## Problem Or Concept
+
+- [ ] What was observed or what concept is being taught?
+- [ ] Why did it exist?
+- [ ] What branches, states, cases, assumptions, or edge cases matter?
 
 ## Solution
 
-- [ ] What changed?
-- [ ] Why was it resolved this way?
-- [ ] What design decisions or alternatives mattered?
-- [ ] What edge cases are covered?
-- [ ] What tests, checks, or evidence prove it works?
+- [ ] What changed or how does it work?
+- [ ] Why was it resolved or designed this way?
+- [ ] What alternatives, edge cases, tests, checks, or evidence matter?
 
 ## Broader Context
 
@@ -60,7 +62,6 @@ Start from this checklist:
 
 - [ ] The human can explain the problem in their own words.
 - [ ] The human can explain the solution in their own words.
-- [ ] The human can explain the why behind the design.
 - [ ] The human can reason through at least one edge case.
 ```
 
@@ -79,9 +80,10 @@ For each stage, use this loop:
 
 ## Required Stages
 
-1. **Problem mastery**: what happened, why it happened, where it happened, which branches/states/cases matter, and why the problem was not obvious.
-2. **Solution mastery**: what changed, how the new logic works, why this design was chosen, what alternatives were rejected, and which edge cases are handled.
-3. **Context mastery**: why the change matters, what behavior/users/systems/contracts it affects, what future maintainers need to preserve, and what risks or follow-ups remain.
+1. **Target mastery**: what is being explained, why it matters, and how it connects to the current work.
+2. **Problem or concept mastery**: what happened or what the concept means, why it exists, where it appears, which branches/states/cases matter, and why it is not obvious.
+3. **Solution mastery**: what changed or how it works, why this design was chosen, what alternatives were rejected, and which edge cases are handled.
+4. **Context mastery**: what behavior/users/systems/contracts it affects, what future maintainers need to preserve, and what risks or follow-ups remain.
 
 ## Mastery Standard
 
