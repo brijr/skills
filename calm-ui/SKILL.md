@@ -7,6 +7,12 @@ description: Apply a restrained, Swiss/Japanese/Scandinavian/German-influenced p
 
 This skill is an opinionated constraint system for product UI in React, Next.js, TypeScript, and shadcn/ui. It is not generic guidance. Most rules are prompts to apply when reviewing a screen. A handful — type scale ceilings, radius, shadow, spacing tokens, CSS variable usage — are hard limits. Follow those literally.
 
+## Relationship to adjacent UI skills
+
+- `calm-ui` owns visual/interface constraints: spacing, hierarchy, component refinement, tokens, density, responsive rhythm, and shadcn adaptation.
+- `product-design` owns the product critique for existing screens, flows, forms, dashboards, and workflows. If the question is whether the experience solves the right user problem, use `product-design` first.
+- `craft-ds` owns generating or maintaining `components/ds.tsx` layout primitives and prose typography. Do not use `calm-ui` to create that artifact from scratch.
+
 ## Non-negotiables
 
 1. **Restraint over expression.** Prefer reduction and clarity over visual novelty.

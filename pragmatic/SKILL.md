@@ -1,13 +1,26 @@
 ---
 name: pragmatic
-description: Apply Pragmatic Programmer principles when building new features. Enforces ETC (Easy to Change), real DRY, tracer bullets, orthogonality, broken windows, and good-enough discipline. Use when the user asks to build, implement, add, or scaffold a new feature, endpoint, module, or system. Do not use for one-line fixes, typo corrections, or purely cosmetic changes.
+description: Apply Pragmatic Programmer principles to greenfield, prototype, or framework-agnostic feature work where there is no existing-codebase design gate. Enforces ETC (Easy to Change), real DRY, tracer bullets, orthogonality, broken windows, and good-enough discipline. Use when the user asks for pragmatic build discipline on a new standalone feature, throwaway prototype, spike, script, endpoint, module, or system. Do not use for feature work in an existing codebase (use software-design), one-line fixes, typo corrections, pure product/UX work, or purely cosmetic changes.
 ---
 
-# pragmatic — Feature Development Constraint System
+# pragmatic — greenfield feature development constraint system
 
-This skill enforces a specific engineering philosophy when building new features. It is not generic advice — it is an opinionated constraint system derived from *The Pragmatic Programmer* by Andy Hunt and Dave Thomas.
+This skill enforces a specific engineering philosophy for greenfield, prototype, or framework-agnostic feature work. It is not generic advice — it is an opinionated constraint system derived from *The Pragmatic Programmer* by Andy Hunt and Dave Thomas.
+
+For feature work in an existing codebase, use `software-design` instead. That skill is the canonical existing-codebase feature module and already includes this build discipline after its design gate.
 
 Read every rule before writing code. Every rule is testable — you should be able to look at a diff and answer yes/no.
+
+## When to use
+
+Use when the task is a new standalone feature, prototype, spike, script, endpoint, module, or system and there is not enough existing architecture to justify the `software-design` explore/frame/design approval workflow.
+
+Do not use for:
+
+- adding behavior to an existing codebase; use `software-design`
+- product/UX critique or implementation of an existing experience; use `product-design`
+- behavior-preserving fit-and-finish after a completed change; use `clean-up`
+- one-line fixes, typo corrections, or purely cosmetic changes
 
 ## Core Principle
 
@@ -74,7 +87,7 @@ Do not produce any of the following:
 
 ## Workflow
 
-When building a new feature:
+When building a greenfield or prototype feature:
 
 1. **Understand** — What is the feature? What layers does it touch? What changes are likely in the future?
 2. **Tracer bullet** — Build the thinnest end-to-end slice that proves the path works.

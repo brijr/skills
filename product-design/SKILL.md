@@ -7,6 +7,14 @@ description: Product design critique and approved implementation workflow for ex
 
 Use this skill to improve an existing product experience, not just its visual polish. Diagnose what the product is asking the user to understand or do, critique that experience through a practical UX and *Design of Everyday Things* lens, then propose implementation changes. Do not edit until the user approves the plan.
 
+## Relationship to adjacent UI skills
+
+- `product-design` owns product intent, workflow, user role, state, copy, trust, accessibility, and the critique/approval loop for an existing experience.
+- `calm-ui` owns restrained visual/interface execution for React, Next.js, TypeScript, and shadcn/ui. Use its constraints during implementation when the approved plan needs visual refinement.
+- `craft-ds` owns creating or maintaining the single-file `components/ds.tsx` design-system contract. Use it only when the approved plan requires that artifact.
+
+Do not let visual-system rules replace the product critique. The product finding comes first; visual polish supports it.
+
 ## Inputs
 
 The user may provide any of:

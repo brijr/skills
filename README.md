@@ -4,7 +4,7 @@ Claude Code skills for building restrained, high-quality product interfaces and 
 
 ## calm-ui
 
-An opinionated design system skill for React, Next.js, TypeScript, and shadcn/ui. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
+An opinionated visual/interface system skill for React, Next.js, TypeScript, and shadcn/ui. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
 
 **Install:**
 
@@ -22,7 +22,7 @@ npx skills add brijr/skills --skill calm-ui
 
 **When it triggers:**
 
-Any time you build, refine, critique, or review UI in a shadcn/ui project.
+When you build, refine, or review the visual/interface layer of a React, Next.js, TypeScript, or shadcn/ui product. Use `product-design` first when the question is whether an existing screen or flow solves the right user problem; use `craft-ds` when creating `components/ds.tsx`.
 
 **Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)
 
@@ -46,13 +46,13 @@ npx skills add brijr/skills --skill product-design
 
 **When it triggers:**
 
-When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience.
+When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience. It owns product intent and critique; use `calm-ui` for visual execution constraints and `craft-ds` only when the approved plan needs `components/ds.tsx`.
 
 **Browse:** [skills.sh/brijr/skills/product-design](https://skills.sh/brijr/skills/product-design)
 
 ## pragmatic
 
-An opinionated feature development skill based on *The Pragmatic Programmer* by Andy Hunt and Dave Thomas. Enforces ETC, real DRY, tracer bullets, orthogonality, and broken windows discipline.
+An opinionated greenfield/prototype feature development skill based on *The Pragmatic Programmer* by Andy Hunt and Dave Thomas. Enforces ETC, real DRY, tracer bullets, orthogonality, and broken windows discipline when there is no existing-codebase design gate.
 
 **Install:**
 
@@ -70,7 +70,7 @@ npx skills add brijr/skills --skill pragmatic
 
 **When it triggers:**
 
-Any time you build, implement, add, or scaffold a new feature.
+When you want pragmatic build discipline for a standalone feature, throwaway prototype, spike, script, endpoint, module, or system. For feature work inside an existing codebase, use `software-design`.
 
 **Browse:** [skills.sh/brijr/skills/pragmatic](https://skills.sh/brijr/skills/pragmatic)
 
@@ -96,7 +96,7 @@ npx skills add brijr/skills --skill software-design
 
 **When it triggers:**
 
-Any time you add, implement, build, or scaffold a new feature, endpoint, module, route, component, hook, or system in an existing codebase. Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
+Any time you add, implement, build, or scaffold a new feature, endpoint, module, route, component, hook, or system in an existing codebase. This is the canonical existing-codebase feature skill; use `pragmatic` only for greenfield/prototype work with no architecture to inspect. Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
 
 **Browse:** [skills.sh/brijr/skills/software-design](https://skills.sh/brijr/skills/software-design)
 
@@ -177,7 +177,7 @@ npx skills add brijr/skills --skill clean-up
 
 **When it triggers:**
 
-Right after you finish a change and want it integrated cleanly — "clean this up", "make it fit", "tie off loose ends". Not for greenfield code, general quality passes on unrelated code (use `simplify`), product/UX rework of pre-existing screens or flows (use `product-design`), or unfinished work.
+Right after you finish a change and want it integrated cleanly — "clean this up", "make it fit", "tie off loose ends". Not for greenfield code, strict structural review of unrelated code (use `thermo-nuclear-code-quality-review`), product/UX rework of pre-existing screens or flows (use `product-design`), or unfinished work.
 
 **Browse:** [skills.sh/brijr/skills/clean-up](https://skills.sh/brijr/skills/clean-up)
 
@@ -229,6 +229,6 @@ npx skills add brijr/skills --skill craft-ds
 
 **When it triggers:**
 
-Any time you create a design system, add `ds.tsx`, set up layout primitives, or build a typography system.
+Any time you create or maintain `components/ds.tsx`, set up layout primitives, or build a prose typography system. Use `calm-ui` for shadcn/component visual refinement and `product-design` for product/UX critique of an existing experience.
 
 **Browse:** [skills.sh/brijr/skills/craft-ds](https://skills.sh/brijr/skills/craft-ds)

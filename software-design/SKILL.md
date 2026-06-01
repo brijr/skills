@@ -7,15 +7,17 @@ description: Guide feature design and implementation in existing codebases. Base
 
 Use this skill when a request introduces new behavior into an existing codebase. The job is to keep the interface simple, hide complexity in the right module, and then build the approved design as a thin working slice before widening.
 
+This is the canonical feature skill for existing codebases. It already includes the Pragmatic Programmer build discipline, so do not stack `pragmatic` on the same existing-codebase feature request.
+
 ## When to use
 
 Use for new capabilities: features, endpoints, modules, data flows, routes, actions, components, hooks, integrations, or systems.
 
 Do not use for:
 
+- greenfield, prototype, or standalone feature work with no existing architecture to inspect; use `pragmatic`
 - pure visual/product critique of an existing experience; use `product-design`
 - post-change fit-and-finish; use `clean-up`
-- greenfield projects with no existing constraints
 - typo fixes, one-line changes, or purely cosmetic edits
 
 ## Phase 1 - Explore
