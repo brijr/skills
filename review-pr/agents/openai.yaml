@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review PR"
+  short_description: "Review and prepare PRs for safe merge."
+  default_prompt: "Use $review-pr to review the open PR, explain what it changes, verify it, preview UI if needed, and prepare post-merge steps."

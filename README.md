@@ -183,6 +183,33 @@ Right after you finish a change and want it integrated cleanly — "clean this u
 
 ---
 
+## review-pr
+
+A senior-engineer release review skill for pull requests. Grounds review, explanation, verification, UI preview, merge readiness, and post-merge planning in live git/GitHub state, targeted tests, and real browser smoke when UI is involved.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill review-pr
+```
+
+**What it does:**
+
+- Confirms local workspace, PR base/head, and live GitHub state before reviewing
+- Leads with blocking code review findings tied to file and line evidence
+- Explains product impact, deploy implications, migrations, env/config, queues, cron, and release-note needs
+- Verifies on the PR head with targeted tests, diff checks, and package-aware commands
+- Uses real preview/local browser smoke for UI flows and reports auth blockers plainly
+- Documents merge readiness and post-merge production verification steps
+
+**When it triggers:**
+
+When you ask to review, explain, prepare, merge, smoke test, choose, or get ready to ship a pull request, especially by PR number.
+
+**Browse:** [skills.sh/brijr/skills/review-pr](https://skills.sh/brijr/skills/review-pr)
+
+---
+
 ## thermo-nuclear-code-quality-review
 
 An extremely strict maintainability review skill for current-branch changes, based on Cursor's version. It pushes hard on structural simplification, abstraction quality, spaghetti-condition growth, file-size sprawl, type boundaries, and architectural drift.
