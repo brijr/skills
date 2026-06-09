@@ -9,6 +9,8 @@ Use this skill when a request introduces new behavior into an existing codebase.
 
 This is the canonical feature skill for existing codebases. It already includes the Pragmatic Programmer build discipline, so do not stack `pragmatic` on the same existing-codebase feature request.
 
+Phase 4's build rules intentionally duplicate the `pragmatic` skill — skills install standalone, so the shared discipline must live in both files. If you change a rule here, mirror it there.
+
 ## When to use
 
 Use for new capabilities: features, endpoints, modules, data flows, routes, actions, components, hooks, integrations, or systems.

@@ -9,6 +9,8 @@ This skill enforces a specific engineering philosophy for greenfield, prototype,
 
 For feature work in an existing codebase, use `software-design` instead. That skill is the canonical existing-codebase feature module and already includes this build discipline after its design gate.
 
+The build discipline below intentionally duplicates `software-design` Phase 4 — skills install standalone, so the shared discipline must live in both files. If you change a rule here, mirror it there.
+
 Read every rule before writing code. Every rule is testable — you should be able to look at a diff and answer yes/no.
 
 ## When to use
