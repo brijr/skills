@@ -2,6 +2,16 @@
 
 Claude Code skills for building restrained, high-quality product interfaces and pragmatic software.
 
+## Install all skills
+
+To install every skill in this repository:
+
+```sh
+for skill in calm-ui product-design pragmatic software-design write-goal explain clean-up review-pr thermo-nuclear-code-quality-review craft-ds; do
+  npx skills add brijr/skills --skill "$skill"
+done
+```
+
 ## calm-ui
 
 An opinionated visual/interface system skill for React, Next.js, TypeScript, and shadcn/ui. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
