@@ -274,7 +274,7 @@ Any time you create or maintain `components/ds.tsx`, set up layout primitives, o
 
 ## design-loop
 
-An AI design-engineer loop skill. Runs one iteration on one UI surface — implement against the project's constraint system, screenshot, critique, fix until clean, promote reusable patterns — then stops at a human review gate. Taste lives in your repo's `design/` files; the skill is the procedure that applies it.
+A standalone AI design-engineer engagement skill, run one session at a time. Bootstraps a constraint system from your codebase itself (read → point of view → tokens/rules/patterns), then iterates one UI surface per session through implement → screenshot → critique → fix, stopping at a human review gate. Taste lives in your repo's `design/` files; the skill is the procedure that creates and applies them.
 
 **Install:**
 
@@ -284,15 +284,16 @@ npx skills add brijr/skills --skill design-loop
 
 **What it does:**
 
-- Reads `design/{UI_RULES.md,tokens.json,PATTERNS.md,DECISIONS.md,BACKLOG.md}` and picks the top backlog surface
-- Implements with token values only — a bundled lint script fails any arbitrary value, off-scale spacing, or non-token color
-- Screenshots light/dark at desktop and mobile widths, then critiques against a 12-point taste rubric
+- Bootstraps standalone when no `design/` exists — reads the codebase and product, writes `POV.md`, derives `tokens.json`, `UI_RULES.md`, and `PATTERNS.md` from the values already in use
+- Stops for the highest-leverage step: the human editing the generated `UI_RULES.md`
+- Takes the most important surface to world-class first — the reference slice everything else is judged against
+- Implements with token values only — a bundled lint script fails arbitrary values, off-scale spacing, and raw colors (`var(--token)` references pass)
+- Screenshots light/dark at desktop and mobile widths (handles class-based dark mode), then critiques against a 12-point taste rubric
 - Loops fix → re-screenshot → re-critique until clean, never relaxing a rule to pass
-- Promotes reusable components into `PATTERNS.md` so the system compounds
-- Stops at a human gate and logs the verdict verbatim to `DECISIONS.md`
+- Promotes reusable components into `PATTERNS.md`, prunes unused tokens, and logs every human verdict verbatim to `DECISIONS.md` so the system compounds
 
 **When it triggers:**
 
-When you write `/design-loop`, ask to run the design loop, redesign a screen against the system, or advance work tracked in `UI_RULES.md`, `tokens.json`, `PATTERNS.md`, `DECISIONS.md`, or `BACKLOG.md`. One surface per session — the git history becomes the audit trail.
+When you write `/design-loop`, ask to run the design loop, bootstrap a design system for an app, redesign a screen against the system, or advance work tracked in `POV.md`, `UI_RULES.md`, `tokens.json`, `PATTERNS.md`, `DECISIONS.md`, or `BACKLOG.md`. One surface per session — the git history becomes the audit trail.
 
 **Browse:** [skills.sh/brijr/skills/design-loop](https://skills.sh/brijr/skills/design-loop)

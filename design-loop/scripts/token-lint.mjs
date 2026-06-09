@@ -19,7 +19,8 @@ const RULES = [
   {
     id: "arbitrary-tailwind",
     // p-[13px], text-[#333], gap-[7px], w-[342px], etc.
-    re: /\b(?:[mwhpgxy]|min|max|inset|top|left|right|bottom|gap|space|text|leading|tracking|rounded|shadow|border|translate|scale|rotate|bg|fill|stroke|grid-cols|grid-rows|basis)[a-z-]*-\[[^\]]+\]/,
+    // Token-backed references are fine: w-[var(--sidebar-width)], bg-[--brand]
+    re: /\b(?:[mwhpgxy]|min|max|inset|top|left|right|bottom|gap|space|text|leading|tracking|rounded|shadow|border|translate|scale|rotate|bg|fill|stroke|grid-cols|grid-rows|basis)[a-z-]*-\[(?!var\(--|--)[^\]]+\]/,
     why: "arbitrary Tailwind value bypasses the scale — use a token-backed utility",
   },
   {
@@ -29,14 +30,14 @@ const RULES = [
     why: "raw hex color — reference a color token instead",
   },
   {
-    id: "raw-rgb-hsl",
-    re: /\b(?:rgb|rgba|hsl|hsla)\(\s*\d/,
-    why: "raw rgb/hsl color — reference a color token instead",
+    id: "raw-color-fn",
+    re: /\b(?:rgb|rgba|hsl|hsla|oklch|oklab|lch|lab)\(\s*[\d.]/,
+    why: "raw color function — reference a color token instead",
   },
   {
     id: "inline-px",
     // style={{ padding: '13px' }} / style="margin: 11px" — off-scale inline pixels
-    re: /style\s*=\s*[{"][^}"]*?\b\d+px\b/,
+    re: /style\s*=\s*[{"][^}]*?\b\d+px\b/,
     why: "inline px in a style attribute — move to a token-backed class",
   },
   {
@@ -62,7 +63,8 @@ for (const file of files) {
     console.error(`skip (unreadable): ${file}`);
     continue;
   }
-  if (file.endsWith("tokens.json")) continue; // tokens are allowed to define raw values
+  // token definition files are allowed to hold raw values
+  if (file.endsWith("tokens.json") || file.endsWith("tokens.css")) continue;
 
   const lines = text.split("\n");
   let disabledNext = null;
@@ -75,6 +77,10 @@ for (const file of files) {
     }
     const skip = disabledNext;
     disabledNext = null;
+
+    // CSS custom-property definitions ARE token definitions (Tailwind v4
+    // @theme blocks, :root ramps) — raw values are allowed where tokens are born
+    if (/^\s*--[\w-]+\s*:/.test(line)) return;
 
     for (const rule of RULES) {
       if (skip === rule.id) continue;

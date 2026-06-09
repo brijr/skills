@@ -30,8 +30,20 @@ try {
       colorScheme: scheme,
       deviceScaleFactor: 2,
     });
+    // next-themes and friends read a persisted theme before first paint
+    await ctx.addInitScript((s) => {
+      try {
+        localStorage.setItem("theme", s);
+      } catch {}
+    }, scheme);
     const page = await ctx.newPage();
     await page.goto(url, { waitUntil: "networkidle" });
+    // class-based dark mode (Tailwind `dark:` via .dark on <html>) ignores
+    // prefers-color-scheme — set it explicitly so dark shots are actually dark
+    await page.evaluate((s) => {
+      document.documentElement.classList.toggle("dark", s === "dark");
+      document.documentElement.style.colorScheme = s;
+    }, scheme);
     // settle: webfonts, lazy images, layout shift
     await page.waitForTimeout(400);
     const out = join(outDir, `${name}.png`);
