@@ -1,6 +1,6 @@
 ---
 name: calm-ui
-description: Apply a restrained, Swiss/Japanese/Scandinavian/German-influenced product design system when building or refining UI in React, Next.js, TypeScript, and shadcn/ui. Use when the user asks to build, refine, critique, redesign, or review a page, screen, component, form, table, dashboard, layout, or other frontend interface, especially in projects using shadcn/ui. Do not use for marketing sites, landing pages, non-UI work, or requests for bold, playful, maximalist, or otherwise expressive aesthetics.
+description: Apply a restrained, Swiss/Japanese/Scandinavian/German-influenced product design system when building or refining UI in React, Next.js, TypeScript, and shadcn/ui — the stack-specific binding of the ui-principles core, with concrete numbers. Use when the user asks to build, refine, critique, redesign, or review a page, screen, component, form, table, dashboard, layout, or other frontend interface in a React, Next.js, TypeScript, or shadcn/ui project. For stacks without React/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates), use ui-principles instead. Do not use for marketing sites, landing pages, non-UI work, or requests for bold, playful, maximalist, or otherwise expressive aesthetics.
 ---
 
 # calm-ui — restrained product design system
@@ -9,6 +9,7 @@ This skill is an opinionated constraint system for product UI in React, Next.js,
 
 ## Relationship to adjacent UI skills
 
+- `ui-principles` is the framework-agnostic core of this aesthetic — rules, not numbers. `calm-ui` is its React/Next.js/shadcn binding with the numbers filled in. On stacks without React/shadcn, use `ui-principles`; the two never disagree.
 - `calm-ui` owns visual/interface constraints: spacing, hierarchy, component refinement, tokens, density, responsive rhythm, and shadcn adaptation.
 - `product-design` owns the product critique for existing screens, flows, forms, dashboards, and workflows. If the question is whether the experience solves the right user problem, use `product-design` first.
 - `craft-ds` owns generating or maintaining `components/ds.tsx` layout primitives and prose typography. Do not use `calm-ui` to create that artifact from scratch.
@@ -16,7 +17,7 @@ This skill is an opinionated constraint system for product UI in React, Next.js,
 ## Non-negotiables
 
 1. **Restraint over expression.** Prefer reduction and clarity over visual novelty.
-2. **Minimal typography variance.** Hierarchy comes from weight, spacing, placement, alignment, grouping, density, and contrast — not type size jumps.
+2. **Minimal typography variance.** Hierarchy escalates space → color → weight → size: size is the last lever and the rarest — body plus one deliberate statement size (the page title), never scattered one-off sizes or multi-step jumps. Below the statement, hierarchy comes from weight, spacing, placement, alignment, grouping, density, and contrast.
 3. **Calm over busy.** Interfaces feel quiet and easy to scan.
 4. **Structure over decoration.** Layout, spacing, and rhythm before visual chrome.
 5. **System over one-offs.** Repeated elements follow one consistent pattern.
@@ -35,8 +36,8 @@ This skill is an opinionated constraint system for product UI in React, Next.js,
 
 ### Typography
 
-- Tight type scale with minimal size variance
-- Hierarchy from weight, spacing, placement — not dramatic scaling
+- Tight type scale: body does most of the work, plus one deliberate statement size for the page's top moments — and use it; a page where nothing is larger reads as undifferentiated, not calm
+- Below the statement size, hierarchy from weight, spacing, placement — escalate space → color → weight → size and stop as soon as the level reads
 - Headings restrained, body text readable and consistent, labels understated
 - Prefer tighter tracking and line height while maintaining legibility
 
@@ -50,8 +51,8 @@ This skill is an opinionated constraint system for product UI in React, Next.js,
 ### Interaction
 
 - Subtle hover/focus/selected/loading/disabled states
-- Smooth transitions, never flashy
-- Motion reinforces calmness
+- Hover transitions affect color/background only — never opacity, transform, scale, or shadow on hover
+- Motion elsewhere (dialogs, panels) is brief and subtle; it reinforces calmness, never announces itself
 
 ### Icons
 
@@ -296,7 +297,7 @@ Do not jump ahead. If you are about to write JSX without a clear answer to steps
 Answer yes to each before finishing. If any is no, revise.
 
 - Does this feel calm at first glance, or busy?
-- Is hierarchy coming from spacing, weight, and alignment — not type size jumps?
+- Is hierarchy built space → color → weight → size — body plus one deliberate statement size, no scattered sizes?
 - Is there a clear primary action per screen, row, or card?
 - Does every badge, border, divider, and card earn its place?
 - Does the UI read in grayscale? Does it still read in dark mode grayscale?

@@ -11,7 +11,7 @@ Build interfaces that feel calm, restrained, structured, spacious, precise, huma
 ## Non-negotiables
 
 1. **Restraint over expression.** Prefer reduction and clarity over visual novelty.
-2. **Minimal typography variance.** Hierarchy from weight, spacing, placement, alignment, grouping, density, and contrast — not type size jumps.
+2. **Minimal typography variance.** Hierarchy escalates space → color → weight → size: body plus one deliberate statement size, never scattered one-off sizes. Below the statement, hierarchy from weight, spacing, placement, alignment, grouping, density, and contrast.
 3. **Calm over busy.** Interfaces feel quiet and easy to scan.
 4. **Structure over decoration.** Layout, spacing, and rhythm before visual chrome.
 5. **System over one-offs.** Repeated elements follow one consistent pattern.
@@ -61,7 +61,7 @@ Do not produce:
 ## Pre-ship checklist
 
 - Calm at first glance?
-- Hierarchy from spacing and weight, not type size?
+- Hierarchy built space → color → weight → size — body plus one deliberate statement size, no scattered sizes?
 - One clear primary action per screen?
 - Every badge/border/card earns its place?
 - Reads in grayscale in both light and dark mode?

@@ -56,7 +56,7 @@ Review the layout structure. Focus on spacing, grouping, and alignment before an
 ### Typography pass
 
 ```
-Review the typography hierarchy. It should use minimal variation in font sizing — hierarchy comes from weight, spacing, placement, alignment, and contrast between primary and secondary text. Flag: oversized headings, random font sizes, too many weights, dramatic scaling.
+Review the typography hierarchy. Body should carry the page with one deliberate statement size for its top moments — below that, hierarchy comes from weight, spacing, placement, alignment, and contrast between primary and secondary text. Flag: scattered one-off sizes, multi-step size jumps, too many weights, weight standing in for the statement size.
 ```
 
 ### Component unification pass
@@ -80,7 +80,7 @@ Refine the color system so the interface works primarily in neutral tones with r
 ### Interaction pass
 
 ```
-Review hover, focus, selected, loading, and disabled states. They should be subtle, clear, and consistent across all components. Motion should feel smooth and modern but never flashy or playful.
+Review hover, focus, selected, loading, and disabled states. They should be subtle, clear, and consistent across all components. Hover transitions affect color/background only — no opacity, transform, scale, or shadow on hover; other motion stays brief and subtle.
 ```
 
 ### Final premium pass
@@ -128,6 +128,6 @@ Use these as suffixes or quick context injections.
 |---|---|
 | **Ultra-short** | `Calm, restrained product system. Minimal typography variance. Swiss/Japanese/Scandinavian/German design.` |
 | **Anti-pattern reminder** | `Avoid: generic dashboard energy, default shadcn styling, excessive cards, loud accents, heavy shadows, large type jumps.` |
-| **Hierarchy rule** | `Create hierarchy through weight, spacing, placement, and alignment — not type size.` |
+| **Hierarchy rule** | `Hierarchy escalates space → color → weight → size — body plus one deliberate statement size, never scattered sizes.` |
 | **Neutral check** | `This should work in grayscale before accent color is added.` |
 | **Tone check** | `This should feel authored, not templated. Human, not corporate. Quiet, not busy.` |

@@ -1,6 +1,6 @@
 ---
 name: ui-principles
-description: Implements a calm, restrained UI system built on seventeen principles — one alignment spine, deliberate symmetric padding, a deliberate two-size type hierarchy built from space/color/weight/size, rare color, honest interactive states, and designed empty/loading/error states. Use when building, refining, or reviewing a page, component, form, table, dashboard, layout, or screen and the user wants the "calm confidence" / Principles of UI Design aesthetic, or invokes /ui-principles. Do not use for bold, playful, maximalist, or marketing-splash designs.
+description: The framework-agnostic core of a calm, restrained UI system — rules, not numbers — built on seventeen principles: one alignment spine, deliberate symmetric padding, hierarchy built space → color → weight → size, rare color, honest interactive states, and designed empty/loading/error states. Use when building, refining, or reviewing a page, component, form, table, dashboard, layout, or screen on a stack WITHOUT React/Next.js/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates), or when the user invokes /ui-principles by name or asks for framework-agnostic UI principles. For React, Next.js, TypeScript, or shadcn/ui projects, use calm-ui — the stack-specific binding of these same principles with concrete numbers. Do not use for bold, playful, maximalist, or marketing-splash designs.
 ---
 
 # UI Principles
@@ -8,6 +8,10 @@ description: Implements a calm, restrained UI system built on seventeen principl
 A restrained product UI system. The aesthetic is **calm confidence** — good UI lasts and stays out of the way. If a piece feels like it's trying to impress, it has failed. Full source text and the "why" behind each rule: [PRINCIPLES.md](PRINCIPLES.md). Worked before/after patterns: [EXAMPLES.md](EXAMPLES.md).
 
 This skill enforces **rules, not numbers.** It does not ship a type scale, palette, spacing scale, or radius. Each project defines its own values — the skill makes sure those values are used with discipline. Where a project already has tokens (CSS variables, a Tailwind theme, a design system), bind to those; never hardcode a one-off.
+
+## Relationship to calm-ui
+
+This skill is the framework-agnostic core; `calm-ui` is its React/Next.js/shadcn binding — the same aesthetic with the numbers filled in (type-scale ceilings, radius values, component recipes). On those stacks, use `calm-ui`; everywhere else, use this skill. The two state the same positions: hierarchy escalates space → color → weight → size with body plus one deliberate statement size, and hover transitions touch color/background only.
 
 ## Order of attention
 
