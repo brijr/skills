@@ -36,6 +36,33 @@ When you build, refine, or review the visual/interface layer of a React, Next.js
 
 **Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)
 
+## ui-principles
+
+A calm, restrained UI system skill built on seventeen Principles of UI Design. Enforces one alignment spine, deliberate symmetric padding, disciplined hierarchy through space/color/weight/size, rare color, honest interactive states, and designed empty/loading/error states.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill ui-principles
+```
+
+**What it does:**
+
+- Applies the "calm confidence" aesthetic to pages, components, forms, tables, dashboards, layouts, and screens
+- Fixes in priority order: alignment, padding, hierarchy, color, then motion
+- Keeps project tokens as the source of truth instead of hardcoding a one-off scale, palette, spacing system, or radius
+- Preserves type hierarchy through space, color, weight, and deliberate size choices
+- Designs empty, loading, error, disabled, hover, focus, and active states as first-class UI
+- Includes principles and worked before/after examples for reviewing and refining interfaces
+
+**When it triggers:**
+
+When you write `/ui-principles`, ask for the Principles of UI Design aesthetic, or want a calm, restrained pass on a page, component, form, table, dashboard, layout, or screen. Use `product-design` first when the question is whether the product flow solves the right problem; use `calm-ui` when you specifically want the broader Swiss/Japanese/Scandinavian/German product UI system for React, Next.js, TypeScript, or shadcn/ui.
+
+**Browse:** [skills.sh/brijr/skills/ui-principles](https://skills.sh/brijr/skills/ui-principles)
+
+---
+
 ## product-design
 
 A product design critique and implementation skill for existing product experiences. Grounds in screenshots, routes, browser state, code, docs, and product context; critiques through *The Design of Everyday Things* and UX principles; proposes a concrete implementation plan; then waits for approval before editing.
