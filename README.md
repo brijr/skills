@@ -7,10 +7,10 @@ Claude Code skills for building restrained, high-quality product interfaces and 
 To install every skill in this repository:
 
 ```sh
-for skill in calm-ui product-design pragmatic software-design write-goal explain clean-up review-pr thermo-nuclear-code-quality-review craft-ds; do
-  npx skills add brijr/skills --skill "$skill"
-done
+npx skills@latest add brijr/skills --skill '*'
 ```
+
+Use `--all` instead of `--skill '*'` to install every skill for every supported agent without prompts.
 
 ## calm-ui
 
