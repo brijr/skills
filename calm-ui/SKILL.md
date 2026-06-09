@@ -13,6 +13,7 @@ This skill is an opinionated constraint system for product UI in React, Next.js,
 - `calm-ui` owns visual/interface constraints: spacing, hierarchy, component refinement, tokens, density, responsive rhythm, and shadcn adaptation.
 - `product-design` owns the product critique for existing screens, flows, forms, dashboards, and workflows. If the question is whether the experience solves the right user problem, use `product-design` first.
 - `craft-ds` owns generating or maintaining `components/ds.tsx` layout primitives and prose typography. Do not use `calm-ui` to create that artifact from scratch.
+- When a project runs the `design-loop` skill, these rules (especially the hard limits) can seed its `design/UI_RULES.md` — the constraint system the loop enforces surface by surface.
 
 ## Non-negotiables
 

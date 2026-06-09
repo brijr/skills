@@ -12,6 +12,7 @@ This skill enforces a specific approach to building design systems: one file, se
 - `craft-ds` owns the `components/ds.tsx` contract: layout primitives, prose typography, semantic HTML, one-file discipline, and `cn()` escape hatches.
 - `calm-ui` owns the restrained product interface language for shadcn/ui components and visual refinement. Use its token constraints when choosing defaults, but do not recreate shadcn components in `ds.tsx`.
 - `product-design` owns product/UX critique for existing experiences. Only reach for `craft-ds` from that workflow when the approved plan needs a design-system artifact.
+- When a project runs the `design-loop` skill, `ds.tsx` primitives belong in its `design/PATTERNS.md` index, and this file's defaults should trace to the loop's `design/tokens.json`.
 
 Inspired by [craft-ds](https://github.com/brijr/craft). Read every rule before generating `ds.tsx`. Every rule is testable — you should be able to look at the file and answer yes/no.
 

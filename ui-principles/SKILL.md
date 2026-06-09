@@ -13,6 +13,8 @@ This skill enforces **rules, not numbers.** It does not ship a type scale, palet
 
 This skill is the framework-agnostic core; `calm-ui` is its React/Next.js/shadcn binding — the same aesthetic with the numbers filled in (type-scale ceilings, radius values, component recipes). On those stacks, use `calm-ui`; everywhere else, use this skill. The two state the same positions: hierarchy escalates space → color → weight → size with body plus one deliberate statement size, and hover transitions touch color/background only.
 
+When a project runs the `design-loop` skill, these seventeen principles can seed its `design/UI_RULES.md` — the loop turns them into per-project rules with the project's own numbers.
+
 ## Order of attention
 
 Fix in this sequence — earlier wins beat later polish. **Alignment → padding → hierarchy → color → motion.** Most "off" layouts are a spine break or padding asymmetry, not a missing color.
