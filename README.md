@@ -269,3 +269,30 @@ npx skills add brijr/skills --skill craft-ds
 Any time you create or maintain `components/ds.tsx`, set up layout primitives, or build a prose typography system. Use `calm-ui` for shadcn/component visual refinement and `product-design` for product/UX critique of an existing experience.
 
 **Browse:** [skills.sh/brijr/skills/craft-ds](https://skills.sh/brijr/skills/craft-ds)
+
+---
+
+## design-loop
+
+An AI design-engineer loop skill. Runs one iteration on one UI surface — implement against the project's constraint system, screenshot, critique, fix until clean, promote reusable patterns — then stops at a human review gate. Taste lives in your repo's `design/` files; the skill is the procedure that applies it.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill design-loop
+```
+
+**What it does:**
+
+- Reads `design/{UI_RULES.md,tokens.json,PATTERNS.md,DECISIONS.md,BACKLOG.md}` and picks the top backlog surface
+- Implements with token values only — a bundled lint script fails any arbitrary value, off-scale spacing, or non-token color
+- Screenshots light/dark at desktop and mobile widths, then critiques against a 12-point taste rubric
+- Loops fix → re-screenshot → re-critique until clean, never relaxing a rule to pass
+- Promotes reusable components into `PATTERNS.md` so the system compounds
+- Stops at a human gate and logs the verdict verbatim to `DECISIONS.md`
+
+**When it triggers:**
+
+When you write `/design-loop`, ask to run the design loop, redesign a screen against the system, or advance work tracked in `UI_RULES.md`, `tokens.json`, `PATTERNS.md`, `DECISIONS.md`, or `BACKLOG.md`. One surface per session — the git history becomes the audit trail.
+
+**Browse:** [skills.sh/brijr/skills/design-loop](https://skills.sh/brijr/skills/design-loop)
