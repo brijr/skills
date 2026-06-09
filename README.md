@@ -14,7 +14,7 @@ Use `--all` instead of `--skill '*'` to install every skill for every supported 
 
 ## calm-ui
 
-An opinionated visual/interface system skill for React, Next.js, TypeScript, and shadcn/ui. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
+An opinionated visual/interface system skill for React, Next.js, TypeScript, and shadcn/ui — the stack-specific binding of the `ui-principles` core, with the numbers filled in. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
 
 **Install:**
 
@@ -25,20 +25,20 @@ npx skills add brijr/skills --skill calm-ui
 **What it does:**
 
 - Applies restrained design constraints when building pages, components, forms, tables, and dashboards
-- Hierarchy through spacing, weight, and alignment — not type size jumps
+- Hierarchy built space → color → weight → size — body plus one deliberate statement size, never scattered jumps
 - Neutral-first color system with semantic accents
 - Prevents generic SaaS dashboard energy and default shadcn styling
 - Includes a prompt library for build, refinement, and critique workflows
 
 **When it triggers:**
 
-When you build, refine, or review the visual/interface layer of a React, Next.js, TypeScript, or shadcn/ui product. Use `product-design` first when the question is whether an existing screen or flow solves the right user problem; use `craft-ds` when creating `components/ds.tsx`.
+When you build, refine, or review the visual/interface layer of a React, Next.js, TypeScript, or shadcn/ui product. On stacks without React/shadcn, use `ui-principles` — the framework-agnostic core of the same aesthetic. Use `product-design` first when the question is whether an existing screen or flow solves the right user problem; use `craft-ds` when creating `components/ds.tsx`. These rules can also seed `design/UI_RULES.md` for the `design-loop` skill.
 
 **Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)
 
 ## ui-principles
 
-A calm, restrained UI system skill built on seventeen Principles of UI Design. Enforces one alignment spine, deliberate symmetric padding, disciplined hierarchy through space/color/weight/size, rare color, honest interactive states, and designed empty/loading/error states.
+The framework-agnostic core of the calm, restrained UI system — rules, not numbers — built on seventeen Principles of UI Design. Enforces one alignment spine, deliberate symmetric padding, disciplined hierarchy through space/color/weight/size, rare color, honest interactive states, and designed empty/loading/error states. `calm-ui` is its React/Next.js/shadcn binding.
 
 **Install:**
 
@@ -57,7 +57,7 @@ npx skills add brijr/skills --skill ui-principles
 
 **When it triggers:**
 
-When you write `/ui-principles`, ask for the Principles of UI Design aesthetic, or want a calm, restrained pass on a page, component, form, table, dashboard, layout, or screen. Use `product-design` first when the question is whether the product flow solves the right problem; use `calm-ui` when you specifically want the broader Swiss/Japanese/Scandinavian/German product UI system for React, Next.js, TypeScript, or shadcn/ui.
+When you write `/ui-principles`, ask for framework-agnostic UI principles, or want a calm, restrained pass on a stack without React/Next.js/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates). On React/Next.js/shadcn projects, use `calm-ui` — the binding of these same principles with concrete numbers; the two never disagree. Use `product-design` first when the question is whether the product flow solves the right problem. These principles can also seed `design/UI_RULES.md` for the `design-loop` skill.
 
 **Browse:** [skills.sh/brijr/skills/ui-principles](https://skills.sh/brijr/skills/ui-principles)
 
@@ -83,7 +83,7 @@ npx skills add brijr/skills --skill product-design
 
 **When it triggers:**
 
-When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience. It owns product intent and critique; use `calm-ui` for visual execution constraints and `craft-ds` only when the approved plan needs `components/ds.tsx`.
+When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience. It owns product intent and critique; use `calm-ui` for visual execution constraints and `craft-ds` only when the approved plan needs `components/ds.tsx`. Findings can also seed `design/POV.md` for the `design-loop` skill.
 
 **Browse:** [skills.sh/brijr/skills/product-design](https://skills.sh/brijr/skills/product-design)
 
@@ -107,7 +107,7 @@ npx skills add brijr/skills --skill pragmatic
 
 **When it triggers:**
 
-When you want pragmatic build discipline for a standalone feature, throwaway prototype, spike, script, endpoint, module, or system. For feature work inside an existing codebase, use `software-design`.
+When you want pragmatic build discipline for a standalone feature, throwaway prototype, spike, script, endpoint, module, or system. For feature work inside an existing codebase, use `software-design` — it carries the same build discipline (intentionally duplicated, since skills install standalone).
 
 **Browse:** [skills.sh/brijr/skills/pragmatic](https://skills.sh/brijr/skills/pragmatic)
 
@@ -133,7 +133,7 @@ npx skills add brijr/skills --skill software-design
 
 **When it triggers:**
 
-Any time you add, implement, build, or scaffold a new feature, endpoint, module, route, component, hook, or system in an existing codebase. This is the canonical existing-codebase feature skill; use `pragmatic` only for greenfield/prototype work with no architecture to inspect. Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
+Any time you add, implement, build, or scaffold a new feature, endpoint, module, route, component, hook, or system in an existing codebase. This is the canonical existing-codebase feature skill; use `pragmatic` only for greenfield/prototype work with no architecture to inspect (its build discipline is intentionally duplicated here, since skills install standalone). Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
 
 **Browse:** [skills.sh/brijr/skills/software-design](https://skills.sh/brijr/skills/software-design)
 
@@ -222,7 +222,7 @@ Right after you finish a change and want it integrated cleanly — "clean this u
 
 ## review-pr
 
-A senior-engineer release review skill for pull requests. Grounds review, explanation, verification, UI preview, merge readiness, and post-merge planning in live git/GitHub state, targeted tests, and real browser smoke when UI is involved.
+A ship-a-PR skill that takes a pull request the last mile. Owns the release path — live PR state, verification on the PR head, real-browser UI smoke, merge readiness, merge, and post-merge production verification — and defers line-by-line diff review to your agent's built-in review commands, folding their findings into the readiness verdict.
 
 **Install:**
 
@@ -232,16 +232,16 @@ npx skills add brijr/skills --skill review-pr
 
 **What it does:**
 
-- Confirms local workspace, PR base/head, and live GitHub state before reviewing
-- Leads with blocking code review findings tied to file and line evidence
+- Confirms local workspace, PR base/head, and live GitHub state before anything else
+- Surfaces release-blocking findings only — behavior, permissions, migrations, data safety, irreversible operations — and folds in built-in review results
 - Explains product impact, deploy implications, migrations, env/config, queues, cron, and release-note needs
 - Verifies on the PR head with targeted tests, diff checks, and package-aware commands
-- Uses real preview/local browser smoke for UI flows and reports auth blockers plainly
-- Documents merge readiness and post-merge production verification steps
+- Smokes UI with whatever browser capability the session has, using real screenshots only — never mockups or synthetic images — and reports auth blockers plainly
+- Documents merge readiness, merges when clear, and verifies migrations/CI/deploy/production smoke after merge
 
 **When it triggers:**
 
-When you ask to review, explain, prepare, merge, smoke test, choose, or get ready to ship a pull request, especially by PR number.
+When you ask to prepare, verify, smoke test, merge, ship, or get a pull request ready or live, especially by PR number. For line-by-line code review of the diff itself, use your agent's built-in review command first.
 
 **Browse:** [skills.sh/brijr/skills/review-pr](https://skills.sh/brijr/skills/review-pr)
 
@@ -293,7 +293,7 @@ npx skills add brijr/skills --skill craft-ds
 
 **When it triggers:**
 
-Any time you create or maintain `components/ds.tsx`, set up layout primitives, or build a prose typography system. Use `calm-ui` for shadcn/component visual refinement and `product-design` for product/UX critique of an existing experience.
+Any time you create or maintain `components/ds.tsx`, set up layout primitives, or build a prose typography system. Use `calm-ui` for shadcn/component visual refinement and `product-design` for product/UX critique of an existing experience. In projects running the `design-loop` skill, `ds.tsx` primitives index into `design/PATTERNS.md`.
 
 **Browse:** [skills.sh/brijr/skills/craft-ds](https://skills.sh/brijr/skills/craft-ds)
 
