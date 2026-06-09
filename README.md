@@ -12,6 +12,48 @@ npx skills@latest add brijr/skills --skill '*'
 
 Use `--all` instead of `--skill '*'` to install every skill for every supported agent without prompts.
 
+## Which skill, when
+
+Skills fire three ways: you type `/name`, your agent matches your phrasing against the skill's description, or a CLAUDE.md rule forces one. Recommended: add a global CLAUDE.md rule that auto-triggers `software-design` whenever you say "add / implement / build X" in an existing codebase — it's the skill you want firing without having to remember it.
+
+### Writing code
+
+- **New feature in an existing codebase** → `software-design`. Explores first, proposes two designs, and stops for your approval before any code. Your job is the gate.
+- **Greenfield, prototype, spike, or script** → `pragmatic`. Same build discipline, no design gate — there's no architecture to inspect. If the feature must live inside existing code, it's `software-design`; never stack both.
+- **A change just landed and works** → `clean-up`. Freezes scope to the diff, proposes a checklist, waits for approval, never changes behavior. The natural last step of a feature session.
+- **Behavior is right but the structure feels worse** → `thermo-nuclear-code-quality-review`. Explicit invoke only; it hunts for deletions, not additions.
+
+### Working on UI
+
+| You're asking… | Use |
+|---|---|
+| "Is this screen even the right experience?" | `product-design` |
+| "Make this look right" (React/Next.js/shadcn) | `calm-ui` |
+| Same question, any other stack | `ui-principles` |
+| "Set up layout primitives / `ds.tsx`" | `craft-ds` |
+| "Redesign this whole product, properly" | `design-loop` |
+
+Order of operations: `product-design` before `calm-ui` — product intent first, visual execution second. `calm-ui` and `ui-principles` are the same aesthetic (one is the React/shadcn binding, one the framework-agnostic core), so the stack picks for you.
+
+`design-loop` is an engagement, not a pass: the first run bootstraps a `design/` constraint system from your codebase and stops for the highest-leverage step — you editing the generated `UI_RULES.md`. Every later run takes one surface through implement → screenshot → critique → fix → your verdict at a human gate. One surface per session; git is the audit trail.
+
+### Shipping
+
+- **"Get PR #42 ready / merge it / is it safe?"** → `review-pr`. It owns the release path — live PR state, tests on the PR head, real-screenshot UI smoke, merge readiness, post-merge verification. Run your agent's built-in diff review first; `review-pr` folds those findings into its verdict.
+
+### Meta
+
+- **Handing an agent a long, multi-step objective** → `write-goal`. Produces goal text with an auditable finish line, ready for a native goal command or as a portable prompt block.
+- **You want to understand, not just have it done** → `explain`. A mastery loop (restate → teach → quiz) — heavier than asking a question, worth it when you want to be tested.
+
+### Recipes
+
+1. **Feature day:** "add X" (`software-design`) → approve a design → build → `clean-up` → built-in code review → `review-pr` to ship.
+2. **UI improvement:** `product-design` critique → approve the plan → `calm-ui` constraints govern the implementation → `clean-up`.
+3. **Product redesign:** `design-loop` bootstrap → edit `UI_RULES.md` → one `/design-loop` per session until the backlog is done.
+
+Common mistakes: invoking `pragmatic` inside an existing codebase (`software-design` already contains it), using `calm-ui` for marketing pages (product UI only), running `design-loop` for a one-off tweak (`calm-ui` is the right size), and treating `review-pr` as a code reviewer (it's a shipper).
+
 ## calm-ui
 
 An opinionated visual/interface system skill for React, Next.js, TypeScript, and shadcn/ui — the stack-specific binding of the `ui-principles` core, with the numbers filled in. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
