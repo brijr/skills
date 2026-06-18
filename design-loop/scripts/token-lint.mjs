@@ -25,7 +25,7 @@ const RULES = [
   },
   {
     id: "raw-hex-color",
-    // #fff, #ffffff, #ffffffff outside tokens.json (this script is never run on tokens.json)
+    // #fff, #ffffff, #ffffffff outside token definition files
     re: /#[0-9a-fA-F]{3,8}\b/,
     why: "raw hex color — reference a color token instead",
   },
@@ -64,7 +64,15 @@ for (const file of files) {
     continue;
   }
   // token definition files are allowed to hold raw values
-  if (file.endsWith("tokens.json") || file.endsWith("tokens.css")) continue;
+  if (
+    file.endsWith("/design.md") ||
+    file === "design.md" ||
+    file.endsWith("/design.dark.md") ||
+    file === "design.dark.md" ||
+    file.endsWith("tokens.css")
+  ) {
+    continue;
+  }
 
   const lines = text.split("\n");
   let disabledNext = null;

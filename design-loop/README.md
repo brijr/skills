@@ -1,14 +1,15 @@
 # design-loop
 
-A Claude Code skill that runs a complete design-engineering engagement, one session at a time — fully standalone. It bootstraps a constraint system from your codebase itself, then iterates one UI surface per session through an implement → screenshot → critique → fix loop that stops at a human review gate. Taste lives in your repo's `design/` files; this skill is the procedure that creates and applies them.
+A Claude Code skill that runs a complete design-engineering engagement, one session at a time — fully standalone. It bootstraps a Vercel-style `/design.md` contract from your codebase itself, then iterates one UI surface per session through brief → reference calibration → implement → screenshot → critique → bold revision → human review. Taste lives in `/design.md`; operational loop state lives under `design/`.
 
 ## The arc
 
-1. **Read before writing** — reads the codebase and product, writes a short point of view (`design/POV.md`)
-2. **Constraint system before screens** — derives `tokens.json`, `UI_RULES.md`, and `PATTERNS.md` from the values already in your code, wired into the Tailwind theme so the scale is enforced, not suggested
-3. **One vertical slice to world-class** — the most important surface goes all the way and becomes the reference implementation
-4. **Systematize outward** — the loop: one surface per session, patterns promoted into the library, unused tokens pruned, every verdict logged
-5. **Make yourself replaceable** — the rules, rubric, patterns, and decisions live in files; the constraint system is the deliverable
+1. **Read before writing** — reads the codebase, product, and current UI values
+2. **Contract before screens** — drafts `/design.md` with token frontmatter and human guidance
+3. **Quality target before code** — every surface gets a brief: user job, primary object, hierarchy, density, references, anti-references, and what to remove
+4. **One vertical slice to world-class** — the most important surface goes all the way and becomes the reference implementation
+5. **Systematize outward** — one surface per session, patterns promoted into `/design.md`, unused tokens pruned, every verdict logged
+6. **Make yourself replaceable** — the contract, rubric, decisions, briefs, and reviews live in files
 
 ## Install
 
@@ -26,23 +27,24 @@ The directory name `design-loop` becomes the `/design-loop` command. Restart Cla
 
 ## First run
 
-If your repo has no `design/` directory yet, the skill bootstraps one itself — no other skill required. It reads your codebase and product, writes `POV.md`, derives the constraint system from the values already in use, and stops for the single highest-leverage step: you editing the generated `UI_RULES.md`. After that:
+If your repo has no `/design.md` yet, the skill bootstraps one itself — no other skill required. It reads your codebase and product, drafts token frontmatter plus Markdown guidance, creates `design/BACKLOG.md` and `design/DECISIONS.md`, asks targeted taste questions, and stops for the single highest-leverage step: you editing `/design.md`. After that:
 
-```
-/design-loop                 # advance the top backlog surface
-/design-loop the settings page   # work a specific surface
+```text
+/design-loop                    # advance the top backlog surface
+/design-loop the settings page  # work a specific surface
 ```
 
 ## What one iteration does, in order
 
-1. Reads `design/{POV.md,UI_RULES.md,tokens.json,PATTERNS.md,DECISIONS.md,BACKLOG.md}`
+1. Reads `/design.md`, optional `/design.dark.md`, `design/BACKLOG.md`, and `design/DECISIONS.md`
 2. Picks a surface, marks it in-progress
-3. Implements against the tokens (no arbitrary values; `var(--token)` references are fine)
-4. Screenshots light/dark × desktop/mobile (handles class-based dark mode and next-themes)
-5. Critiques: mechanical token lint + 12-point taste rubric
-6. Fixes and re-loops until clean — never relaxing a rule to pass
-7. Promotes reusable patterns into `PATTERNS.md`, proposes pruning unused ones
-8. Stops, shows you the screenshots, asks for a verdict — then logs it verbatim to `DECISIONS.md`
+3. Writes `design/briefs/<surface>-<timestamp>.md` with the quality target and references
+4. Implements against the contract and the brief (no arbitrary values; `var(--token)` references are fine)
+5. Screenshots light/dark × desktop/mobile (handles class-based dark mode and next-themes)
+6. Critiques: mechanical token lint + 15-point taste rubric + design critique
+7. Makes one bold revision when the first pass is compliant but generic, noisy, or weakly structured
+8. Promotes reusable patterns into `/design.md`, proposes pruning unused ones
+9. Stops, shows you the screenshots, asks for a verdict — then logs it verbatim to `design/DECISIONS.md`
 
 One surface per session. Git history is the audit trail.
 
