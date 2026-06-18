@@ -1,72 +1,107 @@
-# Deriving the constraint system
+# Writing the `/design.md` contract
 
-How to produce `tokens.json`, `UI_RULES.md`, and `PATTERNS.md` from the codebase itself, standalone. Inputs: the Phase 1 value audit and `design/POV.md`. The system rationalizes what already exists, steered by the POV — it does not import an alien aesthetic.
+`/design.md` is the single canonical design contract. It combines machine-readable token data with human-readable product guidance, similar to Vercel's Geist design document.
 
-## 1. Rationalize the audit into scales
+Inputs: the bootstrap value audit, product read, existing component inventory, and any user-provided references.
 
-The audit found N distinct font sizes, spacing values, and colors. The system keeps far fewer. Collapse to the fewest steps that cover real use — every value you keep is a decision someone else never has to make again.
+## 1. Use this document shape
 
-- **Type:** 5–7 steps, each with a paired line-height and allowed weights. One body size, committed to ("body is 15px/1.6, never 14 or 16").
-- **Spacing:** one base unit (usually 4px), 8–10 steps. Off-scale values found in the audit map to the nearest kept step; the survivors become migration work for the loop, not exceptions to the scale.
-- **Color:** neutrals ramp first — most of the UI is neutrals. One accent, plus semantic colors (success / warning / danger). Name them semantically where it matters (`bg`, `fg`, `muted`, `border`, `accent`) on top of the raw ramp. Express values in whatever format the stack already uses (hex, oklch).
-- **Radius / shadow:** 2–3 of each plus `full`. More than that and elevation stops meaning anything.
-- **Motion:** 2–3 durations, 1–2 easings.
-- **Density** is a philosophy, not a token: a data tool is tight, a marketing page breathes. The POV decides; write the decision into `UI_RULES.md`.
+```md
+---
+version: alpha
+name: <Product Design System>
+description: <one-sentence product design direction>
+colors:
+  primary: "#171717"
+typography:
+  copy-14:
+    fontFamily: Inter
+    fontSize: 14px
+    fontWeight: 400
+    lineHeight: 20px
+spacing:
+  1: 4px
+rounded:
+  sm: 6px
+shadow:
+  low: "0 1px 2px rgba(0, 0, 0, 0.04)"
+motion:
+  fast: 120ms
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    typography: "{typography.button-14}"
+    rounded: "{rounded.sm}"
+---
 
-## 2. Write tokens.json
+# <Product>
 
-```json
-{
-  "type": {
-    "scale": {
-      "caption": { "size": "12px", "lineHeight": "1.4" },
-      "body":    { "size": "15px", "lineHeight": "1.6" },
-      "heading": { "size": "20px", "lineHeight": "1.3", "weight": 600 }
-    }
-  },
-  "space": { "base": "4px", "steps": [4, 8, 12, 16, 24, 32, 48, 64] },
-  "radius": { "sm": "4px", "md": "8px", "full": "9999px" },
-  "shadow": { "low": "…", "high": "…" },
-  "color": {
-    "neutral": { "50": "…", "900": "…" },
-    "semantic": { "bg": "…", "fg": "…", "muted": "…", "border": "…", "accent": "…" }
-  },
-  "motion": { "fast": "120ms", "slow": "240ms", "ease": "cubic-bezier(0.2, 0, 0, 1)" }
-}
+## Overview
+## Product Point Of View
+## Colors
+## Typography
+## Layout
+## Components
+## States
+## Motion
+## Voice & Content
+## Quality Bar
+## References
+## Anti-References
+## Do's and Don'ts
 ```
 
-Adapt the shape to the project; the contract is that every visual value the code uses traces back to this file.
+Adapt token names to the project. The contract is that every visual value used by implementation traces back to `/design.md` or optional `/design.dark.md`.
 
-## 3. Wire enforcement
+## 2. Rationalize the audit into scales
 
-The config should enforce the scale rather than suggest it:
-- **Tailwind v4:** define the tokens as custom properties in the `@theme` block, replacing (not extending) the default scales where the project allows it.
-- **Tailwind v3:** map tokens into `theme` (not `theme.extend`) so off-scale utilities don't exist.
-- The skill's `token-lint.mjs` is the backstop: arbitrary bracket values, raw colors, and inline px fail the mechanical gate. Custom-property definitions and `var(--…)` references pass — tokens have to be born somewhere.
+The audit found many distinct font sizes, spacing values, colors, and component dimensions. Keep fewer. Every value you keep is a decision someone else never has to make again.
 
-## 4. Write UI_RULES.md
+- **Type:** 5-8 named tokens, each with family, size, line height, weight, and letter spacing when needed. Separate single-line labels from multi-line copy if the product needs both.
+- **Spacing:** one base unit, usually 4px, with 8-10 named steps. Off-scale values found in the audit become migration work, not exceptions.
+- **Color:** neutrals first. Add one accent plus semantic colors for success, warning, danger, links, and focus when needed. Express values in the format the stack already uses.
+- **Radius / shadow:** 2-3 of each plus `full`. More than that and shape/elevation stop meaning anything.
+- **Motion:** 2-3 durations and 1-2 easings. State when motion should be avoided.
+- **Components:** write ready-to-use defaults for common controls: buttons, inputs, cards, menus, dialogs, tables, and empty states when they exist.
 
-Rules as enforceable specifics, not vibes. Each rule must be checkable from a screenshot or a grep.
+If dark-mode values materially differ, create `/design.dark.md` using the same token names with dark values. If dark mode can be described as usage guidance over the same tokens, keep it in `/design.md`.
 
-- Good: "Body text is 15px/1.6. Never 14 or 16."
-- Bad: "Prefer readable type."
+## 3. Write enforceable guidance
 
-Sections: Type, Spacing & density, Color, Layout, Components, States, Dark mode, Motion. Seed 3–6 rules per section from the POV and the audit. Then hand it to the human — their edit of this file is the highest-leverage hour in the engagement (see `bootstrap.md`).
+Rules must be specific enough to verify from a screenshot or grep.
 
-## 5. Write PATTERNS.md
+Good:
+- "Data tables use 36px rows and `copy-13` unless the content is prose."
+- "Only the primary action on a view may use a solid accent fill."
 
-Record what exists; don't invent. At bootstrap this is an index of the components already in the codebase:
+Bad:
+- "Prefer readable type."
+- "Use tasteful spacing."
 
-```
-## EmptyState
-When: any list/table/collection that can be empty.
-Where: components/empty-state.tsx
-Do: one-line explanation + primary action.
-Don't: bare "No items found" text.
-```
+Include these sections:
 
-New patterns are added by the loop's promote step (step 6), never speculatively. If a pattern entry goes unused across several surfaces, the loop proposes deleting it.
+- **Overview:** one paragraph on what the product should feel like.
+- **Product Point Of View:** what the product wants to be visually, what currently fights that, and the attack order.
+- **Colors:** token intent and how color carries meaning.
+- **Typography:** where each type token is allowed.
+- **Layout:** density, spacing rhythm, columns, alignment, responsive rules.
+- **Components:** component defaults and do/don't notes for patterns already present.
+- **States:** empty, loading, error, disabled, hover, focus, active, overflow.
+- **Motion:** when motion clarifies change and when it is forbidden.
+- **Voice & Content:** labels, button text, errors, toasts, empty states, loading copy.
+- **Quality Bar:** what "done" means for screenshots and reviews.
+- **References / Anti-References:** concrete products or screens and the exact qualities to borrow or avoid.
+- **Do's and Don'ts:** short bullets agents can apply during implementation.
 
-## The test
+## 4. Wire enforcement
 
-A mediocre contributor — or a fresh agent session with no memory of this conversation — following these files produces decent UI without supervision. If the same judgment call keeps coming up during the loop, that's a missing rule: promote it into `UI_RULES.md`.
+The project config should enforce the contract rather than merely suggest it:
+
+- Tailwind v4: define contract values as custom properties in the `@theme` block where the project allows it.
+- Tailwind v3: map contract values into `theme` rather than extending broad defaults when feasible.
+- CSS-only stacks: expose contract values as CSS custom properties.
+- The skill's `token-lint.mjs` is the backstop: arbitrary bracket values, raw colors, and inline px fail the mechanical gate unless they live in `/design.md`, `/design.dark.md`, CSS token definitions, or token-backed `var(...)` references.
+
+## 5. Keep the contract alive
+
+New reusable patterns are added during the loop's promote step, not speculatively. If the same judgment call keeps coming up during reviews, the contract is missing a rule. Promote that decision into `/design.md` so the agent gets it right unprompted next time.

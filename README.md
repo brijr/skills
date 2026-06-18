@@ -35,7 +35,7 @@ Skills fire three ways: you type `/name`, your agent matches your phrasing again
 
 Order of operations: `product-design` before `calm-ui` — product intent first, visual execution second. `calm-ui` and `ui-principles` are the same aesthetic (one is the React/shadcn binding, one the framework-agnostic core), so the stack picks for you.
 
-`design-loop` is an engagement, not a pass: the first run bootstraps a `design/` constraint system from your codebase and stops for the highest-leverage step — you editing the generated `UI_RULES.md`. Every later run takes one surface through implement → screenshot → critique → fix → your verdict at a human gate. One surface per session; git is the audit trail.
+`design-loop` is an engagement, not a pass: the first run bootstraps `/design.md` from your codebase and stops for the highest-leverage step — you editing that canonical contract. Every later run takes one surface through brief → reference calibration → implement → screenshot → critique → bold revision → your verdict at a human gate. One surface per session; git is the audit trail.
 
 ### Shipping
 
@@ -50,7 +50,7 @@ Order of operations: `product-design` before `calm-ui` — product intent first,
 
 1. **Feature day:** "add X" (`software-design`) → approve a design → build → `clean-up` → built-in code review → `review-pr` to ship.
 2. **UI improvement:** `product-design` critique → approve the plan → `calm-ui` constraints govern the implementation → `clean-up`.
-3. **Product redesign:** `design-loop` bootstrap → edit `UI_RULES.md` → one `/design-loop` per session until the backlog is done.
+3. **Product redesign:** `design-loop` bootstrap → edit `/design.md` → one `/design-loop` per session until the backlog is done.
 
 Common mistakes: invoking `pragmatic` inside an existing codebase (`software-design` already contains it), using `calm-ui` for marketing pages (product UI only), running `design-loop` for a one-off tweak (`calm-ui` is the right size), and treating `review-pr` as a code reviewer (it's a shipper).
 
@@ -74,7 +74,7 @@ npx skills add brijr/skills --skill calm-ui
 
 **When it triggers:**
 
-When you build, refine, or review the visual/interface layer of a React, Next.js, TypeScript, or shadcn/ui product. On stacks without React/shadcn, use `ui-principles` — the framework-agnostic core of the same aesthetic. Use `product-design` first when the question is whether an existing screen or flow solves the right user problem; use `craft-ds` when creating `components/ds.tsx`. These rules can also seed `design/UI_RULES.md` for the `design-loop` skill.
+When you build, refine, or review the visual/interface layer of a React, Next.js, TypeScript, or shadcn/ui product. On stacks without React/shadcn, use `ui-principles` — the framework-agnostic core of the same aesthetic. Use `product-design` first when the question is whether an existing screen or flow solves the right user problem; use `craft-ds` when creating `components/ds.tsx`. These rules can also seed `/design.md` for the `design-loop` skill.
 
 **Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)
 
@@ -99,7 +99,7 @@ npx skills add brijr/skills --skill ui-principles
 
 **When it triggers:**
 
-When you write `/ui-principles`, ask for framework-agnostic UI principles, or want a calm, restrained pass on a stack without React/Next.js/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates). On React/Next.js/shadcn projects, use `calm-ui` — the binding of these same principles with concrete numbers; the two never disagree. Use `product-design` first when the question is whether the product flow solves the right problem. These principles can also seed `design/UI_RULES.md` for the `design-loop` skill.
+When you write `/ui-principles`, ask for framework-agnostic UI principles, or want a calm, restrained pass on a stack without React/Next.js/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates). On React/Next.js/shadcn projects, use `calm-ui` — the binding of these same principles with concrete numbers; the two never disagree. Use `product-design` first when the question is whether the product flow solves the right problem. These principles can also seed `/design.md` for the `design-loop` skill.
 
 **Browse:** [skills.sh/brijr/skills/ui-principles](https://skills.sh/brijr/skills/ui-principles)
 
@@ -125,7 +125,7 @@ npx skills add brijr/skills --skill product-design
 
 **When it triggers:**
 
-When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience. It owns product intent and critique; use `calm-ui` for visual execution constraints and `craft-ds` only when the approved plan needs `components/ds.tsx`. Findings can also seed `design/POV.md` for the `design-loop` skill.
+When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience. It owns product intent and critique; use `calm-ui` for visual execution constraints and `craft-ds` only when the approved plan needs `components/ds.tsx`. Findings can also seed `/design.md` for the `design-loop` skill.
 
 **Browse:** [skills.sh/brijr/skills/product-design](https://skills.sh/brijr/skills/product-design)
 
@@ -335,7 +335,7 @@ npx skills add brijr/skills --skill craft-ds
 
 **When it triggers:**
 
-Any time you create or maintain `components/ds.tsx`, set up layout primitives, or build a prose typography system. Use `calm-ui` for shadcn/component visual refinement and `product-design` for product/UX critique of an existing experience. In projects running the `design-loop` skill, `ds.tsx` primitives index into `design/PATTERNS.md`.
+Any time you create or maintain `components/ds.tsx`, set up layout primitives, or build a prose typography system. Use `calm-ui` for shadcn/component visual refinement and `product-design` for product/UX critique of an existing experience. In projects running the `design-loop` skill, `ds.tsx` primitives index into `/design.md`.
 
 **Browse:** [skills.sh/brijr/skills/craft-ds](https://skills.sh/brijr/skills/craft-ds)
 
@@ -343,7 +343,7 @@ Any time you create or maintain `components/ds.tsx`, set up layout primitives, o
 
 ## design-loop
 
-A standalone AI design-engineer engagement skill, run one session at a time. Bootstraps a constraint system from your codebase itself (read → point of view → tokens/rules/patterns), then iterates one UI surface per session through implement → screenshot → critique → fix, stopping at a human review gate. Taste lives in your repo's `design/` files; the skill is the procedure that creates and applies them.
+A standalone AI design-engineer engagement skill, run one session at a time. Bootstraps a Vercel-style `/design.md` contract from your codebase itself, then iterates one UI surface per session through brief → reference calibration → implement → screenshot → critique → bold revision, stopping at a human review gate. Taste lives in `/design.md`; loop state lives under `design/`.
 
 **Install:**
 
@@ -353,16 +353,17 @@ npx skills add brijr/skills --skill design-loop
 
 **What it does:**
 
-- Bootstraps standalone when no `design/` exists — reads the codebase and product, writes `POV.md`, derives `tokens.json`, `UI_RULES.md`, and `PATTERNS.md` from the values already in use
-- Stops for the highest-leverage step: the human editing the generated `UI_RULES.md`
+- Bootstraps standalone when no `/design.md` exists — reads the codebase and product, then drafts token frontmatter plus human guidance from the values already in use
+- Stops for the highest-leverage step: the human editing the generated `/design.md`
 - Takes the most important surface to world-class first — the reference slice everything else is judged against
+- Writes a surface brief before code: user job, primary object, primary action, hierarchy, density, references, anti-references, and what to remove
 - Implements with token values only — a bundled lint script fails arbitrary values, off-scale spacing, and raw colors (`var(--token)` references pass)
-- Screenshots light/dark at desktop and mobile widths (handles class-based dark mode), then critiques against a 12-point taste rubric
-- Loops fix → re-screenshot → re-critique until clean, never relaxing a rule to pass
-- Promotes reusable components into `PATTERNS.md`, prunes unused tokens, and logs every human verdict verbatim to `DECISIONS.md` so the system compounds
+- Screenshots light/dark at desktop and mobile widths (handles class-based dark mode), then critiques against a 15-point taste rubric plus a design critique
+- Loops fix → re-screenshot → re-critique until clean, including one bold revision when the first pass is compliant but generic, noisy, or weakly structured; never relaxing a rule to pass
+- Promotes reusable components back into `/design.md`, prunes unused tokens, and logs every human verdict verbatim to `design/DECISIONS.md` so the system compounds
 
 **When it triggers:**
 
-When you write `/design-loop`, ask to run the design loop, bootstrap a design system for an app, redesign a screen against the system, or advance work tracked in `POV.md`, `UI_RULES.md`, `tokens.json`, `PATTERNS.md`, `DECISIONS.md`, or `BACKLOG.md`. One surface per session — the git history becomes the audit trail.
+When you write `/design-loop`, ask to run the design loop, bootstrap a design system for an app, redesign a screen against the system, or advance work tracked in `/design.md`, `design.dark.md`, `design/DECISIONS.md`, `design/BACKLOG.md`, briefs, or reviews. One surface per session — the git history becomes the audit trail.
 
 **Browse:** [skills.sh/brijr/skills/design-loop](https://skills.sh/brijr/skills/design-loop)

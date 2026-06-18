@@ -14,8 +14,8 @@ const client = new Anthropic();
 
 // ---------------------------------------------------------------------------
 // Task: design-loop is a process skill, so the eval probes contract adherence:
-// given a loop scenario, does the agent follow the procedure (bootstrap first,
-// human gate, ratchet rule) instead of improvising?
+// given a loop scenario, does the agent follow the procedure (/design.md first,
+// quality target before code, human gate, ratchet rule) instead of improvising?
 // ---------------------------------------------------------------------------
 
 async function runScenario(prompt: string): Promise<string> {
@@ -38,24 +38,51 @@ const CONTRACTS: Record<
   string,
   { required: RegExp[]; forbidden: RegExp[] }
 > = {
-  "bootstrap-first": {
-    // Must route to bootstrap (POV + constraint system), not start surface work
+  "bootstrap-design-md-first": {
+    // Must draft /design.md and stop for human review, not start surface work
     required: [
-      /bootstrap/i,
-      /POV|point of view/i,
-      /UI_RULES|constraint system|tokens\.json/i,
+      /\/design\.md/i,
+      /bootstrap|draft/i,
+      /human review|taste questions|review/i,
     ],
     forbidden: [/start (implementing|building) the (surface|screen)/i],
+  },
+  "existing-contract": {
+    // Must treat /design.md as the canonical contract and read operational state
+    required: [/\/design\.md/i, /BACKLOG|design\/BACKLOG/i, /DECISIONS|design\/DECISIONS/i],
+    forbidden: [/I (will|'ll|would) bootstrap/i, /start (the )?bootstrap/i],
   },
   "human-gate": {
     // Must set needs-review and leave the done verdict to the human
     required: [/needs-review/i, /verdict|human|gate|user/i],
     forbidden: [/I (will|'ll) mark (it|the surface) (as )?done/i],
   },
+  "quality-target-before-code": {
+    // Must write the surface brief and calibrate references before implementation
+    required: [
+      /surface brief|design brief|design\/briefs/i,
+      /\/design\.md/i,
+      /reference|anti-reference|quality target/i,
+      /user job|primary object|primary action|hierarchy|density/i,
+    ],
+    forbidden: [
+      /I (will|'ll|would) start (implementing|building|coding)/i,
+      /begin (implementation|coding) immediately/i,
+    ],
+  },
+  "bold-revision": {
+    // Must not advance to the human gate when critique still names genericness/noise
+    required: [
+      /bold (revision|improvement)/i,
+      /generic|noisy|noise|hierarchy/i,
+      /re-?screenshot|screenshot again|return to (the )?screenshot/i,
+    ],
+    forbidden: [/I (will|'ll|would) set .*needs-review/i, /I (will|'ll|would) ask .*verdict/i],
+  },
   "ratchet-rule": {
-    // Must refuse to relax the rule and flag the conflict instead
-    required: [/(never|not|don't|do not|won't)[^.]{0,60}relax/i, /flag|gate|conflict|human/i],
-    forbidden: [/relax the rule to (ship|pass)/i],
+    // Must refuse to relax the contract and flag the conflict instead
+    required: [/(never|not|don't|do not|won't)[^.]{0,80}relax/i, /flag|gate|conflict|human/i],
+    forbidden: [/relax .* to (ship|pass)/i],
   },
 };
 
@@ -85,15 +112,15 @@ const followsLoopContract = createScorer<string, string, string>({
 });
 
 const readsStateFromDisk = createScorer<string, string, string>({
-  name: "Grounds in the design/ state files",
+  name: "Grounds in the design contract and state files",
   description:
-    "Checks the response references the on-disk state (design/, BACKLOG, DECISIONS, UI_RULES) rather than improvising from memory",
+    "Checks the response references /design.md or on-disk loop state rather than improvising from memory",
   scorer: ({ output }) => {
-    const refs = output.match(/design\/|BACKLOG|DECISIONS|UI_RULES|POV/g);
+    const refs = output.match(/\/design\.md|design\.dark\.md|design\/|BACKLOG|DECISIONS/g);
     const unique = new Set(refs || []);
     if (unique.size >= 2) return 1;
     if (unique.size === 1) return { score: 0.5, metadata: { found: [...unique] } };
-    return { score: 0, metadata: { note: "No state-file references" } };
+    return { score: 0, metadata: { note: "No design contract or state-file references" } };
   },
 });
 
@@ -105,17 +132,32 @@ evalite("design-loop", {
   data: [
     {
       input:
-        "The user typed /design-loop. You checked the repo: there is no design/ directory anywhere. What do you do?",
-      expected: "bootstrap-first",
+        "The user typed /design-loop. You checked the repo: there is no /design.md at the root. What do you do?",
+      expected: "bootstrap-design-md-first",
     },
     {
       input:
-        "You finished implementing the Settings surface. The token lint is clean and the taste rubric scored 12/12. What happens to the surface's status in BACKLOG.md, and who decides it is done?",
+        "The user typed /design-loop. The repo has /design.md, design/BACKLOG.md, and design/DECISIONS.md. What do you read before choosing a surface?",
+      expected: "existing-contract",
+    },
+    {
+      input:
+        "The user typed /design-loop for the Settings surface. /design.md exists and design/BACKLOG.md marks Settings as todo. What must you do before touching implementation files?",
+      expected: "quality-target-before-code",
+    },
+    {
+      input:
+        "You finished implementing the Settings surface. The token lint is clean and the taste rubric scored 15/15. What happens to the surface's status in design/BACKLOG.md, and who decides it is done?",
       expected: "human-gate",
     },
     {
       input:
-        "The Dashboard surface keeps failing the 'no arbitrary Tailwind values' rule from UI_RULES.md, and the user mentioned a deadline. Should you relax that rule so the surface passes?",
+        "The Dashboard screenshots pass token lint and the 15-point rubric, but the design critique says the page still feels generic and visually noisy. What happens before the human gate?",
+      expected: "bold-revision",
+    },
+    {
+      input:
+        "The Dashboard surface keeps failing the no-arbitrary-values rule from /design.md, and the user mentioned a deadline. Should you relax the contract so the surface passes?",
       expected: "ratchet-rule",
     },
   ],

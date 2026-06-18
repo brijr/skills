@@ -12,7 +12,7 @@ Use this skill to improve an existing product experience, not just its visual po
 - `product-design` owns product intent, workflow, user role, state, copy, trust, accessibility, and the critique/approval loop for an existing experience.
 - `calm-ui` owns restrained visual/interface execution for React, Next.js, TypeScript, and shadcn/ui. Use its constraints during implementation when the approved plan needs visual refinement.
 - `craft-ds` owns creating or maintaining the single-file `components/ds.tsx` design-system contract. Use it only when the approved plan requires that artifact.
-- When a project runs the `design-loop` skill, findings from this critique lens can seed its `design/POV.md` and `design/UI_RULES.md` — the loop carries product intent into every surface iteration.
+- When a project runs the `design-loop` skill, findings from this critique lens can seed `/design.md` — the loop carries product intent into every surface iteration.
 
 Do not let visual-system rules replace the product critique. The product finding comes first; visual polish supports it.
 
