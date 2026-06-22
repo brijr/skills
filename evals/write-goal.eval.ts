@@ -3,6 +3,7 @@ import { createScorer } from "evalite";
 import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { EVAL_MODEL } from "./model";
 
 const skillPath = resolve(__dirname, "../write-goal/SKILL.md");
 const skillContent = readFileSync(skillPath, "utf-8").replace(
@@ -14,10 +15,10 @@ const client = new Anthropic();
 
 async function generateGoal(prompt: string): Promise<string> {
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: EVAL_MODEL,
     max_tokens: 2048,
     temperature: 0,
-    system: `You are Codex using the write-goal skill. Produce only the final answer to the user.\n\n${skillContent}`,
+    system: `You are Codex using the write-goal skill. Produce only the final answer to the user. This eval harness cannot run tools; do not claim to inspect files, do not include fake tool calls, and treat concrete repo details in the prompt as user-provided context.\n\n${skillContent}`,
     messages: [{ role: "user", content: prompt }],
   });
   const block = response.content[0];
@@ -28,7 +29,13 @@ const hasConcreteGoalShape = createScorer<string, string, string>({
   name: "Concrete goal shape",
   description:
     "Checks that the output contains either a native /goal command or portable Goal block",
-  scorer: ({ input, output }) => {
+  scorer: ({ input, output, expected }) => {
+    if (expected === "needs-clarification") {
+      return /\?/.test(output) && !/\/goal\b|\bGoal:\s*\n/i.test(output)
+        ? 1
+        : { score: 0, metadata: { note: "Expected a clarification question without goal text" } };
+    }
+
     const expectsCodex = /Codex|\/goal|native goal/i.test(input);
     if (expectsCodex && /\/goal\b/.test(output)) return 1;
     if (!expectsCodex && /\bGoal:\s*\n/i.test(output)) return 1;
@@ -43,16 +50,18 @@ const coversSixGoalFields = createScorer<string, string, string>({
   name: "Covers six goal fields",
   description:
     "Checks for outcome, verification, constraints, boundaries, iteration policy, and blocked stop condition",
-  scorer: ({ output }) => {
+  scorer: ({ output, expected }) => {
+    if (expected === "needs-clarification") return 1;
+
     const checks = {
       outcome: /\b(goal|end state|produce|make|add|reduce|fix)\b/i.test(output),
       verification: /\bverified by|verification|tests?|benchmark|artifact|evidence|command\b/i.test(
         output
       ),
-      constraints: /\bpreserve|while keeping|without changing|constraints?\b/i.test(
+      constraints: /\bpreserv(?:e|ing)|while keeping|without changing|do not (?:alter|modify|change)|only when|unless|must not|constraints?\b/i.test(
         output
       ),
-      boundaries: /\buse\b.*\b(repo|files?|modules?|package|directory|only)\b/i.test(
+      boundaries: /\b(use|work within|work only within|edit only|touch only|touch .* freely|operate within|limit|allowed scope|restrict changes to|scope changes to|scope work to)\b.*\b(repo|files?|modules?|packages?|directories|only|src\/|app\/|evals\/|\*\/SKILL\.md)\b/i.test(
         output
       ),
       iteration: /\bbetween iterations|after each attempt|next best|prioritize\b/i.test(
@@ -73,7 +82,9 @@ const groundsCodebaseGoals = createScorer<string, string, string>({
   name: "Grounds codebase goals",
   description:
     "Checks that repo-dependent goals include real context checked and repo nouns",
-  scorer: ({ input, output }) => {
+  scorer: ({ input, output, expected }) => {
+    if (expected === "needs-clarification") return 1;
+
     if (!/repo|codebase|package\.json|tests?|route|module|file/i.test(input)) {
       return 1;
     }
@@ -81,7 +92,7 @@ const groundsCodebaseGoals = createScorer<string, string, string>({
     const hasContextChecked = /Context checked:/i.test(output);
     const repoNouns =
       output.match(
-        /\b(package\.json|pnpm|vitest|evals\/|src\/|app\/|README\.md|tsconfig)\b/g
+        /\b(package\.json|pnpm|vitest|evals\/|src\/|app\/|packages\/|README\.md|tsconfig|\*\/SKILL\.md|SKILL\.md)\b/g
       ) || [];
 
     if (hasContextChecked && repoNouns.length >= 2) return 1;
@@ -106,6 +117,21 @@ const avoidsLifecycleActions = createScorer<string, string, string>({
   },
 });
 
+const avoidsFakeToolUse = createScorer<string, string, string>({
+  name: "Avoids fake tool use",
+  description:
+    "Fails if the eval output simulates repo inspection or tool calls instead of using available context",
+  scorer: ({ output }) => {
+    const violations =
+      output.match(
+        /<tool_call>|<tool_response>|I'll do a quick repo pass|Looking at the current directory|git status/i
+      ) || [];
+    return violations.length === 0
+      ? 1
+      : { score: 0, metadata: { violations } };
+  },
+});
+
 const asksAtMostTwoQuestions = createScorer<string, string, string>({
   name: "Asks at most two questions",
   description: "Checks that missing information is handled with restraint",
@@ -113,6 +139,31 @@ const asksAtMostTwoQuestions = createScorer<string, string, string>({
     const questionCount = (output.match(/\?/g) || []).length;
     if (questionCount <= 2) return 1;
     return { score: 0, metadata: { questionCount } };
+  },
+});
+
+const clarifiesOnlyWhenNeeded = createScorer<string, string, string>({
+  name: "Clarifies only when needed",
+  description:
+    "Checks that the skill asks a clarification question only when the goal is too underdefined to make auditable",
+  scorer: ({ output, expected }) => {
+    const questionCount = (output.match(/\?/g) || []).length;
+    const startsWithClarification =
+      /^(I can write this, but|One thing decides|Before I can write|I need one clarification)/i.test(
+        output.trim()
+      );
+
+    if (expected === "needs-clarification") {
+      if (questionCount > 0 && !/\/goal\b|\bGoal:\s*\n/i.test(output)) return 1;
+      if (questionCount > 0) return { score: 0.5, metadata: { note: "Asked, but also drafted a goal" } };
+      return { score: 0, metadata: { note: "No clarification question" } };
+    }
+
+    if (startsWithClarification) {
+      return { score: 0, metadata: { note: "Asked before drafting despite usable context" } };
+    }
+
+    return 1;
   },
 });
 
@@ -130,8 +181,13 @@ evalite("write-goal", {
     },
     {
       input:
-        "Draft a native Codex goal to add eval coverage for a skills repo. It should touch evals/*.eval.ts, package.json scripts, and the target */SKILL.md prompts only if the eval exposes a prompt bug.",
+        "Draft a native Codex goal to add eval coverage for this skills repo. Context: package.json has an eval script, eval files live in evals/*.eval.ts, and each skill lives in a directory with a */SKILL.md prompt. It should touch evals/*.eval.ts, package.json scripts, and the target */SKILL.md prompts only if the eval exposes a prompt bug.",
       expected: "repo-aware-codex-goal",
+    },
+    {
+      input:
+        "Turn this into a goal for another coding agent: make it better.",
+      expected: "needs-clarification",
     },
   ],
 
@@ -144,6 +200,8 @@ evalite("write-goal", {
     coversSixGoalFields,
     groundsCodebaseGoals,
     avoidsLifecycleActions,
+    avoidsFakeToolUse,
     asksAtMostTwoQuestions,
+    clarifiesOnlyWhenNeeded,
   ],
 });

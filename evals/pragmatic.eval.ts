@@ -3,6 +3,7 @@ import { createScorer } from "evalite";
 import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { EVAL_MODEL } from "./model";
 
 const skillPath = resolve(__dirname, "../pragmatic/SKILL.md");
 const skillContent = readFileSync(skillPath, "utf-8").replace(
@@ -14,7 +15,7 @@ const client = new Anthropic();
 
 async function generateCode(prompt: string): Promise<string> {
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: EVAL_MODEL,
     max_tokens: 4096,
     temperature: 0,
     system: `You are a senior software engineer building features in TypeScript. Return ONLY the code — no explanation, no markdown fences.\n\n${skillContent}`,

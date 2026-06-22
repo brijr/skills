@@ -23,7 +23,8 @@ Produce ready-to-use goal text from the user's rough objective. The output shoul
    - Do a lightweight, read-only repo pass before drafting: inspect the current directory, `git status --short`, top-level docs, manifests, scripts, test commands, and likely files/modules named by the objective.
    - Use fast search first (`rg`, `rg --files`) to find relevant routes, tests, packages, benchmarks, or docs.
    - Do not edit files or run expensive/destructive commands while writing the goal.
-   - If repo context is unavailable, state the assumption and draft the goal with placeholders only where necessary.
+   - If the user provides concrete repo context, treat that as checked context and say it was user-provided.
+   - If repo context is unavailable and the user did not provide enough detail, state the assumption and draft the goal with placeholders only where necessary.
 
 4. Extract or infer the six goal fields.
    - **Outcome**: what should be true when work is done.
@@ -35,8 +36,10 @@ Produce ready-to-use goal text from the user's rough objective. The output shoul
 
 5. Ask only for missing information that blocks an auditable goal.
    - Ask at most two questions.
-   - Do not ask if a conservative assumption is obvious from the user's wording.
-   - If unsure about exact verification, name a likely verification surface and mark it as an assumption.
+   - Ask when the missing answer changes whether a goal can be written at all: the target agent surface, the actual object of work, the required outcome, a mandatory boundary, or the only credible verification surface.
+   - Do not ask just to make a decent goal more precise. If a conservative assumption would produce a useful, auditable goal, write the goal and put the assumption under `Assumptions:`.
+   - For repo-wide audit, coverage, cleanup, or test goals, do not ask which files or items are in scope when the user named a repo, directory, glob, or category. Assume the named scope means every relevant item inside it, and record that assumption.
+   - If unsure about exact verification but a likely verification surface exists, name it and mark it as an assumption.
 
 6. Write one compact goal.
    - Keep it specific enough to check and broad enough for the agent to choose the next action.
@@ -70,13 +73,18 @@ Operating contract:
 
 Then add `Assumptions:` only if you inferred important details.
 
-For codebase goals, also add `Context checked:` when you inspected repo files or commands. Keep it to one short line.
+For every codebase goal, add `Context checked:`. Keep it to one short line:
+- `Context checked: local repo pass ...` when you inspected files or commands.
+- `Context checked: user-provided ...` when the prompt supplied enough concrete repo details.
+- `Context checked: unavailable ...` when neither local repo context nor concrete user-provided context is available.
 
 If critical information is missing:
 
 ```text
 I can write this, but one thing decides whether the goal is auditable: <question>
 ```
+
+Use this only when no conservative assumption would produce a defensible goal. Ask the question and stop; do not draft a placeholder goal after it. Otherwise, draft the goal and list the assumption.
 
 If a goal is the wrong tool:
 
@@ -86,6 +94,8 @@ This is probably better as a normal prompt because <reason>. If you still want i
 <goal text>
 ```
 
+Use the wrong-tool format only when enough concrete information exists to draft a usable goal. If the object of work, desired outcome, or verification surface is missing, use the clarification form instead.
+
 ## Quality Checks
 
 Before answering, make sure the drafted goal:
@@ -93,9 +103,11 @@ Before answering, make sure the drafted goal:
 - Names a concrete end state, not just "improve", "clean up", or "investigate".
 - Has a verification surface the target agent can inspect.
 - Uses repo-specific evidence for codebase tasks whenever local context is available.
+- Includes `Context checked:` for codebase goals, even when the context came from the user rather than a live repo pass.
 - Preserves at least one relevant constraint.
 - Gives the agent room to iterate without asking the user to say "keep going".
 - Defines what to report if blocked instead of treating uncertainty as success.
+- Asks for clarification only when the missing answer blocks any auditable goal.
 - Uses native lifecycle syntax only when the target agent supports it.
 - Avoids calling lifecycle tools or marking a goal complete from this skill.
 

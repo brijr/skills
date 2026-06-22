@@ -3,6 +3,7 @@ import { createScorer } from "evalite";
 import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { EVAL_MODEL } from "./model";
 
 // Load the skill as a system prompt
 const skillPath = resolve(__dirname, "../design-loop/SKILL.md");
@@ -20,7 +21,7 @@ const client = new Anthropic();
 
 async function runScenario(prompt: string): Promise<string> {
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: EVAL_MODEL,
     max_tokens: 1024,
     temperature: 0,
     system: `You are a coding agent with the following skill active. Answer with what you would do next and why, per the skill.\n\n${skillContent}`,

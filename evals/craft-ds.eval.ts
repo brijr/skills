@@ -3,6 +3,7 @@ import { createScorer } from "evalite";
 import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { EVAL_MODEL } from "./model";
 
 // Load the skill as a system prompt
 const skillPath = resolve(__dirname, "../craft-ds/SKILL.md");
@@ -18,7 +19,7 @@ const client = new Anthropic();
 
 async function generateDS(prompt: string): Promise<string> {
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: EVAL_MODEL,
     max_tokens: 4096,
     temperature: 0,
     system: `You are a frontend engineer creating a single-file design system (ds.tsx) for a React/Next.js project. Return ONLY the TSX code — no explanation, no markdown fences.\n\n${skillContent}`,

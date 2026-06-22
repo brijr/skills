@@ -3,6 +3,7 @@ import { createScorer } from "evalite";
 import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { EVAL_MODEL } from "./model";
 
 // Load the skill as a system prompt
 const skillPath = resolve(__dirname, "../calm-ui/SKILL.md");
@@ -18,7 +19,7 @@ const client = new Anthropic();
 
 async function generateUI(prompt: string): Promise<string> {
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: EVAL_MODEL,
     max_tokens: 4096,
     temperature: 0,
     system: `You are a frontend engineer building UI in React, Next.js, TypeScript, and shadcn/ui. Return ONLY the TSX code for the component — no explanation, no markdown fences.\n\n${skillContent}`,

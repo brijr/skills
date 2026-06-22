@@ -3,6 +3,7 @@ import { createScorer } from "evalite";
 import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { EVAL_MODEL } from "./model";
 
 const skillPath = resolve(
   __dirname,
@@ -17,7 +18,7 @@ const client = new Anthropic();
 
 async function generateReview(prompt: string): Promise<string> {
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: EVAL_MODEL,
     max_tokens: 4096,
     temperature: 0,
     system: `You are reviewing a current branch diff. Return only the review feedback.\n\n${skillContent}`,
