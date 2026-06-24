@@ -34,6 +34,30 @@ If your repo has no `/design.md` yet, the skill bootstraps one itself — no oth
 /design-loop the settings page  # work a specific surface
 ```
 
+## How to use it well
+
+Treat bootstrap as contract drafting, not setup busywork. Review the generated
+`/design.md`, correct the product assumptions, and answer the taste questions
+with concrete references and anti-references: density, color usage, elevation,
+and what the product should absolutely not feel like.
+
+Review `design/BACKLOG.md` before the first iteration. The skill infers
+surfaces from routes, navigation, component structure, and product flows, but it
+cannot reliably know hidden business priority or every state-only surface. Add
+or reorder auth states, onboarding, modals, empty/error states, admin-only
+screens, mobile-only flows, and anything users live in that the code does not
+make obvious.
+
+Run one surface per session. Let `/design-loop` advance the top backlog item
+when the queue is right, or name a surface directly when priority matters. Make
+the surface renderable before the screenshot step: provide local data, auth, a
+target URL, or browser access for flows behind login.
+
+At the human gate, give verdicts that can become durable rules. "Approved, but
+all settings section headers should use weight 500" is more useful than "looks
+better." General verdicts get logged to `design/DECISIONS.md` and should be
+promoted back into `/design.md` so the next surface starts smarter.
+
 ## What one iteration does, in order
 
 1. Reads `/design.md`, optional `/design.dark.md`, `design/BACKLOG.md`, and `design/DECISIONS.md`
