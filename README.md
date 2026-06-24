@@ -40,6 +40,7 @@ Order of operations: `product-design` before `calm-ui` — product intent first,
 ### Shipping
 
 - **"Get PR #42 ready / merge it / is it safe?"** → `review-pr`. It owns the release path — live PR state, tests on the PR head, real-screenshot UI smoke, merge readiness, post-merge verification. Run your agent's built-in diff review first; `review-pr` folds those findings into its verdict.
+- **"What shipped today / what did we merge?"** → `what-shipped`. Turns recent PRs, commits, deploy status, and smoke evidence into a paste-ready non-technical team update.
 
 ### Meta
 
@@ -48,7 +49,7 @@ Order of operations: `product-design` before `calm-ui` — product intent first,
 
 ### Recipes
 
-1. **Feature day:** "add X" (`software-design`) → approve a design → build → `clean-up` → built-in code review → `review-pr` to ship.
+1. **Feature day:** "add X" (`software-design`) → approve a design → build → `clean-up` → built-in code review → `review-pr` to ship → `what-shipped` for the team update.
 2. **UI improvement:** `product-design` critique → approve the plan → `calm-ui` constraints govern the implementation → `clean-up`.
 3. **Product redesign:** `design-loop` bootstrap → edit `/design.md` → one `/design-loop` per session until the backlog is done.
 
@@ -298,6 +299,32 @@ npx skills add brijr/skills --skill review-pr
 When you ask to prepare, verify, smoke test, merge, ship, or get a pull request ready or live, especially by PR number. For line-by-line code review of the diff itself, use your agent's built-in review command first.
 
 **Browse:** [skills.sh/brijr/skills/review-pr](https://skills.sh/brijr/skills/review-pr)
+
+---
+
+## what-shipped
+
+A release-summary skill that turns recent merged, deployed, or shipped work from the current repository into a clear team update. It verifies git/GitHub/deploy truth first, then translates the work into non-technical language.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill what-shipped
+```
+
+**What it does:**
+
+- Checks recent merged PRs, commits, and default-branch history for the requested window
+- Separates "merged" from "deployed/live" when deploy status can be verified
+- Groups changes by user-visible themes rather than files or implementation details
+- Produces concise Slack-ready updates for non-technical teams, customers, or stakeholders
+- Calls out caveats such as pending deploys, migrations, manual steps, or unverified smoke checks
+
+**When it triggers:**
+
+When you ask what shipped, what merged today/yesterday/this week, what changed recently, or want a non-technical update, release note, changelog summary, stakeholder recap, or customer-facing/internal team announcement based on recent PRs or commits.
+
+**Browse:** [skills.sh/brijr/skills/what-shipped](https://skills.sh/brijr/skills/what-shipped)
 
 ---
 
