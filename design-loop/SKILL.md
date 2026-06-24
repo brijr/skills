@@ -76,6 +76,7 @@ Build or refactor the surface against the design contract. Hard requirements:
 
 Render the surface and capture screenshots so you can critique what actually shows up, not what you intended.
 - Run `node scripts/screenshot.mjs <url> <out-dir>` using the script's path inside this skill's directory. It captures light + dark mode at desktop (1280px) and mobile (390px) widths — four shots. It handles both `prefers-color-scheme` and class-based dark mode (it sets `.dark` on `<html>` and seeds the next-themes localStorage key).
+- In Codex, if the Browser plugin is available, prefer opening the surface URL in the in-app Browser for authenticated or user-visible review flows. Keep the four-screenshot requirement; Browser can satisfy it only when you can capture the same light/dark × desktop/mobile evidence there.
 - If the project has Playwright MCP or `claude --chrome` available, you may drive the browser directly instead (useful when the surface is behind auth); the requirement is four screenshots covering both themes and both breakpoints.
 - View each screenshot before critiquing. You must actually look at the images.
 
@@ -108,6 +109,7 @@ Before declaring the surface done, make the contract absorb what this iteration 
 Do NOT mark the surface `done` yourself. Instead:
 - Write a short handoff: the surface brief, reference target, what changed, the four screenshots, the critique results, the bold revision made or explicitly skipped with reason, any contract updates or prunes proposed, and any rule conflicts you flagged.
 - Set the surface to `needs-review` in `design/BACKLOG.md`.
+- In Codex, if the Browser plugin is available, open the same final reviewed surface URL used for the screenshots in the in-app Browser, make it visible to the user, and leave it on that review page before asking for a verdict. Follow the Browser plugin's control instructions for visibility. If auth blocks the page, ask the user to sign in there; do not route around the Browser gate.
 - Present the screenshots to the user and ask for a verdict.
 
 When the user responds with a verdict:

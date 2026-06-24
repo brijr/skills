@@ -58,6 +58,11 @@ all settings section headers should use weight 500" is more useful than "looks
 better." General verdicts get logged to `design/DECISIONS.md` and should be
 promoted back into `/design.md` so the next surface starts smarter.
 
+When running in Codex with the Browser plugin available, the skill should open
+the final reviewed surface in the in-app Browser, make it visible, and leave it
+there while it asks for your verdict. The screenshots and review artifact still
+matter; the Browser page is the live review surface.
+
 ## What one iteration does, in order
 
 1. Reads `/design.md`, optional `/design.dark.md`, `design/BACKLOG.md`, and `design/DECISIONS.md`
@@ -68,7 +73,7 @@ promoted back into `/design.md` so the next surface starts smarter.
 6. Critiques: mechanical token lint + 15-point taste rubric + design critique
 7. Makes one bold revision when the first pass is compliant but generic, noisy, or weakly structured
 8. Promotes reusable patterns into `/design.md`, proposes pruning unused ones
-9. Stops, shows you the screenshots, asks for a verdict — then logs it verbatim to `design/DECISIONS.md`
+9. Stops, opens the review page in Codex Browser when available, shows you the screenshots, asks for a verdict — then logs it verbatim to `design/DECISIONS.md`
 
 One surface per session. Git history is the audit trail.
 
@@ -80,4 +85,8 @@ The screenshot step uses Playwright:
 npm i -D playwright && npx playwright install chromium
 ```
 
-If you'd rather drive the browser with Playwright MCP or `claude --chrome` (useful when surfaces are behind auth), the skill will use that instead — it just needs four screenshots covering both themes and both breakpoints.
+In Codex, the Browser plugin is preferred for authenticated or user-visible
+review flows, and the final review page should be left open there at the human
+gate. If you'd rather drive the browser with Playwright MCP or `claude
+--chrome`, the skill can use that instead — it just needs four screenshots
+covering both themes and both breakpoints.

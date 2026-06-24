@@ -387,6 +387,7 @@ npx skills add brijr/skills --skill design-loop
 - Implements with token values only — a bundled lint script fails arbitrary values, off-scale spacing, and raw colors (`var(--token)` references pass)
 - Screenshots light/dark at desktop and mobile widths (handles class-based dark mode), then critiques against a 15-point taste rubric plus a design critique
 - Loops fix → re-screenshot → re-critique until clean, including one bold revision when the first pass is compliant but generic, noisy, or weakly structured; never relaxing a rule to pass
+- In Codex with the Browser plugin available, opens the final reviewed surface in the in-app Browser at the human gate
 - Promotes reusable components back into `/design.md`, prunes unused tokens, and logs every human verdict verbatim to `design/DECISIONS.md` so the system compounds
 
 **When it triggers:**

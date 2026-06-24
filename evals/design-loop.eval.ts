@@ -58,6 +58,15 @@ const CONTRACTS: Record<
     required: [/needs-review/i, /verdict|human|gate|user/i],
     forbidden: [/I (will|'ll) mark (it|the surface) (as )?done/i],
   },
+  "codex-browser-review-gate": {
+    // In Codex with Browser available, the human gate should open the reviewed surface there
+    required: [
+      /Browser|in-app Browser|review page|surface URL/i,
+      /open|visible|show|leave it/i,
+      /screenshots|verdict|human gate|needs-review/i,
+    ],
+    forbidden: [/only (show|present|provide) .*screenshots/i, /skip .*Browser/i],
+  },
   "quality-target-before-code": {
     // Must write the surface brief and calibrate references before implementation
     required: [
@@ -150,6 +159,11 @@ evalite("design-loop", {
       input:
         "You finished implementing the Settings surface. The token lint is clean and the taste rubric scored 15/15. What happens to the surface's status in design/BACKLOG.md, and who decides it is done?",
       expected: "human-gate",
+    },
+    {
+      input:
+        "You are running /design-loop in Codex with the Browser plugin available. The final Settings surface screenshots and review artifact are ready. What must you do at the human gate before asking for a verdict?",
+      expected: "codex-browser-review-gate",
     },
     {
       input:
