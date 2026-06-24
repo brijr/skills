@@ -1,6 +1,6 @@
 # brijr/skills
 
-Claude Code skills for building restrained, high-quality product interfaces, pragmatic software, and evaluating ventures against MJ DeMarco's Fastlane framework.
+Claude Code skills for building restrained, high-quality product interfaces and pragmatic software.
 
 ## Install all skills
 
@@ -54,18 +54,6 @@ Order of operations: `product-design` before `calm-ui` — product intent first,
 3. **Product redesign:** `design-loop` bootstrap → edit `/design.md` → one `/design-loop` per session until the backlog is done.
 
 Common mistakes: invoking `pragmatic` inside an existing codebase (`software-design` already contains it), using `calm-ui` for marketing pages (product UI only), running `design-loop` for a one-off tweak (`calm-ui` is the right size), and treating `review-pr` as a code reviewer (it's a shipper).
-
-### Evaluating ventures
-
-| You're asking… | Use |
-|---|---|
-| "Is this idea a real wealth vehicle?" | `cents-audit` |
-| "Am I building a money tree or a disguised job?" | `fastlane-audit` |
-| "Does anyone actually want this?" | `need-validation` |
-| "Can this scale without me?" | `scale-assessment` |
-| "Design this as a system that runs without me" | `wealth-system-design` |
-
-All five are based on MJ DeMarco's *The Millionaire Fastlane* and *UNSRIPTED*. They share a common language — CENTS commandments, money trees, the wealth equation, Fastlane vs Slowlane. `cents-audit` is the broadest evaluation; the other four go deep on one dimension. Run `cents-audit` first, then drill into the weakest commandment with its dedicated skill.
 
 ## calm-ui
 
@@ -406,136 +394,3 @@ npx skills add brijr/skills --skill design-loop
 When you write `/design-loop`, ask to run the design loop, bootstrap a design system for an app, redesign a screen against the system, or advance work tracked in `/design.md`, `design.dark.md`, `design/DECISIONS.md`, `design/BACKLOG.md`, briefs, or reviews. One surface per session — the git history becomes the audit trail.
 
 **Browse:** [skills.sh/brijr/skills/design-loop](https://skills.sh/brijr/skills/design-loop)
-
----
-
-## cents-audit
-
-A venture evaluation skill based on MJ DeMarco's Five Commandments of Wealth (CENTS) from *The Millionaire Fastlane*. Scores a business or opportunity on Control, Entry, Need, Time, and Scale — each 0–10 with evidence — then identifies the weakest commandment as the bottleneck and produces a Fastlane / Aspiring Fastlane / Slowlane / Dead End verdict with specific fixes.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill cents-audit
-```
-
-**What it does:**
-
-- Scores all five CENTS commandments with specific, evidence-based reasoning
-- Identifies the weakest commandment as the venture's bottleneck
-- Produces a go/no-go verdict with the reasoning
-- Outputs specific, actionable fixes — not "improve marketing" but "add a recurring revenue component by X"
-- Enforces honesty: a venture that scores 10 on four commandments and 0 on one is NOT a Fastlane
-
-**When it triggers:**
-
-When you write `/cents-audit`, ask to evaluate a business idea or opportunity, want to know if a venture is "fastlane", or reference CENTS, the Five Commandments, or *The Millionaire Fastlane*. Use `fastlane-audit` to go deep on time-decoupling, `need-validation` for market need, `scale-assessment` for scaling analysis, and `wealth-system-design` to design a money-tree system.
-
-**Browse:** [skills.sh/brijr/skills/cents-audit](https://skills.sh/brijr/skills/cents-audit)
-
----
-
-## fastlane-audit
-
-A time-decoupling and leverage audit based on MJ DeMarco's wealth equation from *The Millionaire Fastlane*. Measures whether a business is genuinely decoupling time from money — the core distinction between a Fastlane wealth vehicle and a disguised job. Scores revenue time-coupling, leverage mechanisms, fulfillment dependence, the hit-by-a-bus test, and trajectory.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill fastlane-audit
-```
-
-**What it does:**
-
-- Maps every revenue stream to its time-coupling pattern (recurring automated → hourly billing)
-- Identifies which leverage mechanisms are in play (code, content, distribution, capital, people, brand)
-- Maps the fulfillment path and counts founder-coupled nodes
-- Runs the 60-day hit-by-a-bus survival test
-- Checks whether decoupling is improving, flat, or regressing over time
-- Identifies the #1 decoupling bottleneck — the single highest-leverage change
-
-**When it triggers:**
-
-When you write `/fastlane-audit`, ask "is this a real business or a job", want to check if you're building a money tree or trading hours for dollars, or reference the Fastlane, time decoupling, or the wealth equation.
-
-**Browse:** [skills.sh/brijr/skills/fastlane-audit](https://skills.sh/brijr/skills/fastlane-audit)
-
----
-
-## need-validation
-
-A market need evaluation based on the Commandment of Need from *The Millionaire Fastlane*. Tests whether the market has a raw, urgent, credit-card-out want — not a "nice to have". Scores pain intensity, existing spend evidence, urgency, market pull signals, and the painkiller-vs-vitamin classification. Recommends the cheapest possible validation experiment.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill need-validation
-```
-
-**What it does:**
-
-- Scores need across five dimensions: pain intensity, existing spend, urgency, market pull, painkiller vs vitamin
-- Classifies pain honestly: bleeding neck, active pain, background friction, nice to have, or solution-seeking-a-problem
-- Checks for existing spend evidence (competitors, adjacent spend, DIY solutions, or nothing)
-- Recommends the cheapest validation experiment: pre-sell, concierge test, fake door, competitor interviews, or search mining
-- Produces a Strong Need / Real Need / Weak Need / No Need verdict
-
-**When it triggers:**
-
-When you write `/need-validation`, ask "does anyone actually want this", want to validate a product idea before building, or reference the Commandment of Need.
-
-**Browse:** [skills.sh/brijr/skills/need-validation](https://skills.sh/brijr/skills/need-validation)
-
----
-
-## scale-assessment
-
-A scaling and leverage analysis based on MJ DeMarco's concepts of Scale from *The Millionaire Fastlane*. Evaluates whether a business can serve 10x the customers without 10x the cost, time, or effort. Scores revenue per unit of effort, marginal cost curve, the primary constraint, leverage multiplier, and ceiling analysis.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill scale-assessment
-```
-
-**What it does:**
-
-- Maps the revenue model to its scaling pattern (exponential → linear)
-- Plots the marginal cost curve (approaches zero → increases super-linearly)
-- Identifies the primary growth constraint and whether it's fixable
-- Calculates the leverage multiplier: annual revenue per founder hour
-- Projects the theoretical revenue ceiling and whether the model can reach 50% of it
-- Identifies the #1 scaling unlock — the single change that shifts from linear to super-linear
-
-**When it triggers:**
-
-When you write `/scale-assessment`, ask "can this scale", want to find the ceiling on your business, or reference scale, leverage, or marginal cost.
-
-**Browse:** [skills.sh/brijr/skills/scale-assessment](https://skills.sh/brijr/skills/scale-assessment)
-
----
-
-## wealth-system-design
-
-A money-tree system design skill based on MJ DeMarco's five money-tree types from *The Millionaire Fastlane*: rental, computer, content, distribution, and people systems. Designs or restructures a venture as a system that produces income while you sleep. Maps the full system architecture, identifies automation and delegation opportunities, defines decoupling milestones from M0 (fully coupled) to M5 (fully decoupled), and defines asset value.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill wealth-system-design
-```
-
-**What it does:**
-
-- Selects the primary money-tree type based on available assets and market fit
-- Maps the full system architecture: acquisition → activation → delivery → revenue → retention → referral
-- Identifies automation opportunities for each coupled stage
-- Identifies delegation opportunities with playbook and role requirements
-- Defines decoupling milestones (M0–M5) with triggers, timelines, and blockers
-- Defines asset value: recurring revenue, proprietary assets, transferable systems, and valuation multiple
-
-**When it triggers:**
-
-When you write `/wealth-system-design`, ask to design a passive income system, want to restructure a business as a money tree, or reference money trees, system design, or decoupling revenue.
-
-**Browse:** [skills.sh/brijr/skills/wealth-system-design](https://skills.sh/brijr/skills/wealth-system-design)
