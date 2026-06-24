@@ -1,0 +1,4 @@
+interface:
+  display_name: "What Shipped"
+  short_description: "Summarize recent shipped work for teams."
+  default_prompt: "Use $what-shipped to summarize what merged and shipped recently in this repo for a non-technical team update."
