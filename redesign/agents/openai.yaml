@@ -1,0 +1,4 @@
+interface:
+  display_name: "Redesign"
+  short_description: "Ask better redesign questions and suggest UX fixes"
+  default_prompt: "Use $redesign to critique this UI and guide the redesign."

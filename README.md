@@ -27,13 +27,14 @@ Skills fire three ways: you type `/name`, your agent matches your phrasing again
 
 | You're asking… | Use |
 |---|---|
+| "What should change about this pointed-at UI?" | `redesign` |
 | "Is this screen even the right experience?" | `product-design` |
 | "Make this look right" (React/Next.js/shadcn) | `calm-ui` |
 | Same question, any other stack | `ui-principles` |
 | "Set up layout primitives / `ds.tsx`" | `craft-ds` |
 | "Redesign this whole product, properly" | `design-loop` |
 
-Order of operations: `product-design` before `calm-ui` — product intent first, visual execution second. `calm-ui` and `ui-principles` are the same aesthetic (one is the React/shadcn binding, one the framework-agnostic core), so the stack picks for you.
+Order of operations: `redesign` for pointed-at UI intake and better questions, `product-design` for deeper product critique plus an approved implementation plan, then `calm-ui` or `ui-principles` for visual execution. `calm-ui` and `ui-principles` are the same aesthetic (one is the React/shadcn binding, one the framework-agnostic core), so the stack picks for you.
 
 `design-loop` is an engagement, not a pass: the first run bootstraps `/design.md` from your codebase and stops for the highest-leverage step — you editing that canonical contract. Every later run takes one surface through brief → reference calibration → implement → screenshot → critique → bold revision → your verdict at a human gate. One surface per session; git is the audit trail.
 
@@ -50,7 +51,7 @@ Order of operations: `product-design` before `calm-ui` — product intent first,
 ### Recipes
 
 1. **Feature day:** "add X" (`software-design`) → approve a design → build → `clean-up` → built-in code review → `review-pr` to ship → `what-shipped` for the team update.
-2. **UI improvement:** `product-design` critique → approve the plan → `calm-ui` constraints govern the implementation → `clean-up`.
+2. **UI improvement:** `redesign` intake → `product-design` critique if the workflow needs deeper product decisions → approve the plan → `calm-ui` or `ui-principles` governs the implementation → `clean-up`.
 3. **Product redesign:** `design-loop` bootstrap → edit `/design.md` → one `/design-loop` per session until the backlog is done.
 
 Common mistakes: invoking `pragmatic` inside an existing codebase (`software-design` already contains it), using `calm-ui` for marketing pages (product UI only), running `design-loop` for a one-off tweak (`calm-ui` is the right size), and treating `review-pr` as a code reviewer (it's a shipper).
@@ -103,6 +104,32 @@ npx skills add brijr/skills --skill ui-principles
 When you write `/ui-principles`, ask for framework-agnostic UI principles, or want a calm, restrained pass on a stack without React/Next.js/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates). On React/Next.js/shadcn projects, use `calm-ui` — the binding of these same principles with concrete numbers; the two never disagree. Use `product-design` first when the question is whether the product flow solves the right problem. These principles can also seed `/design.md` for the `design-loop` skill.
 
 **Browse:** [skills.sh/brijr/skills/ui-principles](https://skills.sh/brijr/skills/ui-principles)
+
+---
+
+## redesign
+
+A guided UI redesign intake skill for when you point at a screen, screenshot, route, component, dashboard, form, or small UI fragment and ask what should change. It grounds in visible evidence, applies *The Design of Everyday Things* principles, asks only targeted questions that change the redesign direction, suggests concrete UX/UI moves, and stops at a redesign brief or handoff before implementation.
+
+**Install:**
+
+```
+npx skills add brijr/skills --skill redesign
+```
+
+**What it does:**
+
+- Frames the apparent user, job, primary object, primary action, and workflow state
+- Uses everyday-things principles: conceptual model, affordances, signifiers, mapping, feedback, constraints, gulfs of execution/evaluation, hierarchy, trust, accessibility, and states
+- Asks up to three specific questions based on the observed UI
+- Suggests structural redesign moves before visual polish
+- Names the right next skill for implementation or a larger design engagement
+
+**When it triggers:**
+
+When you write `/redesign`, say "redesign this", ask "what should change about this UI", or want Codex/Claude to critique a screenshot, browser-visible screen, component, route, dashboard, form, workflow, or small UI fragment. Use `product-design` next for deeper product critique plus an approved implementation plan, `calm-ui` or `ui-principles` for execution, and `design-loop` for a full product redesign system.
+
+**Browse:** [skills.sh/brijr/skills/redesign](https://skills.sh/brijr/skills/redesign)
 
 ---
 
