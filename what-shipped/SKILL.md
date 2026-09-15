@@ -1,6 +1,6 @@
 ---
 name: what-shipped
-description: Summarize recent merged, deployed, or shipped work from the current repository into a clear team update. Use when the user asks what shipped, what merged today/yesterday/this week, what changed recently, or for a non-technical update, release note, changelog summary, stakeholder recap, or customer-facing/internal team announcement based on recent PRs or commits.
+description: Summarize verified merged and deployed work into a factual team update when the user asks what shipped or changed.
 ---
 
 # What Shipped

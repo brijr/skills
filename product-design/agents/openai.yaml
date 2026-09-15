@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Design"
-  short_description: "Critique and improve product UX"
-  default_prompt: "Use $product-design to critique this product experience and propose implementation changes."
+  short_description: "Design product journeys, roles, and handoffs"
+  default_prompt: "Use $product-design to assess this product workflow, its roles and handoffs, and propose concrete improvements."

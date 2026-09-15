@@ -1,6 +1,6 @@
 ---
 name: refactor-ui
-description: Improve an existing product screen through job-focused critique, concrete design changes, implementation, and browser verification. Use for iterative UI work from browser annotations, screenshots, or existing code, including simplifying workflows and matching an approved screen. Follow the user's requested stage; do not start a new app or expand a single-screen request into an app-wide redesign.
+description: Improve an existing screen through critique, authorized edits, and browser verification, following the current stage and preserving prior decisions.
 ---
 
 # Refactor UI

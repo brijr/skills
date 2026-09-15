@@ -9,7 +9,7 @@ Output:
 - `design/BACKLOG.md` — ranked surface queue
 - `design/DECISIONS.md` — append-only human verdict log
 
-Do not redesign a visible surface during bootstrap. The bootstrap creates the contract and stops for human review.
+Bootstrap establishes the contract before surface implementation. Resolve substantial undecided choices; existing authorization for the direction remains valid.
 
 ## Phase 1 — Read before writing
 
@@ -30,7 +30,7 @@ Don't touch implementation files yet. Read the product and codebase like an edit
 
 ## Phase 2 — Draft `/design.md`
 
-Follow `references/constraint-system.md` to write a Vercel-style document:
+Follow [contract schema](constraint-system.md) to write a Vercel-style document:
 
 - YAML frontmatter for token scales and component defaults
 - Markdown guidance for product point of view, usage rules, component patterns, states, motion, voice/content, quality bar, references, and anti-references
@@ -43,7 +43,7 @@ The test of a good `/design.md`: a mediocre contributor — or a fresh agent ses
 
 Create `design/BACKLOG.md`.
 
-List every UI surface in the product. Rank by how much users actually live in it: the screen they spend the most time on goes first, not the easiest screen.
+List the authorized UI surfaces; include the whole product only when that scope is requested. Rank by how much users actually live in it: the screen they spend the most time on goes first, not the easiest screen.
 
 ```md
 # Backlog
@@ -66,18 +66,9 @@ Append-only log of human verdicts from the design-loop gate.
 Never re-litigate anything recorded here.
 ```
 
-## Phase 4 — Human contract review
+## Phase 4 — Resolve contract decisions
 
-Stop and tell the user explicitly: editing `/design.md` is the highest-leverage step in the engagement. Every hour spent here saves many hours of gate rejections later.
-
-Ask targeted taste questions after presenting the draft:
-- Should this feel closer to the named references, or should a different product set lead?
-- Should density be tighter, moderate, or more spacious?
-- Should color be neutral-first, brand-forward, or state-only?
-- Should surfaces feel flat and bordered, or softly elevated?
-- What should this absolutely not feel like?
-
-Do not proceed to surface implementation until the user has had the chance to review the draft.
+Present the concrete contract and identify only material unresolved choices about references, density, color, or layout. Pause dependent work when a decision is needed or the user requested review. Continue when the direction is already authorized. Do not require a new taste questionnaire for a settled direction.
 
 ## Phase 5 — The reference slice comes first
 

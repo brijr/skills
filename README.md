@@ -1,407 +1,48 @@
 # brijr/skills
 
-Claude Code skills for building restrained, high-quality product interfaces and pragmatic software.
+Personal skills for product interfaces, software design, and evidence-backed delivery. Choose the skill matching the actual task; there is no mandatory sequence of skills.
 
-## Install all skills
+## Choose a skill
 
-To install every skill in this repository:
+| Task | Skill |
+| --- | --- |
+| Design interfaces, ownership, or data flow for new behavior | `software-design` |
+| Build a standalone prototype or spike | `pragmatic` |
+| Clean up a recent diff without changing behavior | `clean-up` |
+| Deep structural maintainability review | `thermo-nuclear-code-quality-review` |
+| Critique or improve an existing screen; iterate on corrections | `refactor-ui` |
+| Resolve product journeys, roles, or handoffs across screens | `product-design` |
+| Apply restrained styling in React or shadcn | `calm-ui` |
+| Apply framework-independent restrained visual principles | `ui-principles` |
+| Create the specific single-file layout/prose contract | `craft-ds` |
+| Improve multiple surfaces against a shared design contract | `design-loop` |
+| Assess PR readiness or perform authorized release steps | `review-pr` |
+| Summarize verified shipped work | `what-shipped` |
+| Draft an auditable agent goal | `write-goal` |
+| Explicit coaching, practice, or mastery | `explain` |
 
-```sh
-npx skills@latest add brijr/skills --skill '*'
-```
+Ordinary explanations need no coaching skill. Styling corrections need no product-design phase. A critique-only request stays read-only; approved implementation continues without repeated approval. Review, merge, deployment, and external messages remain distinct authorizations.
 
-Use `--all` instead of `--skill '*'` to install every skill for every supported agent without prompts.
+## Install
 
-## Which skill, when
+Other users can install selected skills using their agent's skill installer and the relevant directory in this repository. Each skill is standalone; supporting references travel with its folder.
 
-Skills fire three ways: you type `/name`, your agent matches your phrasing against the skill's description, or a CLAUDE.md rule forces one. Recommended: add a global CLAUDE.md rule that auto-triggers `software-design` whenever you say "add / implement / build X" in an existing codebase — it's the skill you want firing without having to remember it.
+### Personal maintained installation
 
-### Writing code
+This machine uses `/Users/brijr/projects/skills` as the source checkout. The owned skill directories in `~/.agents/skills` link to that checkout, and `~/.codex/skills` links through `~/.agents/skills`. Edit and review changes in the checkout so installed skills cannot drift from source.
 
-- **New feature in an existing codebase** → `software-design`. Explores first, proposes two designs, and stops for your approval before any code. Your job is the gate.
-- **Greenfield, prototype, spike, or script** → `pragmatic`. Same build discipline, no design gate — there's no architecture to inspect. If the feature must live inside existing code, it's `software-design`; never stack both.
-- **A change just landed and works** → `clean-up`. Freezes scope to the diff, proposes a checklist, waits for approval, never changes behavior. The natural last step of a feature session.
-- **Behavior is right but the structure feels worse** → `thermo-nuclear-code-quality-review`. Explicit invoke only; it hunts for deletions, not additions.
+Do not use a package-based reinstall to overwrite these links. Before a managed reinstall or relocation, preserve any changes, inspect the existing targets, and explicitly reconcile the installation layout. Third-party and plugin-managed skills are maintained separately.
 
-### Working on UI
+`redesign` was replaced by `refactor-ui`; the old installation links should be removed rather than retained as a competing skill.
 
-| You're asking… | Use |
-|---|---|
-| "Improve this screen, then iterate on the approved changes" | `refactor-ui` |
-| "Is this screen even the right experience?" | `product-design` |
-| "Make this look right" (React/Next.js/shadcn) | `calm-ui` |
-| Same question, any other stack | `ui-principles` |
-| "Set up layout primitives / `ds.tsx`" | `craft-ds` |
-| "Redesign this whole product, properly" | `design-loop` |
+## Working conventions
 
-Use `refactor-ui` for screen critique, approved implementation, and follow-up corrections. It carries the current direction through browser verification without requiring another skill handoff. Use `product-design` for a deeper product critique, and `calm-ui` or `ui-principles` when visual guidance is needed.
+Descriptions identify capability and activation boundaries. Entrypoints keep decision-critical constraints; references provide conditional examples or operating modes. Preserve user intent and scope, use proportional verification, and avoid mandatory skill handoffs.
 
-`design-loop` is an engagement, not a pass: the first run bootstraps `/design.md` from your codebase and stops for the highest-leverage step — you editing that canonical contract. Every later run takes one surface through brief → reference calibration → implement → screenshot → critique → bold revision → your verdict at a human gate. One surface per session; git is the audit trail.
+`design-loop` records progress across authorized surfaces and pauses at requested checkpoints or material unresolved decisions. It never labels agent verification as human approval.
 
-### Shipping
+## Validation
 
-- **"Get PR #42 ready / merge it / is it safe?"** → `review-pr`. It owns the release path — live PR state, tests on the PR head, real-screenshot UI smoke, merge readiness, post-merge verification. Run your agent's built-in diff review first; `review-pr` folds those findings into its verdict.
-- **"What shipped today / what did we merge?"** → `what-shipped`. Turns recent PRs, commits, deploy status, and smoke evidence into a paste-ready non-technical team update.
+Run the skill-creator validator on each changed skill and check local references and installed links. `pnpm eval` runs the repository's model-backed evaluations using `ANTHROPIC_API_KEY` and optional `ANTHROPIC_MODEL`; keep credentials outside version control.
 
-### Meta
-
-- **Handing an agent a long, multi-step objective** → `write-goal`. Produces goal text with an auditable finish line, ready for a native goal command or as a portable prompt block.
-- **You want to understand, not just have it done** → `explain`. A mastery loop (restate → teach → quiz) — heavier than asking a question, worth it when you want to be tested.
-
-### Recipes
-
-1. **Feature day:** "add X" (`software-design`) → approve a design → build → `clean-up` → built-in code review → `review-pr` to ship → `what-shipped` for the team update.
-2. **UI improvement:** `refactor-ui` → critique or implement according to the requested stage → verify in the browser → iterate on feedback.
-3. **Product redesign:** `design-loop` bootstrap → edit `/design.md` → one `/design-loop` per session until the backlog is done.
-
-Common mistakes: invoking `pragmatic` inside an existing codebase (`software-design` already contains it), using `calm-ui` for marketing pages (product UI only), running `design-loop` for a one-off tweak (`calm-ui` is the right size), and treating `review-pr` as a code reviewer (it's a shipper).
-
-## calm-ui
-
-An opinionated visual/interface system skill for React, Next.js, TypeScript, and shadcn/ui — the stack-specific binding of the `ui-principles` core, with the numbers filled in. Enforces a calm, restrained aesthetic influenced by Swiss, Japanese, Scandinavian, and German design traditions.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill calm-ui
-```
-
-**What it does:**
-
-- Applies restrained design constraints when building pages, components, forms, tables, and dashboards
-- Hierarchy built space → color → weight → size — body plus one deliberate statement size, never scattered jumps
-- Neutral-first color system with semantic accents
-- Prevents generic SaaS dashboard energy and default shadcn styling
-- Includes a prompt library for build, refinement, and critique workflows
-
-**When it triggers:**
-
-When you build, refine, or review the visual/interface layer of a React, Next.js, TypeScript, or shadcn/ui product. On stacks without React/shadcn, use `ui-principles` — the framework-agnostic core of the same aesthetic. Use `product-design` first when the question is whether an existing screen or flow solves the right user problem; use `craft-ds` when creating `components/ds.tsx`. These rules can also seed `/design.md` for the `design-loop` skill.
-
-**Browse:** [skills.sh/brijr/skills/calm-ui](https://skills.sh/brijr/skills/calm-ui)
-
-## ui-principles
-
-The framework-agnostic core of the calm, restrained UI system — rules, not numbers — built on seventeen Principles of UI Design. Enforces one alignment spine, deliberate symmetric padding, disciplined hierarchy through space/color/weight/size, rare color, honest interactive states, and designed empty/loading/error states. `calm-ui` is its React/Next.js/shadcn binding.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill ui-principles
-```
-
-**What it does:**
-
-- Applies the "calm confidence" aesthetic to pages, components, forms, tables, dashboards, layouts, and screens
-- Fixes in priority order: alignment, padding, hierarchy, color, then motion
-- Keeps project tokens as the source of truth instead of hardcoding a one-off scale, palette, spacing system, or radius
-- Preserves type hierarchy through space, color, weight, and deliberate size choices
-- Designs empty, loading, error, disabled, hover, focus, and active states as first-class UI
-- Includes principles and worked before/after examples for reviewing and refining interfaces
-
-**When it triggers:**
-
-When you write `/ui-principles`, ask for framework-agnostic UI principles, or want a calm, restrained pass on a stack without React/Next.js/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates). On React/Next.js/shadcn projects, use `calm-ui` — the binding of these same principles with concrete numbers; the two never disagree. Use `product-design` first when the question is whether the product flow solves the right problem. These principles can also seed `/design.md` for the `design-loop` skill.
-
-**Browse:** [skills.sh/brijr/skills/ui-principles](https://skills.sh/brijr/skills/ui-principles)
-
----
-
-## refactor-ui
-
-Improve an existing product screen around the user's next decision. Replaces `redesign` with a workflow that supports critique, approved implementation, and focused corrections in the same task.
-
-The skill preserves the requested stage and scope, traces behavior before removing controls, reuses the existing design system, and verifies relevant interactions and rendered layout in the browser. Critique-only requests remain read-only; an approved direction continues without repeating approval.
-
-Source: imported from `ctrlalt/os/.agents/skills/refactor-ui`, including its Codex UI metadata.
-
-
-## product-design
-
-A product design critique and implementation skill for existing product experiences. Grounds in screenshots, routes, browser state, code, docs, and product context; critiques through *The Design of Everyday Things* and UX principles; proposes a concrete implementation plan; then waits for approval before editing.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill product-design
-```
-
-**What it does:**
-
-- Grounds in the actual product context before critiquing
-- Identifies user, job-to-be-done, primary action, workflow state, and product promise
-- Uses DOET and UX principles — conceptual model, affordances, feedback, mapping, constraints, hierarchy, trust, and accessibility
-- Produces prioritized product findings tied to visible UI, code, or docs
-- Proposes concrete implementation changes and waits for approval before editing
-
-**When it triggers:**
-
-When you write `/product-design`, ask for a product design critique, UX critique, DOET review, critique-and-implement pass, or want to improve a screen, route, dashboard, form, onboarding flow, workflow, or product experience. It owns product intent and critique; use `calm-ui` for visual execution constraints and `craft-ds` only when the approved plan needs `components/ds.tsx`. Findings can also seed `/design.md` for the `design-loop` skill.
-
-**Browse:** [skills.sh/brijr/skills/product-design](https://skills.sh/brijr/skills/product-design)
-
-## pragmatic
-
-An opinionated greenfield/prototype feature development skill based on *The Pragmatic Programmer* by Andy Hunt and Dave Thomas. Enforces ETC, real DRY, tracer bullets, orthogonality, and broken windows discipline when there is no existing-codebase design gate.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill pragmatic
-```
-
-**What it does:**
-
-- ETC (Easy to Change) as the north star for every decision
-- Tracer bullets — build thin end-to-end slices before filling in details
-- Real DRY — unify knowledge, not code that happens to look similar
-- Orthogonality — changes in one area don't ripple into others
-- Hard stops on premature abstraction, big-bang builds, copy-paste velocity, and hacky fixes
-
-**When it triggers:**
-
-When you want pragmatic build discipline for a standalone feature, throwaway prototype, spike, script, endpoint, module, or system. For feature work inside an existing codebase, use `software-design` — it carries the same build discipline (intentionally duplicated, since skills install standalone).
-
-**Browse:** [skills.sh/brijr/skills/pragmatic](https://skills.sh/brijr/skills/pragmatic)
-
-## software-design
-
-A feature design and implementation skill for existing codebases. Based on *A Philosophy of Software Design*, with Pragmatic Programmer build discipline and conditional React/Next.js App Router constraints.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill software-design
-```
-
-**What it does:**
-
-- Explores the existing codebase silently before saying anything
-- Frames the complexity a feature introduces — new state, failure modes, cross-layer dependencies
-- Proposes two genuinely different module designs with concrete interfaces, information hiding analysis, and red flag checks
-- Hard gate before implementation — no code until the design is approved
-- Builds to the agreed interface with tracer bullets, real DRY, orthogonality, and good-enough stopping
-- Applies React guidance for data-to-pixels slices, state colocation, props over context, and clean prop interfaces
-- Applies Next.js App Router guidance for server/client boundaries, props down/actions up, auth/Zod/revalidation, and route/file placement
-
-**When it triggers:**
-
-Any time you add, implement, build, or scaffold a new feature, endpoint, module, route, component, hook, or system in an existing codebase. This is the canonical existing-codebase feature skill; use `pragmatic` only for greenfield/prototype work with no architecture to inspect (its build discipline is intentionally duplicated here, since skills install standalone). Auto-triggers via a global CLAUDE.md instruction — no manual invocation needed.
-
-**Browse:** [skills.sh/brijr/skills/software-design](https://skills.sh/brijr/skills/software-design)
-
----
-
-## write-goal
-
-A goal-writing skill for AI coding agents. Turns a rough objective into either a native `/goal` command or a portable agent goal block with a measurable outcome, verification surface, constraints, boundaries, iteration policy, and blocked stop condition. For codebase goals, it does a lightweight read-only repo pass first so the goal can name real files, modules, and commands.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill write-goal
-```
-
-**What it does:**
-
-- Drafts compact, reviewable goals from plain-language objectives
-- Outputs Codex `/goal ...` commands when appropriate, or portable `Goal:` blocks for other agents
-- Inspects repo context for codebase tasks before drafting
-- Decides when a Goal is appropriate versus when a normal prompt is better
-- Adds auditable completion criteria — tests, benchmarks, reports, artifacts, or source evidence
-- Preserves constraints and defines what the agent should report if blocked
-- Avoids lifecycle actions — it writes goal text for the user to review
-
-**When it triggers:**
-
-When you write `/write-goal`, ask to draft or tighten an agent goal, or say "turn this into a goal" or "turn this into a /goal".
-
-**Browse:** [skills.sh/brijr/skills/write-goal](https://skills.sh/brijr/skills/write-goal)
-
----
-
-## explain
-
-A teaching-for-mastery skill for AI coding sessions, files, bugs, PRs, design decisions, or broader concepts. It guides the agent to incrementally explain the target, problem, solution, tradeoffs, edge cases, and impact, while keeping a running Markdown checklist and verifying understanding before moving on.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill explain
-```
-
-**What it does:**
-
-- Asks the human to restate their understanding before each teaching stage
-- Teaches incrementally across target, problem/concept, solution, and broader context
-- Keeps a running Markdown doc with checklist items, gaps, questions, quiz results, and mastery evidence
-- Uses open-ended or multiple choice questions to verify understanding
-- Supports ELI5, ELI14, and ELII explanation modes without dropping the mastery workflow
-
-**When it triggers:**
-
-When you write `/explain`, `/ explain`, "please explain this to me", ask to understand something deeply or more broadly, request ELI5/ELI14/ELII, or want to be quizzed on the problem, solution, tradeoffs, edge cases, and impact.
-
-**Browse:** [skills.sh/brijr/skills/explain](https://skills.sh/brijr/skills/explain)
-
----
-
-## clean-up
-
-A behavior-preserving fit-and-finish skill. After you finish a fix or feature, it makes the change *belong* — conforming it to the conventions of the code around it and tying off loose ends, scoped strictly to the recent diff and the files it touched.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill clean-up
-```
-
-**What it does:**
-
-- Pins the blast radius from `git diff` and freezes scope to the diff + touched files
-- Learns local conventions from the neighbors of each changed file (not a global style guide)
-- Proposes a categorized findings checklist — loose ends, convention mismatches, duplication, misplacement
-- Hard gate before applying — nothing changes until the checklist is approved
-- Discovers and runs the project's typecheck/lint/tests as the final gate, reports green or red
-- Never changes behavior — findings that would are flagged, not applied
-
-**When it triggers:**
-
-Right after you finish a change and want it integrated cleanly — "clean this up", "make it fit", "tie off loose ends". Not for greenfield code, strict structural review of unrelated code (use `thermo-nuclear-code-quality-review`), product/UX rework of pre-existing screens or flows (use `product-design`), or unfinished work.
-
-**Browse:** [skills.sh/brijr/skills/clean-up](https://skills.sh/brijr/skills/clean-up)
-
----
-
-## review-pr
-
-A ship-a-PR skill that takes a pull request the last mile. Owns the release path — live PR state, verification on the PR head, real-browser UI smoke, merge readiness, merge, and post-merge production verification — and defers line-by-line diff review to your agent's built-in review commands, folding their findings into the readiness verdict.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill review-pr
-```
-
-**What it does:**
-
-- Confirms local workspace, PR base/head, and live GitHub state before anything else
-- Surfaces release-blocking findings only — behavior, permissions, migrations, data safety, irreversible operations — and folds in built-in review results
-- Explains product impact, deploy implications, migrations, env/config, queues, cron, and release-note needs
-- Verifies on the PR head with targeted tests, diff checks, and package-aware commands
-- Smokes UI with whatever browser capability the session has, using real screenshots only — never mockups or synthetic images — and reports auth blockers plainly
-- Documents merge readiness, merges when clear, and verifies migrations/CI/deploy/production smoke after merge
-
-**When it triggers:**
-
-When you ask to prepare, verify, smoke test, merge, ship, or get a pull request ready or live, especially by PR number. For line-by-line code review of the diff itself, use your agent's built-in review command first.
-
-**Browse:** [skills.sh/brijr/skills/review-pr](https://skills.sh/brijr/skills/review-pr)
-
----
-
-## what-shipped
-
-A release-summary skill that turns recent merged, deployed, or shipped work from the current repository into a clear team update. It verifies git/GitHub/deploy truth first, then translates the work into non-technical language.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill what-shipped
-```
-
-**What it does:**
-
-- Checks recent merged PRs, commits, and default-branch history for the requested window
-- Separates "merged" from "deployed/live" when deploy status can be verified
-- Groups changes by user-visible themes rather than files or implementation details
-- Produces concise Slack-ready updates for non-technical teams, customers, or stakeholders
-- Calls out caveats such as pending deploys, migrations, manual steps, or unverified smoke checks
-
-**When it triggers:**
-
-When you ask what shipped, what merged today/yesterday/this week, what changed recently, or want a non-technical update, release note, changelog summary, stakeholder recap, or customer-facing/internal team announcement based on recent PRs or commits.
-
-**Browse:** [skills.sh/brijr/skills/what-shipped](https://skills.sh/brijr/skills/what-shipped)
-
----
-
-## thermo-nuclear-code-quality-review
-
-An extremely strict maintainability review skill for current-branch changes, based on Cursor's version. It pushes hard on structural simplification, abstraction quality, spaghetti-condition growth, file-size sprawl, type boundaries, and architectural drift.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill thermo-nuclear-code-quality-review
-```
-
-**What it does:**
-
-- Looks for "code judo" moves that delete branches, helpers, modes, layers, or concepts
-- Treats files crossing 1000 lines, ad-hoc conditionals, feature leakage, thin wrappers, and cast-heavy contracts as serious smells
-- Prioritizes structural regressions and missed simplifications over cosmetic comments
-- Requires explicit, actionable feedback when the implementation makes the codebase harder to reason about
-
-**When it triggers:**
-
-When you ask for a thermo-nuclear code quality review, thermonuclear review, deep code quality audit, especially harsh maintainability review, or structural PR review.
-
-**Browse:** [skills.sh/brijr/skills/thermo-nuclear-code-quality-review](https://skills.sh/brijr/skills/thermo-nuclear-code-quality-review)
-
----
-
-## craft-ds
-
-A single-file design system skill inspired by [craft-ds](https://github.com/brijr/craft). Enforces the one-file constraint, semantic HTML primitives, `cn()` escape hatches, and the layout/content separation principle. Two variants — Tailwind and CSS.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill craft-ds
-```
-
-**What it does:**
-
-- One-file design system contract — all layout primitives and prose typography in `components/ds.tsx`
-- Semantic HTML wrappers (Section, Container, Main, Nav) with sensible defaults
-- Prose typography system for markdown, articles, and AI-generated content
-- Two variants: Tailwind (clsx + tailwind-merge) and CSS (clsx + ds.css)
-- Extension rules to keep the file clean as it grows
-- Hard stops on multi-file splitting, prop-driven variants, state in primitives, and hardcoded colors
-
-**When it triggers:**
-
-Any time you create or maintain `components/ds.tsx`, set up layout primitives, or build a prose typography system. Use `calm-ui` for shadcn/component visual refinement and `product-design` for product/UX critique of an existing experience. In projects running the `design-loop` skill, `ds.tsx` primitives index into `/design.md`.
-
-**Browse:** [skills.sh/brijr/skills/craft-ds](https://skills.sh/brijr/skills/craft-ds)
-
----
-
-## design-loop
-
-A standalone AI design-engineer engagement skill, run one session at a time. Bootstraps a Vercel-style `/design.md` contract from your codebase itself, then iterates one UI surface per session through brief → reference calibration → implement → screenshot → critique → bold revision, stopping at a human review gate. Taste lives in `/design.md`; loop state lives under `design/`.
-
-**Install:**
-
-```
-npx skills add brijr/skills --skill design-loop
-```
-
-**What it does:**
-
-- Bootstraps standalone when no `/design.md` exists — reads the codebase and product, then drafts token frontmatter plus human guidance from the values already in use
-- Stops for the highest-leverage step: the human editing the generated `/design.md`
-- Takes the most important surface to world-class first — the reference slice everything else is judged against
-- Writes a surface brief before code: user job, primary object, primary action, hierarchy, density, references, anti-references, and what to remove
-- Implements with token values only — a bundled lint script fails arbitrary values, off-scale spacing, and raw colors (`var(--token)` references pass)
-- Screenshots light/dark at desktop and mobile widths (handles class-based dark mode), then critiques against a 15-point taste rubric plus a design critique
-- Loops fix → re-screenshot → re-critique until clean, including one bold revision when the first pass is compliant but generic, noisy, or weakly structured; never relaxing a rule to pass
-- In Codex with the Browser plugin available, opens the final reviewed surface in the in-app Browser at the human gate
-- Promotes reusable components back into `/design.md`, prunes unused tokens, and logs every human verdict verbatim to `design/DECISIONS.md` so the system compounds
-
-**When it triggers:**
-
-When you write `/design-loop`, ask to run the design loop, bootstrap a design system for an app, redesign a screen against the system, or advance work tracked in `/design.md`, `design.dark.md`, `design/DECISIONS.md`, `design/BACKLOG.md`, briefs, or reviews. One surface per session — the git history becomes the audit trail.
-
-**Browse:** [skills.sh/brijr/skills/design-loop](https://skills.sh/brijr/skills/design-loop)
+The workflow evaluations judge requested-stage behavior against concrete scenarios. They do not prove tool execution or end-to-end agent behavior: they evaluate generated responses. Code-generation evaluations remain separate. Missing credentials mean model evaluation is unverified, not passed.

@@ -1,6 +1,6 @@
 ---
 name: thermo-nuclear-code-quality-review
-description: Run an extremely strict maintainability review for abstraction quality, giant files, spaghetti-condition growth, and structural code health. Use for a thermo-nuclear code quality review, thermonuclear review, deep code quality audit, especially harsh maintainability review, abstraction review, or PR review focused on structural simplification. Do not use for ordinary style-only cleanup or cosmetic nits.
+description: Review structural maintainability when explicitly asked for deep code-quality analysis, focusing on abstraction costs, duplicated knowledge, and simplification.
 disable-model-invocation: true
 ---
 
@@ -22,7 +22,7 @@ Start from this prompt:
 
 ## Required Checks
 
-For every meaningful change, ask:
+Use the following questions where they expose a concrete maintainability problem:
 
 - Is there a code-judo move that would make this dramatically simpler?
 - Can the change be reframed so fewer concepts, branches, helper layers, flags, or modes are needed?
