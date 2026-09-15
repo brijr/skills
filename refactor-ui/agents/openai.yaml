@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactor UI"
+  short_description: "Simplify product workflows and verify the UI in browser"
+  default_prompt: "Use $refactor-ui to improve this screen around its job to be done, carry forward our design decisions, and verify approved changes in the browser."
