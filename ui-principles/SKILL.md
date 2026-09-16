@@ -1,6 +1,6 @@
 ---
 name: ui-principles
-description: The framework-agnostic core of a calm, restrained UI system — rules, not numbers — built on seventeen principles: one alignment spine, deliberate symmetric padding, hierarchy built space → color → weight → size, rare color, honest interactive states, and designed empty/loading/error states. Use when building, refining, or reviewing a page, component, form, table, dashboard, layout, or screen on a stack WITHOUT React/Next.js/shadcn (plain HTML/CSS, Vue, Svelte, emails, server-rendered templates), or when the user invokes /ui-principles by name or asks for framework-agnostic UI principles. For React, Next.js, TypeScript, or shadcn/ui projects, use calm-ui — the stack-specific binding of these same principles with concrete numbers. Do not use for bold, playful, maximalist, or marketing-splash designs.
+description: Apply framework-independent principles for restrained interface hierarchy, alignment, spacing, and accessible states when that visual direction is requested.
 ---
 
 # UI Principles

@@ -1,11 +1,11 @@
 ---
 name: review-pr
-description: Take a pull request the last mile — workspace-safe checkout, live PR state, release-blocking findings, verification on the PR head, real-browser UI smoke, merge readiness, merge, and post-merge production verification. Use when the user asks to prepare, verify, smoke test, merge, ship, or get a PR ready or live, especially by PR number. For line-by-line code review of the diff itself, prefer the agent's built-in review commands and fold their findings into this skill's readiness verdict; this skill owns everything around that review.
+description: Verify a pull request on its current revision and prepare a readiness assessment; carry out release steps only when authorized.
 ---
 
 # Review PR — take a pull request the last mile
 
-Act as the senior engineer who ships the PR, not just reads it. Anchor every claim to live git/GitHub state, targeted tests run on the PR head, and — when UI changed — a real browser smoke with real screenshots.
+Match the requested stage: review, prepare, merge, or deploy. Anchor every claim to live git/GitHub state, targeted tests run on the PR head, and — when UI changed — a real browser smoke with real screenshots.
 
 This skill does **not** replace line-by-line diff review. When the user wants a code review of the changes themselves, run the agent's built-in review tooling (e.g. `/code-review`) and merge its findings into the readiness verdict below. What this skill owns is the release path: live state, verification, smoke evidence, merge readiness, and what happens after merge.
 
@@ -15,7 +15,7 @@ This skill does **not** replace line-by-line diff review. When the user wants a 
    - Run `git status --short --branch`.
    - Do not mix local edits into the PR verification. Preserve user work with a named stash or separate worktree only when appropriate.
    - Identify the PR base branch from `gh pr view`; do not assume it is `main`.
-   - Fetch the current base branch and PR head before anything else.
+   - Fetch the current base branch and PR head before making revision-specific claims.
 
 2. Read live PR truth.
    - Use `gh pr view <number> --json number,title,body,headRefName,baseRefName,isDraft,mergeStateStatus,reviewDecision,statusCheckRollup,files,commits,url`.
@@ -66,17 +66,9 @@ Before saying "ready to merge", verify:
 - Migration/config/deploy implications are documented.
 - UI smoke status is documented if UI changed.
 
-## Post-Merge Workflow
+## Release actions
 
-When the user asks to merge and get it live:
-
-1. Merge via `gh pr merge` only after readiness is clear.
-2. Fast-forward local `main`.
-3. If DB migrations changed, trigger the project's production migration workflow from the default branch and watch it complete.
-4. Watch the repo's required CI/deploy workflows for the merge commit.
-5. Inspect the production deployment/logs when relevant.
-6. Smoke the changed routes in a real browser against production.
-7. Finish with concise evidence: commit, runs, deploy, smoke result, and any caveats.
+Review and readiness requests stay read-only unless fixes are requested. Preparing a PR does not authorize merge. When merge or deployment is explicitly authorized, consult [release guidance](references/release.md) for those steps only.
 
 ## Useful Commands
 
