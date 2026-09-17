@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implement WebMCP"
+  short_description: "Add and verify safe browser-agent tools in an existing app"
+  default_prompt: "Use $webmcp-implementation to inspect this application, verify current WebMCP support, and implement a small set of useful native tools using existing actions and permissions. Include tests, compatibility evidence, and documentation."

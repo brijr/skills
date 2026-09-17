@@ -20,6 +20,7 @@ Personal skills for product interfaces, software design, and evidence-backed del
 | Summarize verified shipped work | `what-shipped` |
 | Draft an auditable agent goal | `write-goal` |
 | Explicit coaching, practice, or mastery | `explain` |
+| Add WebMCP tools to an existing web app | `webmcp-implementation` |
 
 Ordinary explanations need no coaching skill. Styling corrections need no product-design phase. A critique-only request stays read-only; approved implementation continues without repeated approval. Review, merge, deployment, and external messages remain distinct authorizations.
 
