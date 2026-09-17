@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Goal"
+  short_description: "Audit and refine the full interface"
+  default_prompt: "Use $design-goal to audit and refine the entire interface so every element has intentional spacing, correct alignment, appropriate proportions, and a cohesive visual hierarchy."
