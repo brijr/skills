@@ -11,6 +11,7 @@ Personal skills for product interfaces, software design, and evidence-backed del
 | Clean up a recent diff without changing behavior | `clean-up` |
 | Deep structural maintainability review | `thermo-nuclear-code-quality-review` |
 | Critique or improve an existing screen; iterate on corrections | `refactor-ui` |
+| After frontend work, inspect the rendered UI and fix obvious visual defects | `check-ui` |
 | Audit and refine the full interface for spacing, alignment, proportion, and hierarchy | `design-goal` |
 | Resolve product journeys, roles, or handoffs across screens | `product-design` |
 | Apply restrained styling in React or shadcn | `calm-ui` |
@@ -41,7 +42,7 @@ Do not use a package-based reinstall to overwrite these links. Before a managed 
 
 Descriptions identify capability and activation boundaries. Entrypoints keep decision-critical constraints; references provide conditional examples or operating modes. Preserve user intent and scope, use proportional verification, and avoid mandatory skill handoffs.
 
-`design-loop` records progress across authorized surfaces and pauses at requested checkpoints or material unresolved decisions. It never labels agent verification as human approval. `design-goal` inventories the full interface and continues until the completion gate; agent visual checks are not a user design verdict.
+`design-loop` records progress across authorized surfaces and pauses at requested checkpoints or material unresolved decisions. It never labels agent verification as human approval. `design-goal` inventories the full interface and continues until the completion gate; agent visual checks are not a user design verdict. `check-ui` is a scoped look at the surfaces just changed, not a coverage campaign.
 
 ## Validation
 
