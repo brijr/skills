@@ -2,6 +2,10 @@
 
 Personal skills for product interfaces, software design, and evidence-backed delivery. Choose the skill matching the actual task; there is no mandatory sequence of skills.
 
+```bash
+npx skills add brijr/skills
+```
+
 ## Choose a skill
 
 | Task | Skill |
